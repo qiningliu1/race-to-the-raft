@@ -6,13 +6,13 @@ package comp1110.ass2;
  */
 public class Island {
 
-    private int[][] layout; // Represents the layout of the island
+    private Tiles[][] layout; // Represents the layout of the island
 
     /**
      * Constructs an Island object with the specified layout.
      * @param layout the layout of the island represented as a 2D array of integers
      */
-    public Island(int[][] layout) {
+    public Island(Tiles[][] layout) {
         this.layout = layout;
     }
 

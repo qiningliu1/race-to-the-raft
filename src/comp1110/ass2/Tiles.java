@@ -5,7 +5,7 @@ package comp1110.ass2;
  * required for the game to work.
  */
 public enum Tiles {
-            BLUE, GREEN, YELLOW, RED, PURPLE,FIRE,CAT;
+            BLUE, GREEN, YELLOW, RED, PURPLE,FIRE,CAT, RAFT;
 
     /**
      * convert the tile into a char that symbolises it. For example,

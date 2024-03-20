@@ -10,7 +10,7 @@ public class State {
 
     private int deckSize; // The number of cards in the deck
     private int handSize; // The number of cards in hand
-    private List<Card> placedCards; // The list of placed cards and their positions
+    private Card[] placedCards; // The list of placed cards and their positions
 
     /**
      * Constructs a State object with the specified deck size, hand size, and list of placed cards.
@@ -18,7 +18,7 @@ public class State {
      * @param handSize the number of cards in hand
      * @param placedCards the list of placed cards and their positions
      */
-    public State(int deckSize, int handSize, List<Card> placedCards) {
+    public State(int deckSize, int handSize, Card[] placedCards) {
         this.deckSize = deckSize;
         this.handSize = handSize;
         this.placedCards = placedCards;

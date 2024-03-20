@@ -6,21 +6,39 @@ package comp1110.ass2;
  */
 public class FireTile {
 
+    /**
+     * The orientation of this card.
+     */
+    private Orientation orientation;
+
     private Location location; // Represents the location of the fire tile on the island
 
     /**
-     * Constructs a FireTile object with the specified location.
-     * @param location the location of the fire tile on the island
+     * Constructs a FireTile object with the specified size, orientation and shape.
      */
-    public FireTile(Location location) {
-        this.location = location;
+    public void FireTile(int size , Orientation orientation ) {
+       // we are yet to think of an idea to how to implement shape of the fire tiles.
     }
 
     /**
      * Places the fire tile on the island at the specified position.
      */
-    public void placeFire() {
+    public void placeFire(Location location) {
         // Implementation to place the fire tile on the island
+    }
+
+
+    /**
+     * @return The orientation of this tile
+     */
+    public Orientation getOrientation() {
+        return orientation;
+    }
+    /**
+     * @return The locations on island, that are occupied by this tile.
+     */
+    public Location[] getLocations (FireTile tileF) {
+        return null; // implementation to be defined as per requirement
     }
 
     // Other methods can be added as needed
