@@ -18,20 +18,12 @@ public class Cat {
         this.location = location;
         this.exhausted = false;
     }
-    /**
-     * The Direction enum represents the directions in which a cat can move.
-     */
-    public enum Direction {
-        NORTH, // Represents north direction
-        SOUTH, // Represents south direction
-        EAST,  // Represents east direction
-        WEST   // Represents west direction
-    }
+
     /**
      * Moves the cat to the specified direction on the island.
      * @param direction the direction to move the cat
      */
-    public void move(Direction direction) {
+    public void move(Orientation direction) {
         // Implementation to move the cat to the specified direction
     }
 

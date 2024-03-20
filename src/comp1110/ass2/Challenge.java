@@ -4,4 +4,13 @@ package comp1110.ass2;
  * the location of raft, location of cats and the spread of fire.
  */
 public class Challenge {
+    /**
+     * The identifying number associated with a Challenge
+     **/
+    private final int challengeNumber;
+
+
+    public Challenge(int challengeNumber) {
+        this.challengeNumber = challengeNumber;
+    }
 }
