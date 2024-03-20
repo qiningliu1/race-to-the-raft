@@ -8,7 +8,7 @@ declaration: >-
 # be 100 or 99 (33/33/33 is fine).  (Remove entries if you have fewer than three
 # members).  
 contributions:
-  - uid: 
+  - uid: u7897414
     contribution: 33
   - uid: u7100555
     contribution: 33
@@ -22,5 +22,5 @@ signatures:
     uid: u7598889
   - name: Qining Liu
     uid: u7100555
-  - name:
-    uid:
+  - name: Lujin Sun
+    uid: u7897414
