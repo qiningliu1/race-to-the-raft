@@ -6,4 +6,5 @@ public class B {
         return "B";
     }
     B b = new B();
+    C c = new C();
 }
