@@ -1,5 +1,7 @@
 package comp1110.ass2.gui;
 
+
+import comp1110.ass2.Tiles;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -19,6 +21,39 @@ public class Viewer extends Application {
     private final Group controls = new Group();
     private TextArea handTextField;
     private TextArea boardTextField;
+
+    public String getImagepath(Tiles tiles){
+        String path=null;
+        switch (tiles){
+            case Fire :
+                path="comp1110/ass2/gui/assets/fire.png";
+                break;
+            case RED :
+                path="comp1110/ass2/gui/assets/red.png";
+                break;
+            case BLUE :
+                path="comp1110/ass2/gui/assets/blue.png";
+                break;
+            case YELLOW :
+                path="comp1110/ass2/gui/assets/yellow.png";
+                break;
+            case GREEN :
+                path="comp1110/ass2/gui/assets/green.png";
+                break;
+            case PURPLE :
+                path="comp1110/ass2/gui/assets/purple.png";
+                break;
+            case Object :
+                path="comp1110/ass2/gui/assets/objective.png";
+                break;
+            case WILD:
+                path="comp1110/ass2/gui/assets/objective.png";
+                break;
+            default :
+                break;
+        }
+        return path;
+    }
 
     /**
      * Draw the given board and hand in the window, removing any previously drawn boards/hands.

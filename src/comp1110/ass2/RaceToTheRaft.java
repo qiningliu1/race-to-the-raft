@@ -1,5 +1,7 @@
 package comp1110.ass2;
 
+import java.util.Random;
+
 /**
  * This class is for testing purposes only. You should create and use your own objects to solve the tasks below
  * instead of directly using the strings provided. Note that Task 2 is the only task you are expected to use string
@@ -36,7 +38,26 @@ public class RaceToTheRaft {
      * @return True if the boardState is well-formed, otherwise false.
      */
     public static boolean isBoardStringWellFormed(String boardString) {
-        return false; // FIXME TASK 2
+        String[] lines = boardString.split("\n");
+        int numLines = lines.length;
+        if (numLines != 12 && numLines != 15 && numLines != 18) {
+            return false;
+        }
+        for (String line:lines){
+            if (line.length() != 9 && line.length() != 18) {
+                return false;
+            }
+        }
+        String validChars = "bBfgGnopPrRwWyY";
+        for (String line:lines){
+            for (char c :line.toCharArray()){
+                if (validChars.indexOf(c) == -1){
+                    return false;
+                }
+            }
+        }
+        return true;
+        // FIXME TASK 2
     }
 
     /**
@@ -52,7 +73,17 @@ public class RaceToTheRaft {
      * empty string.
      */
     public static String drawFireTile(String[] gameState) {
-        return ""; // FIXME TASK 5
+        FireTileBag firetilebag = new FireTileBag();
+        firetilebag.createfiretilebag(gameState[4]);
+        if (firetilebag.getfiretilebag() == null || firetilebag.getfiretilebag().isEmpty()) {
+            return "";
+        }
+        Random random = new Random();
+        int randomIndex = random.nextInt(firetilebag.getLength());
+        char firetileID = firetilebag.getfiretilebag().charAt(randomIndex);
+        String firetile = firetilebag.getfiretile(firetileID);
+        return firetile;
+        // FIXME TASK 5
     }
 
     /**
