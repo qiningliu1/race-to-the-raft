@@ -1,6 +1,10 @@
 package comp1110.ass2;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Random;
+
+import static comp1110.ass2.Utility.CHALLENGES;
 
 /**
  * This class is for testing purposes only. You should create and use your own objects to solve the tasks below
@@ -94,7 +98,25 @@ public class RaceToTheRaft {
      * @return a random challenge of the given difficulty
      */
     public static String chooseChallenge(int difficulty) {
-        return ""; // FIXME TASK 6
+        IslandBoard.squareBoards = IslandBoard.createSquareBoards(Utility.SQUARE_BOARDS);
+        IslandBoard.rectangleBoards = IslandBoard.createRectangleBoards(Utility.RECTANGLE_BOARDS);
+
+        Challenge[] challenges = Challenge.createChallenges(CHALLENGES);
+
+        ArrayList<Integer> difficulties = new ArrayList<>();
+        for (int i = 0; i < challenges.length; i++) {
+            if (challenges[i].getDifficulty() == difficulty) {
+                difficulties.add(i);
+            }
+        }
+        if (difficulties.isEmpty()) {
+            return "";
+        }
+        Random random = new Random();
+        int randomIndex = random.nextInt(difficulties.size());
+        int randomNumber = difficulties.get(randomIndex);
+        return CHALLENGES[randomNumber];
+        // FIXME TASK 6
     }
 
     /**
@@ -123,7 +145,63 @@ public class RaceToTheRaft {
      * to draw all the specified cards, you should return the original gameState.
      */
     public static String[] drawHand(String[] gameState, String drawRequest) {
-        return new String[0]; // FIXME TASK 7
+        String decksString = gameState[1];
+        String[] deckStrings = decksString.split("(?=[A-Z])");
+        char[] deckNames = new char[deckStrings.length];
+        String[] deckCards = new String[deckStrings.length];
+        for (int i = 0; i < deckStrings.length; i++){
+            deckNames[i] = deckStrings[i].charAt(0);
+            deckCards[i] = deckStrings[i].substring(1);
+        }
+
+        char[] drawDeckNames = new char[drawRequest.length() / 2];
+        int[] drawCounts = new int[drawRequest.length()/2];
+        for (int i =0; i <drawRequest.length(); i += 2){
+            drawDeckNames[i/2] = drawRequest.charAt(i);
+            drawCounts[i / 2] = Character.getNumericValue(drawRequest.charAt(i + 1));
+        }
+
+        StringBuilder hand = new StringBuilder(gameState[2]);
+        int index = 0;
+        for (int i = 0; i < drawDeckNames.length; i++){
+            char drawDeckName = drawDeckNames[i];
+            int count = drawCounts[i];
+            for (int j = 0; j < deckNames.length;j++){
+                if (deckNames[j] == drawDeckName){
+                    String cards = deckCards[j];
+                    if (cards == null || cards.length() < count){
+                        return gameState;
+                    }
+                    hand.insert(index, cards.substring(0,count));
+                    index += count;
+                    deckCards[j] = cards.substring(count);
+                    break;
+                }
+            }
+        }
+
+        StringBuilder updatedDecks = new StringBuilder();
+        for (int i = 0; i < deckNames.length; i++){
+            updatedDecks.append(deckNames[i]).append(deckCards[i]);
+
+        }
+
+        char[] sortedDeckNames = Arrays.copyOf(deckNames,deckNames.length);
+        Arrays.sort(sortedDeckNames);
+        String[] sortedDeckCards = new String[deckNames.length];
+        for (int i = 0; i < sortedDeckNames.length; i++){
+            char deckName = sortedDeckNames[i];
+            for (int j = 0; j < deckNames.length; j++){
+                if (deckNames[j] == deckName){
+                    sortedDeckCards[i] = deckCards[j];
+                    break;
+                }
+            }
+        }
+
+        gameState[1] = updatedDecks.toString();
+        gameState[2]= hand.toString();
+        return gameState; // FIXME TASK 7
     }
 
     /**

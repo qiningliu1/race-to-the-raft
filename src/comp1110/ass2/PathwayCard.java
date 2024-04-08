@@ -79,7 +79,7 @@ public class PathwayCard extends Card{
     /**
      * @return The locations on island, that are occupied by the card.
      */
-    public Location[] getLocations (Raft card) {
+    public Location[] getLocations (RaftCard card) {
         return null; // implementation to be defined as per requirement
     }
 
