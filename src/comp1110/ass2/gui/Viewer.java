@@ -90,7 +90,9 @@ public class Viewer extends Application {
         }
 
 
+/* note this task is about 50% done. this only works for the bord representation.
 
+ */
         // FIXME TASK 4
     }
     /**
