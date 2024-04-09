@@ -11,6 +11,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.awt.*;
@@ -92,41 +93,67 @@ public class Viewer extends Application {
 
         // FIXME TASK 4
     }
+    /**
+     * Converts a tile character into a rectangle for the javaFX window.
+     *
+     * @param x for x coordinate.
+     * @param y for y coordinate.
+     * @param tile char that represents what the tile is.
+     */
     private Rectangle tileRepresentation (int x, int y ,char tile) {
         double width = 30;
         double height = 30;
-
         Rectangle t = new Rectangle(x,y,width,height);
         Color colour = Color.WHITE;
         switch (tile) {
             case 'f':
                 colour = Color.ORANGE;
+                t.setFill(colour);
                 break;
             case 'r':
                 colour = Color.RED;
+                t.setFill(colour);
                 break;
             case 'b':
                 colour = Color.BLUE;
+                t.setFill(colour);
                 break;
             case 'y':
                 colour = Color.YELLOW;
+                t.setFill(colour);
                 break;
             case 'g':
                 colour = Color.GREEN;
+                t.setFill(colour);
                 break;
             case 'p':
                 colour = Color.PURPLE;
+                t.setFill(colour);
                 break;
             case 'o':
                 colour = Color.BROWN;
+                t.setFill(colour);
                 break;
             case 'w':
                 colour = Color.LAVENDER;
+                t.setFill(colour);
                 break;
+            case 'B':
+            case 'R':
+            case 'W':
+            case 'F':
+            case 'Y':
+            case 'P':
+                Text text = new Text("Cat");
+                text.setX(x);
+                text.setY(y);
+                root.getChildren().add(text);
+                t.setFill(Color.WHITE);
+                t.setOpacity(0.5);
             default:
                 break;
         }
-       t.setFill(colour);
+
         return t;
     }
 
