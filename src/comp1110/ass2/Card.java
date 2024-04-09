@@ -12,7 +12,7 @@ public class Card {
     private Tiles tiles;
     private int row;
     private int column;
-    public Card(Tiles tiles,int row, int column) {
+    public Card(Tiles tiles/* //int row, int column*/) {
         this.tiles = tiles;
         this.row=row;
         this.column=column;

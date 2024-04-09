@@ -9,7 +9,12 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
+
+import java.awt.*;
+import java.util.ArrayList;
 
 public class Viewer extends Application {
 
@@ -22,34 +27,34 @@ public class Viewer extends Application {
     private TextArea handTextField;
     private TextArea boardTextField;
 
-    public String getImagepath(Tiles tiles){
-        String path=null;
-        switch (tiles){
-            case Fire :
-                path="comp1110/ass2/gui/assets/fire.png";
+    public String getImagepath(Tiles tiles) {
+        String path = null;
+        switch (tiles) {
+            case Fire:
+                path = "comp1110/ass2/gui/assets/fire.png";
                 break;
-            case RED :
-                path="comp1110/ass2/gui/assets/red.png";
+            case RED:
+                path = "comp1110/ass2/gui/assets/red.png";
                 break;
-            case BLUE :
-                path="comp1110/ass2/gui/assets/blue.png";
+            case BLUE:
+                path = "comp1110/ass2/gui/assets/blue.png";
                 break;
-            case YELLOW :
-                path="comp1110/ass2/gui/assets/yellow.png";
+            case YELLOW:
+                path = "comp1110/ass2/gui/assets/yellow.png";
                 break;
-            case GREEN :
-                path="comp1110/ass2/gui/assets/green.png";
+            case GREEN:
+                path = "comp1110/ass2/gui/assets/green.png";
                 break;
-            case PURPLE :
-                path="comp1110/ass2/gui/assets/purple.png";
+            case PURPLE:
+                path = "comp1110/ass2/gui/assets/purple.png";
                 break;
-            case Object :
-                path="comp1110/ass2/gui/assets/objective.png";
+            case Object:
+                path = "comp1110/ass2/gui/assets/objective.png";
                 break;
             case WILD:
-                path="comp1110/ass2/gui/assets/objective.png";
+                path = "comp1110/ass2/gui/assets/objective.png";
                 break;
-            default :
+            default:
                 break;
         }
         return path;
@@ -59,12 +64,60 @@ public class Viewer extends Application {
      * Draw the given board and hand in the window, removing any previously drawn boards/hands.
      *
      * @param boardstate newline separated string representing each row of the board (the board string, see the STRING-REPRESENTATION.md for more details
-     * @param hand A string representing the cards in a player's hand (the hand string, see the STRING-REPRESENTATION.md for more details)
-     *
+     * @param hand       A string representing the cards in a player's hand (the hand string, see the STRING-REPRESENTATION.md for more details)
      */
     void displayState(String boardstate, String hand) {
+        int numRowsBoard = (int) boardstate.lines().count();
+        String[] rowsofBoard = (String[]) boardstate.lines().toArray();
+        int numTilesInRow = rowsofBoard[0].length();
+        root.getChildren().clear();
+        if(numRowsBoard == 0) {
+           root.getChildren().clear();
+        } else (int i=0; i < numTilesInRow;i++){
+
+        }
+
+
+
         // FIXME TASK 4
     }
+    private void tileRepresentation (int x, int y ,char tile) {
+        double width = 30;
+        double height = 30;
+
+        Rectangle t = new Rectangle(x,y,width,height);
+        Color colour = Color.WHITE;
+        switch (tile) {
+            case 'f':
+                colour = Color.ORANGE;
+                break;
+            case 'r':
+                colour = Color.RED;
+                break;
+            case 'b':
+                colour = Color.BLUE;
+                break;
+            case 'y':
+                colour = Color.YELLOW;
+                break;
+            case 'g':
+                colour = Color.GREEN;
+                break;
+            case 'p':
+                colour = Color.PURPLE;
+                break;
+            case 'o':
+                colour = Color.BROWN;
+                break;
+            case 'w':
+                colour = Color.LAVENDER;
+                break;
+            default:
+                break;
+        }
+       t.setFill(colour);
+    }
+
 
     /**
      * Generate controls for Viewer
@@ -94,6 +147,7 @@ public class Viewer extends Application {
 
     /**
      * Create refresh button. Upon pressing, capture the textFields and call displayState
+     *
      * @return the created button
      */
     private Button refreshButton() {
@@ -118,3 +172,4 @@ public class Viewer extends Application {
         stage.show();
     }
 }
+

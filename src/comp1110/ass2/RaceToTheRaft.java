@@ -85,7 +85,7 @@ public class RaceToTheRaft {
         Random random = new Random();
         int randomIndex = random.nextInt(firetilebag.getLength());
         char firetileID = firetilebag.getfiretilebag().charAt(randomIndex);
-        String firetile = firetilebag.getfiretile(firetileID);
+        String firetile = firetilebag.getfiretile(firetileID).toString();
         return firetile;
         // FIXME TASK 5
     }
