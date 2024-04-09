@@ -71,9 +71,20 @@ public class Viewer extends Application {
         String[] rowsofBoard = (String[]) boardstate.lines().toArray();
         int numTilesInRow = rowsofBoard[0].length();
         root.getChildren().clear();
+        int xx = 20;
+        int yy = 5;
         if(numRowsBoard == 0) {
            root.getChildren().clear();
-        } else (int i=0; i < numTilesInRow;i++){
+        } else {
+            for (int i = 0; i < numRowsBoard; i++) {
+                String currentRow = rowsofBoard[i];
+                for (int x = 0; x < numTilesInRow; x++) {
+                    root.getChildren().add(tileRepresentation(xx,yy,currentRow.charAt(x)));
+                    xx = xx +20;
+                }
+            }
+            xx = 20;
+            yy = yy + 5;
 
         }
 
@@ -81,7 +92,7 @@ public class Viewer extends Application {
 
         // FIXME TASK 4
     }
-    private void tileRepresentation (int x, int y ,char tile) {
+    private Rectangle tileRepresentation (int x, int y ,char tile) {
         double width = 30;
         double height = 30;
 
@@ -116,6 +127,7 @@ public class Viewer extends Application {
                 break;
         }
        t.setFill(colour);
+        return t;
     }
 
 

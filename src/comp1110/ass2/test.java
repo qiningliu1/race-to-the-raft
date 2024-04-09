@@ -6,6 +6,7 @@ public class test {
         System.out.println(sample);
         System.out.println(sample.lines().count());
         System.out.println(sample.lines().toList());
+
     }
 }
 
