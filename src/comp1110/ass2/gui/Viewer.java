@@ -1,21 +1,216 @@
 package comp1110.ass2.gui;
 
+
+import comp1110.ass2.Tiles;
 import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.TextArea;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
+
+import java.awt.*;
+import java.util.ArrayList;
 
 public class Viewer extends Application {
 
-// DO NOT MODIFY THIS CLASS
-    @Override
-    public void start(Stage primaryStage) throws Exception {
+    private final Group root = new Group();
+    private static final int VIEWER_WIDTH = 1100;
+    private static final int VIEWER_HEIGHT = 650;
+    private static final int MARGIN_X = 20;
 
+    private final Group controls = new Group();
+    private TextArea handTextField;
+    private TextArea boardTextField;
+
+    public String getImagepath(Tiles tiles) {
+        String path = null;
+        switch (tiles) {
+            case Fire:
+                path = "comp1110/ass2/gui/assets/fire.png";
+                break;
+            case RED:
+                path = "comp1110/ass2/gui/assets/red.png";
+                break;
+            case BLUE:
+                path = "comp1110/ass2/gui/assets/blue.png";
+                break;
+            case YELLOW:
+                path = "comp1110/ass2/gui/assets/yellow.png";
+                break;
+            case GREEN:
+                path = "comp1110/ass2/gui/assets/green.png";
+                break;
+            case PURPLE:
+                path = "comp1110/ass2/gui/assets/purple.png";
+                break;
+            case Object:
+                path = "comp1110/ass2/gui/assets/objective.png";
+                break;
+            case WILD:
+                path = "comp1110/ass2/gui/assets/objective.png";
+                break;
+            default:
+                break;
+        }
+        return path;
+    }
+
+    /**
+     * Draw the given board and hand in the window, removing any previously drawn boards/hands.
+     *
+     * @param boardstate newline separated string representing each row of the board (the board string, see the STRING-REPRESENTATION.md for more details
+     * @param hand       A string representing the cards in a player's hand (the hand string, see the STRING-REPRESENTATION.md for more details)
+     */
+    void displayState(String boardstate, String hand) {
+        int numRowsBoard = (int) boardstate.lines().count();
+        String[] rowsofBoard = (String[]) boardstate.lines().toArray();
+        int numTilesInRow = rowsofBoard[0].length();
+        root.getChildren().clear();
+        int xx = 20;
+        int yy = 5;
+        if(numRowsBoard == 0) {
+           root.getChildren().clear();
+        } else {
+            for (int i = 0; i < numRowsBoard; i++) {
+                String currentRow = rowsofBoard[i];
+                for (int x = 0; x < numTilesInRow; x++) {
+                    root.getChildren().add(tileRepresentation(xx,yy,currentRow.charAt(x)));
+                    xx = xx +20;
+                }
+            }
+            xx = 20;
+            yy = yy + 5;
+
+        }
+
+
+/* note this task is about 50% done. this only works for the bord representation.
+
+ */
+        // FIXME TASK 4
+    }
+    /**
+     * Converts a tile character into a rectangle for the javaFX window.
+     *
+     * @param x for x coordinate.
+     * @param y for y coordinate.
+     * @param tile char that represents what the tile is.
+     */
+    private Rectangle tileRepresentation (int x, int y ,char tile) {
+        double width = 30;
+        double height = 30;
+        Rectangle t = new Rectangle(x,y,width,height);
+        Color colour = Color.WHITE;
+        switch (tile) {
+            case 'f':
+                colour = Color.ORANGE;
+                t.setFill(colour);
+                break;
+            case 'r':
+                colour = Color.RED;
+                t.setFill(colour);
+                break;
+            case 'b':
+                colour = Color.BLUE;
+                t.setFill(colour);
+                break;
+            case 'y':
+                colour = Color.YELLOW;
+                t.setFill(colour);
+                break;
+            case 'g':
+                colour = Color.GREEN;
+                t.setFill(colour);
+                break;
+            case 'p':
+                colour = Color.PURPLE;
+                t.setFill(colour);
+                break;
+            case 'o':
+                colour = Color.BROWN;
+                t.setFill(colour);
+                break;
+            case 'w':
+                colour = Color.LAVENDER;
+                t.setFill(colour);
+                break;
+            case 'B':
+            case 'R':
+            case 'W':
+            case 'F':
+            case 'Y':
+            case 'P':
+                Text text = new Text("Cat");
+                text.setX(x);
+                text.setY(y);
+                root.getChildren().add(text);
+                t.setFill(Color.WHITE);
+                t.setOpacity(0.5);
+            default:
+                break;
+        }
+
+        return t;
+    }
+
+
+    /**
+     * Generate controls for Viewer
+     */
+    private void makeControls() {
+        Label playerLabel = new Label("Cards in hand:");
+        handTextField = new TextArea();
+        handTextField.setPrefWidth(100);
+        Label boardLabel = new Label("Board State:");
+        boardTextField = new TextArea();
+        boardTextField.setPrefWidth(100);
+        Button button = refreshButton();
+        button.setLayoutY(VIEWER_HEIGHT - 250);
+        button.setLayoutX(MARGIN_X);
+        HBox fields = new HBox();
+        fields.getChildren().addAll(handTextField, boardTextField);
+        fields.setSpacing(20);
+        fields.setLayoutX(MARGIN_X);
+        fields.setLayoutY(VIEWER_HEIGHT - 200);
+        HBox labels = new HBox();
+        labels.getChildren().addAll(playerLabel, boardLabel);
+        labels.setSpacing(45);
+        labels.setLayoutX(MARGIN_X);
+        labels.setLayoutY(VIEWER_HEIGHT - 220);
+        controls.getChildren().addAll(fields, labels, button);
+    }
+
+    /**
+     * Create refresh button. Upon pressing, capture the textFields and call displayState
+     *
+     * @return the created button
+     */
+    private Button refreshButton() {
+        Button button = new Button("Refresh");
+        button.setOnAction(e -> {
+            String boardText = boardTextField.getText();
+            String handCards = handTextField.getText();
+            displayState(boardText, handCards);
+        });
+        return button;
+    }
+
+    @Override
+    public void start(Stage stage) throws Exception {
+        stage.setTitle("Race to the Raft Viewer");
+        Scene scene = new Scene(root, VIEWER_WIDTH, VIEWER_HEIGHT);
+        makeControls();
+        displayState("", "");
+        root.getChildren().add(controls);
+        makeControls();
+        stage.setScene(scene);
+        stage.show();
     }
 }
+

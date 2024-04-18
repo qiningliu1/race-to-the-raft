@@ -47,6 +47,22 @@ public class Location {
     public boolean equals (Location check) {
         return false; // other code to be added for true case
     }
+
+    public int getColumn() {
+        return column;
+    }
+    public int getRow() {
+        return row;
+    }
+    public void setColumn(int column) {
+        this.column = column;
+    }
+    public void setRow(int row) {
+        this.row = row;
+    }
+    public String toString() {
+        return "row:" + row +"column:" +column;
+    }
 }
 
 

@@ -6,6 +6,7 @@ package comp1110.ass2;
  */
 public class FireTile {
 
+    private char ID;
     /**
      * The orientation of this card.
      */
@@ -43,4 +44,17 @@ public class FireTile {
 
     // Other methods can be added as needed
 
+    public static final FireTile[] FIRE_TILES=new FireTile[]{
+    };
+    public static FireTile newFireTile(char ID){
+
+        if(ID >= 'a' && ID <= 'z') {
+            return FIRE_TILES[ID-'a'];
+        }else if (ID>='A'&&ID<='E') {
+            return FIRE_TILES[ID - 'A' + 26];
+        } else {
+            System.out.println("FireTile ID is error");
+            return null;
+        }
+        }
 }
