@@ -1,5 +1,8 @@
 package comp1110.ass2;
 
+import java.util.Arrays;
+import java.util.Random;
+
 /**
  * This class is for testing purposes only. You should create and use your own objects to solve the tasks below
  * instead of directly using the strings provided. Note that Task 2 is the only task you are expected to use string
@@ -36,7 +39,25 @@ public class RaceToTheRaft {
      * @return True if the boardState is well-formed, otherwise false.
      */
     public static boolean isBoardStringWellFormed(String boardString) {
-        return false; // FIXME TASK 2
+        String[] lines = boardString.split("\n");
+        int numLines = lines.length;
+        if (numLines != 12 && numLines != 15 && numLines != 18) {
+            return false;
+        }
+        for (String line : lines) {
+            if (line.length() != 9 && line.length() != 18) {
+                return false;
+            }
+        }
+        String validChars = "bBfgGnopPrRwWyY";
+        for (String line : lines) {
+            for (char c : line.toCharArray()) {
+                if (validChars.indexOf(c) == -1) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
     /**
@@ -52,8 +73,16 @@ public class RaceToTheRaft {
      * empty string.
      */
     public static String drawFireTile(String[] gameState) {
-        return ""; // FIXME TASK 5
+        // Apply gameState[4] to crate GameState object
+        FireTiles gameStateObj = new FireTiles(gameState[4]);
+        String tileID = gameStateObj.drawFireTileID();
+
+        // update gameState[4] to show draw fireTile ID
+        gameState[4] = String.join("", gameStateObj.drawFireTileID());
+        return tileID;
+        // FIXME TASK 5
     }
+
 
     /**
      * Chooses a random challenge from those available in the Utility class according
@@ -63,7 +92,35 @@ public class RaceToTheRaft {
      * @return a random challenge of the given difficulty
      */
     public static String chooseChallenge(int difficulty) {
-        return ""; // FIXME TASK 6
+        Random rand = new Random();
+        int bound = 0;
+        int origin = 0;
+        if (difficulty == 0) {
+            origin = 0;
+            bound = 3;
+        }
+        if (difficulty == 1) {
+            origin = 4;
+            bound = 7;
+        }
+        if (difficulty == 2) {
+            origin = 8;
+            bound = 15;
+        }
+        if (difficulty == 3) {
+            origin = 16;
+            bound = 23;
+        }
+        if (difficulty == 4) {
+            origin = 24;
+            bound = 31;
+        }
+        if (difficulty == 5) {
+            origin = 32;
+            bound = 38;
+        }
+        int index = rand.nextInt(origin,bound);
+        return Utility.CHALLENGES[index]; // FIXME TASK 6
     }
 
     /**
@@ -92,8 +149,65 @@ public class RaceToTheRaft {
      * to draw all the specified cards, you should return the original gameState.
      */
     public static String[] drawHand(String[] gameState, String drawRequest) {
-        return new String[0]; // FIXME TASK 7
+        Decks decks = new Decks(gameState);
+        String[] deckStrings = decks.returnDecksArray();
+        char[] deckNames = new char[deckStrings.length];
+        String[] deckCards = new String[deckStrings.length];
+        for (int i = 0; i < deckStrings.length; i++){
+            deckNames[i] = deckStrings[i].charAt(0);
+            deckCards[i] = deckStrings[i].substring(1);
+        }
+
+        char[] drawDeckNames = new char[drawRequest.length() / 2];
+        int[] drawCounts = new int[drawRequest.length()/2];
+        for (int i =0; i <drawRequest.length(); i += 2){
+            drawDeckNames[i/2] = drawRequest.charAt(i);
+            drawCounts[i / 2] = Character.getNumericValue(drawRequest.charAt(i + 1));
+        }
+
+        StringBuilder hand = new StringBuilder(gameState[2]);
+        int index = 0;
+        for (int i = 0; i < drawDeckNames.length; i++){
+            char drawDeckName = drawDeckNames[i];
+            int count = drawCounts[i];
+            for (int j = 0; j < deckNames.length;j++){
+                if (deckNames[j] == drawDeckName){
+                    String cards = deckCards[j];
+                    if (cards == null || cards.length() < count){
+                        return gameState;
+                    }
+                    hand.insert(index, cards.substring(0,count));
+                    index += count;
+                    deckCards[j] = cards.substring(count);
+                    break;
+                }
+            }
+        }
+
+        StringBuilder updatedDecks = new StringBuilder();
+        for (int i = 0; i < deckNames.length; i++){
+            updatedDecks.append(deckNames[i]).append(deckCards[i]);
+
+        }
+
+        char[] sortedDeckNames = Arrays.copyOf(deckNames,deckNames.length);
+        Arrays.sort(sortedDeckNames);
+        String[] sortedDeckCards = new String[deckNames.length];
+        for (int i = 0; i < sortedDeckNames.length; i++){
+            char deckName = sortedDeckNames[i];
+            for (int j = 0; j < deckNames.length; j++){
+                if (deckNames[j] == deckName){
+                    sortedDeckCards[i] = deckCards[j];
+                    break;
+                }
+            }
+        }
+
+        gameState[1] = updatedDecks.toString();
+        gameState[2]= hand.toString();
+        return gameState; // FIXME TASK 7
     }
+
 
     /**
      * Place the given card or fire tile as described by the placement string and return the updated gameState array.
