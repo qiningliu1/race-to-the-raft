@@ -25,7 +25,7 @@ Erika Mustermann: Task 6 refillFactories - 25 Mar (depends on Task 5)
 ## Week 7
 
 ## Week 8
-
+Everyone: create own tests, and build the test plan together. 4:43pm 22/04/24
 ## Week 9
 
 ## Week 10
