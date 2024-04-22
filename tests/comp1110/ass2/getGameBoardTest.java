@@ -8,26 +8,43 @@ import java.util.concurrent.TimeUnit;
 @Timeout(value = 500, unit = TimeUnit.MILLISECONDS)
 
 public class getGameBoardTest {
-    private String wellFormedboardString = """ 
-            fffgygbyr
-            fffgygpby
-            fffrrbrgp
-            fffbgypbr
-            fffpbrpgy
-            fffyrygyp
-            fffgbbrpb
-            fffpggbyg
-            fffpypgrr
-            """;
+    private String wellFormedboardString = """
+                fffffffffffffffrrf
+                fffffffffbbbfffrRf
+                fffffffffbbbfffrrf
+                ffffffyfffypfffpbr
+                ffffffffffgffbrpgy
+                ffffffbfffffyrygyp
+                ffffppgyybbbbybrpb
+                ffffppppyyggbygbyg
+                ffffppppPbbgbbpgrr
+                ffffffffgbyyybgbbp
+                fffffffbybpybbpryg
+                fffffffrfrgyybgyby
+                fffffffyppryyBpprp
+                fffbBbygggbprygbow
+                fffbbbbryygbygybyg
+                """;
+    private String notWellFormed = """
+            fff
+            ffd
+            g
+            o
+            w""";
     private Tiles[][] boardTiles = Board.getGameBoard(wellFormedboardString);
 
     @Test
     public void testWellFormed() {
         Assertions.assertEquals(Tiles.Fire, boardTiles[0][0]);
-        Assertions.assertEquals(Tiles.BLUE, boardTiles[2][5]);
-        Assertions.assertEquals(Tiles.GREEN, boardTiles[1][3]);
-        Assertions.assertEquals(Tiles.RED, boardTiles[8][7]);
+        Assertions.assertEquals(Tiles.Fire, boardTiles[2][5]);
+        Assertions.assertEquals(Tiles.BLUE, boardTiles[14][11]);
+        Assertions.assertEquals(Tiles.PURPLE, boardTiles[8][7]);
 
+    }
+
+    @Test
+    public void testNotWellFormed() {
+        Assertions.assertEquals(null ,Board.getGameBoard(notWellFormed)[0][0].toString());
     }
 }
 
