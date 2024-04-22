@@ -78,7 +78,7 @@ public class RaceToTheRaft {
         String tileID = gameStateObj.drawFireTileID();
 
         // update gameState[4] to show draw fireTile ID
-        gameState[4] = String.join("", gameStateObj.drawFireTileID());
+        gameState[4] = gameStateObj.getUpdateFireBagState();
         return tileID;
         // FIXME TASK 5
     }
