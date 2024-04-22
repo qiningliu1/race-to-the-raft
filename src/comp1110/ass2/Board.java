@@ -6,11 +6,12 @@ public class Board {
     private int totalTilesOnBoard;
     public static Tiles[][] getGameBoard(String boardString) {
         String[] lines = boardString.split("\n");
-        int col = 0;
+
         Tiles[][] gameBoard = new Tiles[lines.length][lines[0].length()];
         for (int row = 0; row < lines.length; row++) {
-            gameBoard[row][col] = Tiles.fromChar(lines[row].charAt(col));
-            col++;
+            for (int col = 0; col < lines[0].length();col++){
+                gameBoard[row][col] = Tiles.fromChar(lines[row].charAt(col));
+            }
         }
 
         return gameBoard;
