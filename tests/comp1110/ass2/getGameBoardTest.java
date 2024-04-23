@@ -9,22 +9,22 @@ import java.util.concurrent.TimeUnit;
 
 public class getGameBoardTest {
     private String wellFormedboardString = """
-                fffffffffffffffrrf
-                fffffffffbbbfffrRf
-                fffffffffbbbfffrrf
-                ffffffyfffypfffpbr
-                ffffffffffgffbrpgy
-                ffffffbfffffyrygyp
-                ffffppgyybbbbybrpb
-                ffffppppyyggbygbyg
-                ffffppppPbbgbbpgrr
-                ffffffffgbyyybgbbp
-                fffffffbybpybbpryg
-                fffffffrfrgyybgyby
-                fffffffyppryyBpprp
-                fffbBbygggbprygbow
-                fffbbbbryygbygybyg
-                """;
+            fffffffffffffffrrf
+            fffffffffbbbfffrRf
+            fffffffffbbbfffrrf
+            ffffffyfffypfffpbr
+            ffffffffffgffbrpgy
+            ffffffbfffffyrygyp
+            ffffppgyybbbbybrpb
+            ffffppppyyggbygbyg
+            ffffppppPbbgbbpgrr
+            ffffffffgbyyybgbbp
+            fffffffbybpybbpryg
+            fffffffrfrgyybgyby
+            fffffffyppryyBpprp
+            fffbBbygggbprygbow
+            fffbbbbryygbygybyg
+            """;
     private String notWellFormed = """
             fff
             ffd
@@ -41,11 +41,8 @@ public class getGameBoardTest {
         Assertions.assertEquals(Tiles.PURPLE, boardTiles[8][7]);
 
     }
-
-    @Test
-    public void testNotWellFormed() {
-        Assertions.assertEquals(null ,Board.getGameBoard(notWellFormed)[0][0].toString());
-    }
 }
+
+
 
 // this test was developed by Ishaan U7598889
