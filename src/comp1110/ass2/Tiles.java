@@ -6,7 +6,7 @@ package comp1110.ass2;
  * required for the game to work.
  */
 public enum Tiles {
-    BLUE, GREEN, RED, YELLOW, PURPLE, WILD, Fire, Object, None;
+    BLUE, GREEN, RED, YELLOW, PURPLE, WILD, Fire, BLUE_CAT, GREEN_CAT,PURPLE_CAT,RED_CAT,YELLOW_CAT, Object, None;
 
     public static Tiles fromChar(char tiles) {
         return switch (tiles) {
@@ -18,6 +18,11 @@ public enum Tiles {
             case 'f' -> Fire;
             case 'w' -> WILD;
             case 'o' -> Object;
+            case 'B' -> BLUE_CAT;
+            case 'G' -> GREEN_CAT;
+            case 'P' -> PURPLE_CAT;
+            case 'R' -> RED_CAT;
+            case 'Y' -> YELLOW_CAT;
             default -> None;
         };
     }
@@ -38,6 +43,11 @@ public enum Tiles {
             case Fire -> 'f';
             case WILD -> 'w';
             case Object -> 'o';
+            case BLUE_CAT -> 'B';
+            case GREEN_CAT -> 'G';
+            case PURPLE_CAT -> 'P';
+            case RED_CAT -> 'R';
+            case YELLOW_CAT -> 'Y';
             default -> 'x';
         };
     }
