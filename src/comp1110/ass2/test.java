@@ -1,5 +1,8 @@
 package comp1110.ass2;
 
+/**
+ * Author: Ishaan Kapoor u7598889
+ */
 public class test {
     public static int[][] transposeMatrix(int[][] matrix){
         int m = matrix.length;
@@ -33,7 +36,7 @@ public class test {
         System.out.println(test2[2][0]);
         System.out.println(test2[2][1]);
 
-
+        System.out.println(Utility.CAT_CARDS[3].charAt(0) == 3);
 
     }
 }

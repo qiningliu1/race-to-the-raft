@@ -24,6 +24,7 @@ public class CatCard {
         }
         return catCharArray;
     }
+
     /**
      * Author: Ishaan Kapoor u7598889
      */
@@ -36,12 +37,14 @@ public class CatCard {
         }
         return catCardTilesArray;
     }
+
     /**
      * Author: Ishaan Kapoor u7598889
      */
-    public Tiles[][] catCardFromString (String catString) {
-       return catCardFromCharArray(catStringToArrayOfChar(catString.substring(1)));
+    public Tiles[][] catCardFromString(String catString) {
+        return catCardFromCharArray(catStringToArrayOfChar(catString.substring(1)));
     }
+
     /**
      * Author: Ishaan Kapoor u7598889
      */
@@ -50,51 +53,59 @@ public class CatCard {
         this.ID = ID;
         this.catCard = catCard;
     }
+
     /**
      * Author: Ishaan Kapoor u7598889
      */
     public CatCard(String catString) {
 
-        this.ID = catString.charAt(0);
+        this.ID = Character.getNumericValue(catString.charAt(0));
         this.catCard = catCardFromString(catString);
     }
+
     /**
      * Author: Lujin Sun u7897414
      */
     public int getID() {
         return ID;
     }
+
     /**
      * Author: Ishaan Kapoor u7598889
      */
     public Tiles[][] getCatCard() {
         return catCard;
     }
+}
     /**
      * Author: Lujin Sun u7897414
      */
-    private String[] allPossibleCatCardStrings = Utility.CAT_CARDS;
-
-
-    /**
-     * Author: Ishaan Kapoor u7598889
-     */
-    public CatCard[] allPossibleCatCardObjects(String[] allPossibleCatCardStrings) {
-        int i =0;
-        CatCard[] catCards = new CatCard[allPossibleCatCardStrings.length];
-        for(String s: allPossibleCatCardStrings) {
-            catCards[i] = new CatCard(s.charAt(0),catCardFromString(s));
-            i++;
-        }
-        return catCards;
-    }
-    /**
-     * Author: Ishaan Kapoor u7598889
-     */
-    private CatCard[] allPossibleCatCards = allPossibleCatCardObjects(allPossibleCatCardStrings);
-
-
-}
+//    private String[] allPossibleCatCardStrings = Utility.CAT_CARDS;
+//
+//
+//    /**
+//     * Author: Ishaan Kapoor u7598889
+//     *
+//     * return a list of catCard objects based on the string array that we have.
+//     * @param allPossibleCatCardStrings is the string array that contains multiple cat strings.
+//     * @return A array of all possible catCard objecys possible from the strings.
+//     */
+//    public CatCard[] allPossibleCatCardObjects(String[] allPossibleCatCardStrings) {
+//        int i =0;
+//        CatCard[] catCards = new CatCard[allPossibleCatCardStrings.length];
+//        for(String s: allPossibleCatCardStrings) {
+//            catCards[i] = new CatCard(s.charAt(0),catCardFromString(s));
+//            i++;
+//        }
+//        return catCards;
+//    }
+//    /**
+//     * Author: Ishaan Kapoor u7598889
+//     */
+//    private CatCard[] allPossibleCatCards = allPossibleCatCardObjects(allPossibleCatCardStrings);
+//
+//
+//}
 
 //
 //    public int getID() {
