@@ -10,7 +10,7 @@ public class CatCard {
     private Tiles[][] catCard;
 
     /**
-     * Author: Ishaan Kapoor u7598889 and Lujin Sun u7897414
+     * Author: Lujin Sun u7897414
      */
     public char[][] catStringToArrayOfChar(String layoutString) {
 
