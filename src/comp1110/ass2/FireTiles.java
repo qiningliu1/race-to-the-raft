@@ -3,6 +3,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * Author: Qining Liu u7100555
+ */
+
 public class FireTiles {
     private static String fireTileBag;
     private static int length;
@@ -10,6 +14,8 @@ public class FireTiles {
 
 
     /**
+     * Author: Qining Liu u7100555
+     *
      *The main requirements are:
      *
      * 1.Randomly selects an ID from a string containing the flame tile ID.
@@ -52,6 +58,8 @@ public class FireTiles {
     };
 
     /**
+     * Author: Qining Liu u7100555
+     *
      *  Build a constructor
      *  use for-each loop to add every element ID in to the list
      *  In constructor it's the initial full fireTile bag from a-z and A-E
@@ -64,6 +72,8 @@ public class FireTiles {
     }
 
     /**
+     * Author: Qining Liu u7100555
+     *
      * This construct method is for receive a string of fire tile bag
      *
      */
@@ -76,6 +86,8 @@ public class FireTiles {
     }
 
     /**
+     * Author: Qining Liu u7100555
+     *
      * If empty return""
      * select random number than index to remove that index character;
      */
@@ -92,6 +104,8 @@ public class FireTiles {
     }
 
     /**
+     * Author: Qining Liu u7100555
+     *
      * update Bag element after random draw
      *
      */

@@ -1,8 +1,12 @@
 package comp1110.ass2;
 
+// we store boards as Tiles[][] which tells us where each tile is based on coordinates
+/**
+ * Author: Ishaan Kapoor u7598889
+ **/
 public class Board {
 
-    private Tiles[][] islandBoard;
+    private Tiles[][] board;
     private int totalTilesOnBoard;
 
     public static Tiles[][] getGameBoard(String boardString) {
@@ -23,8 +27,8 @@ public class Board {
     }
 
     public Board(String boardString) {
-        this.islandBoard = getGameBoard(boardString);
-        this.totalTilesOnBoard = islandBoard.length * islandBoard[0].length;
+        this.board = getGameBoard(boardString);
+        this.totalTilesOnBoard = board.length * board[0].length;
     }
 
 

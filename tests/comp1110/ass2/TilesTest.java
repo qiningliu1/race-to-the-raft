@@ -7,7 +7,9 @@ import java.util.concurrent.TimeUnit;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-//u7897414 + Lujin Sun
+/**
+ * Author: Lujin Sun u789414
+ **/
 
 @Timeout(value = 500, unit = TimeUnit.MILLISECONDS)
 public class TilesTest {

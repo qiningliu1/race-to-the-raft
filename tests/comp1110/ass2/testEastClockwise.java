@@ -3,6 +3,9 @@ package comp1110.ass2;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+/**
+ * Author: Ishaan Kapoor u7598889
+ */
 public class testEastClockwise {
 
     @Test

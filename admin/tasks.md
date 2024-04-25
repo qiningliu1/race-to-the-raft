@@ -28,6 +28,8 @@ Erika Mustermann: Task 6 refillFactories - 25 Mar (depends on Task 5)
 Everyone: create own tests, and build the test plan together. 4:43pm 22/04/24
 
 We met 1:17pm 23/04/24. Ishaan to solve Raft substring from challenge. Qining to solve fire substring. Lujin to solve cat substring.
+we met at 12:32pm Ishaan to solve GUI task 04.
+
 ## Week 9
 
 ## Week 10

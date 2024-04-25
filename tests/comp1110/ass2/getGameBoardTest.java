@@ -6,6 +6,9 @@ import org.junit.jupiter.api.Timeout;
 
 import java.util.concurrent.TimeUnit;
 @Timeout(value = 500, unit = TimeUnit.MILLISECONDS)
+/**
+ * Author: Ishaan Kapoor u7598889
+ */
 
 public class getGameBoardTest {
     private String wellFormedboardString = """

@@ -11,6 +11,8 @@ import java.util.Random;
 public class RaceToTheRaft {
 
     /**
+     * Author: Lujin Sun u7897414 and Ishaan Kapoor u7598889
+     *
      * Determine whether a boardState string is well-formed.
      * To be well-formed the string must satisfy all the following conditions:
      * <p>
@@ -61,11 +63,15 @@ public class RaceToTheRaft {
     }
 
     /**
+     * Author: Qining Liu u7100555, Ishaan Kapoor u7598889 and Lujin Sun u7897414
+     *
      * Make Constructors for each of your objects.
      */
     // FIXME TASK 3
 
     /**
+     * Author: Qining Liu u7100555
+     *
      * Draws a random fire tile from those remaining in the bag.
      *
      * @param gameState the current state of the game, including the fire tile bag
@@ -85,6 +91,8 @@ public class RaceToTheRaft {
 
 
     /**
+     * Author: Ishaan Kapoor u7598889
+     *
      * Chooses a random challenge from those available in the Utility class according
      * to the given difficulty.
      *
@@ -124,6 +132,9 @@ public class RaceToTheRaft {
     }
 
     /**
+     * Author: Lujin Sun u7897414
+     *
+     *
      * Draw random cards from the specified decks.
      * The decks string denotes what decks to draw from and how many cards to draw from that deck.
      * <p>
