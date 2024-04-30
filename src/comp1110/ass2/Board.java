@@ -80,29 +80,3 @@ public class Board {
 
 
 
-
-
-//    public Tiles[][] rotate(Tiles[][] board, Orientation orientation) {
-//        Tiles[][] newBoard = new Tiles[board[0].length][board.length];
-//
-////        for (int col = 0; col < board[0].length; col++) { // 0 to 2
-////            for (int row = board.length - 1; row <= 0; row--) { // 2 to 0
-////
-////            }
-//        newBoard =
-//
-//
-//        return board;
-//    }
-//}
-
-
-//abc
-//xyz
-//
-//
-//east
-//
-//xa
-//yb
-//zc

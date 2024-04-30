@@ -1,5 +1,7 @@
 package comp1110.ass2.gui;
 
+import comp1110.ass2.Board;
+import comp1110.ass2.Tiles;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -20,6 +22,54 @@ public class Viewer extends Application {
     private TextArea handTextField;
     private TextArea boardTextField;
 
+    public String getImagepath(Tiles tiles) {
+        String path = null;
+        switch (tiles) {
+            case Fire:
+                path = "comp1110/ass2/gui/assets/fire.png";
+                break;
+            case RED:
+                path = "comp1110/ass2/gui/assets/red.png";
+                break;
+            case BLUE:
+                path = "comp1110/ass2/gui/assets/blue.png";
+                break;
+            case YELLOW:
+                path = "comp1110/ass2/gui/assets/yellow.png";
+                break;
+            case GREEN:
+                path = "comp1110/ass2/gui/assets/green.png";
+                break;
+            case PURPLE:
+                path = "comp1110/ass2/gui/assets/purple.png";
+                break;
+            case Object:
+                path = "comp1110/ass2/gui/assets/objective.png";
+                break;
+            case WILD:
+                path = "comp1110/ass2/gui/assets/objective.png";
+                break;
+            case GREEN_CAT:
+                path = "comp1110/ass2/gui/assets/greenCat.png";
+                break;
+            case RED_CAT:
+                path = "comp1110/ass2/gui/assets/redCat.png";
+                break;
+            case PURPLE_CAT:
+                path = "comp1110/ass2/gui/assets/purpleCat.png";
+                break;
+            case BLUE_CAT:
+                path = "comp1110/ass2/gui/assets/blueCat.png";
+                break;
+            case YELLOW_CAT:
+                path = "comp1110/ass2/gui/assets/yellowCat.png";
+                break;
+            default:
+                path = null;
+        }
+        return path;
+    }
+
     /**
      * Draw the given board and hand in the window, removing any previously drawn boards/hands.
      *
@@ -28,6 +78,8 @@ public class Viewer extends Application {
      *
      */
     void displayState(String boardstate, String hand) {
+        Tiles[][] boardTiles = Board.getGameBoard(boardstate);
+
         // FIXME TASK 4
     }
 
