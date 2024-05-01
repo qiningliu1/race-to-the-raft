@@ -160,8 +160,8 @@ public class RaceToTheRaft {
      * to draw all the specified cards, you should return the original gameState.
      */
     public static String[] drawHand(String[] gameState, String drawRequest) {
-        Decks decks = new Decks(gameState);
-        String[] deckStrings = decks.returnDecksArray();
+        String decks = gameState[1];
+        String[] deckStrings = decks.split("(?=[A-Z])");
         char[] deckNames = new char[deckStrings.length];
         String[] deckCards = new String[deckStrings.length];
         for (int i = 0; i < deckStrings.length; i++){
