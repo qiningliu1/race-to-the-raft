@@ -4,7 +4,9 @@ import comp1110.ass2.gui.Game;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-
+/**
+ * Author: Qining Liu u7100555
+ */
 public class GameState {
 
     private Board board;

@@ -6,7 +6,10 @@ import java.util.List;
 
 
 
-
+/**
+ * Author: Qining Liu u7100555
+ *
+ */
 public class ExhaustedCat {
 
     String exCat;
