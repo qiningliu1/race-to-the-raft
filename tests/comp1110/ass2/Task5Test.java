@@ -44,12 +44,12 @@ public class Task5Test {
 
         // Validate that the extracted tileID is a legitimate ID
         if (!isLegitID(tileID)) {
-            throw new IllegalArgumentException("Tile ID is not legitimate: " + tileID);
+            throw new IllegalArgumentException("comp1110.ass2.Tile ID is not legitimate: " + tileID);
         }
 
         // Check if the tileID is contained within the provided bag
         if (!comesFromBag(tileID, bag)) {
-            throw new IllegalArgumentException("Tile ID is not found in the bag: " + tileID);
+            throw new IllegalArgumentException("comp1110.ass2.Tile ID is not found in the bag: " + tileID);
         }
 
         // Uncomment and implement the following if coordinates check is needed

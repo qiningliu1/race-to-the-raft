@@ -36,13 +36,13 @@ public enum Orientation {
     /**
      * Author: Ishaan Kapoor u7598889
      *
-     * Given a board in form of Tiles[][], this function rotates it into the orientation specified.
+     * Given a board in form of TileType[][], this function rotates it into the orientation specified.
      * @param initialBoard the board that needs to be rotated.
      * @param orientation the orientation we want to rotate towards.
-     * @return a new board in the form of Tiles[][] in the new orientation.
+     * @return a new board in the form of TileType[][] in the new orientation.
      *
      */
-    public Tiles[][] rotateBoard(Tiles[][] initialBoard, Orientation orientation) {
+    public TileType[][] rotateBoard(TileType[][] initialBoard, Orientation orientation) {
         return switch(orientation) {
             case NORTH -> initialBoard;
             case EAST -> Board.rotate90clockwise(initialBoard);

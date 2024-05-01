@@ -160,11 +160,8 @@ public class RaceToTheRaft {
      * to draw all the specified cards, you should return the original gameState.
      */
     public static String[] drawHand(String[] gameState, String drawRequest) {
-        //Create a Decks object to handle game state decks
-        Decks decks = new Decks(gameState);
-        //Get array of deck strings
-        String[] deckStrings = decks.returnDecksArray();
-        //Separate deck names and cards
+        String decks = gameState[1];
+        String[] deckStrings = decks.split("(?=[A-Z])");
         char[] deckNames = new char[deckStrings.length];
         String[] deckCards = new String[deckStrings.length];
         for (int i = 0; i < deckStrings.length; i++){
@@ -172,7 +169,6 @@ public class RaceToTheRaft {
             deckCards[i] = deckStrings[i].substring(1);
         }
 
-        //Separate draw deck names and counts from draw request
         char[] drawDeckNames = new char[drawRequest.length() / 2];
         int[] drawCounts = new int[drawRequest.length()/2];
         for (int i =0; i <drawRequest.length(); i += 2){
@@ -180,40 +176,31 @@ public class RaceToTheRaft {
             drawCounts[i / 2] = Character.getNumericValue(drawRequest.charAt(i + 1));
         }
 
-        //Initialize a StringBuilder for hand with the existing hand
         StringBuilder hand = new StringBuilder(gameState[2]);
-        //Track the index for inserting new cards
         int index = 0;
-        //Iterate through draw deck names and draw cards
         for (int i = 0; i < drawDeckNames.length; i++){
             char drawDeckName = drawDeckNames[i];
             int count = drawCounts[i];
-            // Search for the corresponding deck
             for (int j = 0; j < deckNames.length;j++){
                 if (deckNames[j] == drawDeckName){
                     String cards = deckCards[j];
-                    // If the deck doesn't have enough cards, return the current game state
                     if (cards == null || cards.length() < count){
                         return gameState;
                     }
-                    // Insert drawn cards into hand and update index
                     hand.insert(index, cards.substring(0,count));
                     index += count;
-                    // Update deck cards after drawing
                     deckCards[j] = cards.substring(count);
                     break;
                 }
             }
         }
 
-        // Update decks information after drawing
         StringBuilder updatedDecks = new StringBuilder();
         for (int i = 0; i < deckNames.length; i++){
             updatedDecks.append(deckNames[i]).append(deckCards[i]);
 
         }
 
-        // Sort deck names and update deck cards accordingly
         char[] sortedDeckNames = Arrays.copyOf(deckNames,deckNames.length);
         Arrays.sort(sortedDeckNames);
         String[] sortedDeckCards = new String[deckNames.length];
@@ -227,10 +214,8 @@ public class RaceToTheRaft {
             }
         }
 
-        //Update game state with updated decks and hand
         gameState[1] = updatedDecks.toString();
         gameState[2]= hand.toString();
-        //Return updated game state
         return gameState; // FIXME TASK 7
     }
 
@@ -244,7 +229,7 @@ public class RaceToTheRaft {
      * string in the gameState array.
      *
      * @param gameState       An array representing the game state.
-     * @param placementString A string representing a Fire Tile Placement or a Card Placement.
+     * @param placementString A string representing a Fire comp1110.ass2.Tile Placement or a Card Placement.
      * @return the updated gameState array after this placement has been made
      */
     public static String[] applyPlacement(String[] gameState, String placementString) {
