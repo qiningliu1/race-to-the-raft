@@ -6,24 +6,34 @@ import java.util.List;
 import java.util.Random;
 
 public class GameState {
-    String [] gameState;
+
     private Board board;
     private Decks[][] decks;
-    private ExhaustedCat[] ExCats;
-    private FireTiles[][] FireBag;
 
-public GameState(Board board,Decks[][] decks, ExhaustedCat[] ExCats,FireTiles[][] FireBag){
-    this.board= board;
-    this.decks = decks;
-    this.ExCats = ExCats;
-    this.FireBag = FireBag;
+    private Hand hand;
+    private ExhaustedCat ExCats;
+    private FireTiles FireTiles;
+
+
+    /**
+     * Built a constructor to transfer GameState string
+     * Initialize objects state
+     */
+
+public GameState(String gameState[]){
+    //Board board = new Board(gameState[0]);
+    //board = new Board(gameState[0]);
+    this.board = new Board(gameState[0]);
+    //decks = new Decks(gameState[1]);
+    this.hand = new Hand(gameState[2]);
+    this.ExCats = new ExhaustedCat(gameState[3]);
+    this.FireTiles = new FireTiles(gameState[4]);
 }
 
+
+
+
 public String[] gameState (){
-
-
-
-
 
     return null;
 }
@@ -36,7 +46,6 @@ public Object[] getGameState()
         gameState[0] = board;
         gameState[1] = decks;
         gameState[2] = ExCats;
-        gameState[3] = FireBag;
         return gameState;
 
     }
