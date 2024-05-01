@@ -8,7 +8,10 @@ import java.util.ArrayList;
 public class Decks {
     private ArrayList<SingleDeck> fulldeck; //decks object is a list of all decks.
 
+
     /**
+     *Author: Ishaan Kapoor u7598889
+     *
      * all possible deck ids
      */
     public enum DECK_ID {
@@ -16,6 +19,8 @@ public class Decks {
     }
 
     /**
+     * Author: Ishaan Kapoor u7598889
+     *
      * These are the string representation of full decks.
      */
     static String[] deckA = Utility.DECK_A;
@@ -24,6 +29,8 @@ public class Decks {
     static String[] deckD = Utility.DECK_D;
 
     /**
+     * Author: Ishaan Kapoor u7598889
+     *
      * this function takes in a DECK_ID and returns the list of cards inside that deck.
      *
      * @param c DECK_ID to be retrieved.
@@ -64,6 +71,8 @@ public class Decks {
     }
 
     /**
+     * Author: Ishaan Kapoor u7598889
+     *
      * takes in a char id for a specific card in a deck, and gives us the index at which that card exists in the
      * respective deck.
      * @param c card id between a-y
@@ -103,6 +112,8 @@ public class Decks {
     }
 
     /**
+     * Author: Ishaan Kapoor u7598889
+     *
      * takes in a deckString like AabBCdefD, and returns all the singleDecks that exists in that combined deck.
      * @param deckString string given in string representation.
      * @return ArrayList of singleDeck obejcts.
@@ -126,10 +137,7 @@ public class Decks {
 
     /**
      * Author: Ishaan Kapoor u7598889
-     **/
-
-
-    /**
+     *
      * This nested class is designed to make and store individual decks like DECK_A and so on.
      * This class takes in a simple string like Aabc and converts it into an object with ID A and retrieves cards
      * a,b and c from Utility, and stores them in a ArrayList.
@@ -138,6 +146,10 @@ public class Decks {
         private Decks.DECK_ID ID;
         private ArrayList<Cards> cards;
 
+
+        /**
+         * Author: Ishaan Kapoor u7598889
+         **/
         public static ArrayList<Cards> cardListFromCardIDs(String deckString) {
             ArrayList<Cards> required = new ArrayList<>(25);
             char[] IDs = deckString.substring(1).toCharArray();
@@ -164,6 +176,8 @@ public class Decks {
         }
 
         /**
+         * Author: Ishaan Kapoor u7598889.
+         *
          * since we will retreive the ID from a string, we first need to convert it into a DECK_ID object.
          * @param c char which represents the ID
          * @return DECK_ID value based on that char.

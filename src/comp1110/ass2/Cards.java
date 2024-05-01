@@ -1,5 +1,7 @@
 package comp1110.ass2;
-
+/**
+ * Author: Ishaan Kapoor u7598889
+ */
 public class Cards {
 
     private char ID;
@@ -7,6 +9,8 @@ public class Cards {
 
 
     /**
+     * Author Ishaan Kapoor u7598889 and Lujin Sun u7897414
+     *
      * converts a string of length 9 into a char[3][3] (our basic grid for cards).
      * @param cardString the string representing the card.
      * @return a 3 by 3 array of char.
@@ -44,21 +48,29 @@ public class Cards {
     public static TileType[][] cardFromString(String cardString) {
         return getTileTypeArray(characterArrayFromString(cardString.substring(1)));
     }
-
+    /**
+     * Author: Ishaan Kapoor u7598889
+     */
     public Cards(String cardString){
         this.ID = cardString.charAt(0);
         this.card=cardFromString(cardString);
     }
-
+    /**
+     * Author: Ishaan Kapoor u7598889
+     */
     public Cards(char ID, TileType[][] card){
         this.ID = ID;
         this.card = card;
     }
-
+    /**
+     * Author: Ishaan Kapoor u7598889
+     */
     public char getID() {
         return ID;
     }
-
+    /**
+     * Author: Ishaan Kapoor u7598889
+     */
     public TileType[][] getCard() {
         return card;
     }
