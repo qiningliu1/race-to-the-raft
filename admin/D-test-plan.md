@@ -2,13 +2,13 @@ Classes in our design that needs to be tested are :
 
 1) Board
 
-method getGameBoard should be tested in isolation, to test if the correct expected board (Tile[][])
+method getGameBoard should be tested in isolation, to test if the correct expected board (comp1110.ass2.Tile[][])
 is returned after providing the board string from the challenge string.
 
 
 2) Tiles
 
-method toChar and fromChar needs to be tested by providing various char and Tile elements. These 
+method toChar and fromChar needs to be tested by providing various char and comp1110.ass2.Tile elements. These 
 methods should also be tested by splitting strings into char, then feeding these char to fromChar,
 and then comparing them to the given boards in the assignment specification.
 
@@ -16,7 +16,7 @@ and then comparing them to the given boards in the assignment specification.
 3) FireTiles
 
 method to check if the FireTile ID matched the ID of FIRE_TILE from 'a-z' and 'A to E'; method to check
-the length of updated Fire bag and also check if the draw Fire Tile ID matched the Tile draw from the bag
+the length of updated Fire bag and also check if the draw Fire comp1110.ass2.Tile ID matched the comp1110.ass2.Tile draw from the bag
 
 4) GameState
 

@@ -9,10 +9,10 @@ package comp1110.ass2;
  * Further, this provides the foundation for building all the cards
  * required for the game to work.
  */
-public enum Tiles {
+public enum TileType {
     BLUE, GREEN, RED, YELLOW, PURPLE, WILD, Fire, BLUE_CAT, GREEN_CAT,PURPLE_CAT,RED_CAT,YELLOW_CAT, Object, None;
 
-    public static Tiles fromChar(char tiles) {
+    public static TileType fromChar(char tiles) {
         return switch (tiles) {
             case 'b' -> BLUE;
             case 'g' -> GREEN;

@@ -34,14 +34,14 @@ public class getGameBoardTest {
             g
             o
             w""";
-    private Tiles[][] boardTiles = Board.getGameBoard(wellFormedboardString);
+    private TileType[][] boardTiles = Board.getGameBoard(wellFormedboardString);
 
     @Test
     public void testWellFormed() {
-        Assertions.assertEquals(Tiles.Fire, boardTiles[0][0]);
-        Assertions.assertEquals(Tiles.Fire, boardTiles[2][5]);
-        Assertions.assertEquals(Tiles.BLUE, boardTiles[14][11]);
-        Assertions.assertEquals(Tiles.PURPLE, boardTiles[8][7]);
+        Assertions.assertEquals(TileType.Fire, boardTiles[0][0]);
+        Assertions.assertEquals(TileType.Fire, boardTiles[2][5]);
+        Assertions.assertEquals(TileType.BLUE, boardTiles[14][11]);
+        Assertions.assertEquals(TileType.PURPLE, boardTiles[8][7]);
 
     }
 }

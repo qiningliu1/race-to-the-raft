@@ -3,11 +3,9 @@ package comp1110.ass2;
  * Author: Ishaan Kapoor u7598889 and Lujin Sun u7897414
  */
 
-import jdk.jshell.execution.Util;
-
 public class CatCard {
     private int ID;
-    private Tiles[][] catCard;
+    private TileType[][] catCard;
 
     /**
      * Author: Lujin Sun u7897414
@@ -28,11 +26,11 @@ public class CatCard {
     /**
      * Author: Ishaan Kapoor u7598889
      */
-    public Tiles[][] catCardFromCharArray(char[][] catCharArray) {
-        Tiles[][] catCardTilesArray = new Tiles[3][3];
+    public TileType[][] catCardFromCharArray(char[][] catCharArray) {
+        TileType[][] catCardTilesArray = new TileType[3][3];
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
-                catCardTilesArray[i][j] = Tiles.fromChar(catCharArray[i][j]);
+                catCardTilesArray[i][j] = TileType.fromChar(catCharArray[i][j]);
             }
         }
         return catCardTilesArray;
@@ -41,14 +39,14 @@ public class CatCard {
     /**
      * Author: Ishaan Kapoor u7598889
      */
-    public Tiles[][] catCardFromString(String catString) {
+    public TileType[][] catCardFromString(String catString) {
         return catCardFromCharArray(catStringToArrayOfChar(catString.substring(1)));
     }
 
     /**
      * Author: Ishaan Kapoor u7598889
      */
-    public CatCard(int ID, Tiles[][] catCard) {
+    public CatCard(int ID, TileType[][] catCard) {
 
         this.ID = ID;
         this.catCard = catCard;
@@ -73,7 +71,7 @@ public class CatCard {
     /**
      * Author: Ishaan Kapoor u7598889
      */
-    public Tiles[][] getCatCard() {
+    public TileType[][] getCatCard() {
         return catCard;
     }
 }

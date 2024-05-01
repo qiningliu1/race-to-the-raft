@@ -229,7 +229,7 @@ public class RaceToTheRaft {
      * string in the gameState array.
      *
      * @param gameState       An array representing the game state.
-     * @param placementString A string representing a Fire Tile Placement or a Card Placement.
+     * @param placementString A string representing a Fire comp1110.ass2.Tile Placement or a Card Placement.
      * @return the updated gameState array after this placement has been made
      */
     public static String[] applyPlacement(String[] gameState, String placementString) {
