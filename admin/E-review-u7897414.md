@@ -1,10 +1,10 @@
 ## Code Review
 
-Reviewed by: <Lujin Sun>, <u7897414>
+Reviewed by: Lujin Sun, u7897414
 
-Reviewing code written by: <Ishaan Kapoor> <u7598889>
+Reviewing code written by: Ishaan Kapoor u7598889
 
-Component: <the Decks class>
+Component: the Decks class
 
 ### Comments 
 

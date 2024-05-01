@@ -7,7 +7,7 @@ import java.util.List;
 
 
 /**
- * Author: Qining Liu u7100555
+ * Author: Lujin Sun u7897414
  *
  */
 public class ExhaustedCat {
