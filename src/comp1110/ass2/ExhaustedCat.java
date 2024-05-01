@@ -14,11 +14,11 @@ public class ExhaustedCat {
         this.exCat = exCat;
     }
 
-    private Tiles[][] exhaustedCat;
+    private TileType[][] exhaustedCat;
 
     // Constructor to initialize the exhaustedCat array
     public ExhaustedCat(int Rows, int Cols) {
-        this.exhaustedCat = new Tiles[Rows][Cols];
+        this.exhaustedCat = new TileType[Rows][Cols];
     }
 
     /**
@@ -28,10 +28,10 @@ public class ExhaustedCat {
      * @param row    The row coordinate of the cat.
      * @param column The column coordinate of the cat.
      */
-    public void addExhaustedCat(Tiles color, int row, int column) {
+    public void addExhaustedCat(Tile color, int row, int column) {
         // Check if the row and column coordinates are within bounds
         if (row >= 0 && row < exhaustedCat.length && column >= 0 && column < exhaustedCat[0].length) {
-            exhaustedCat[row][column] = color;
+            //exhaustedCat[row][column] = color;
         }
     }
 
