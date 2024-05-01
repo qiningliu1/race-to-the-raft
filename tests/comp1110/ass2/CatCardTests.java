@@ -19,9 +19,9 @@ public class CatCardTests {
         test1[2][2] = TileType.GREEN;
 
         CatCard test = new CatCard(catString);
-        CatCard actual = new CatCard(3,test1);
+        CatCard actual = new CatCard('3',test1);
         Assertions.assertEquals(test.getID(),actual.getID());
-        Assertions.assertEquals(test.getCatCard()[0][0],actual.getCatCard()[0][0]);
+        Assertions.assertEquals(test.getCard()[0][0],actual.getCard()[0][0]);
 
     }
 }

@@ -2,6 +2,9 @@ package comp1110.ass2;
 
 import comp1110.ass2.gui.Viewer;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 /**
  * Author: Ishaan Kapoor u7598889
  */
@@ -42,10 +45,23 @@ public class test {
     public static String test = Viewer.getImagepath(boardTiles[1][16]);
 
     public static void main(String[] args) {
-        System.out.println(test);
+        String s = "AabcnBCcdDd";
+        Decks ss = new Decks(s);
+
+        Cards test = ss.getFulldeck().get(0).getCards().get(3);
+        System.out.println(test.getCard()[2][1]);
+
     }
 }
 
+//        String test = "afffbBbggg";
+//        TileType[][] testing = Cards.cardFromString(test);
+//        System.out.println(testing[0][0]);
+//        System.out.println(testing[1][2]);
+//        System.out.println(testing[2][0]);
+//        System.out.println(testing[2][0]);
+//        System.out.println(testing[2][2]);
+//        System.out.println(testing[1][1]);
 
 
 

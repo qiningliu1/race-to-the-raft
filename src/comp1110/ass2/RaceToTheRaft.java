@@ -2,10 +2,6 @@ package comp1110.ass2;
 
 import java.util.Arrays;
 import java.util.Random;
-import java.util.List;
-import java.util.Arrays;
-import java.util.ArrayList;
-
 
 /**
  * This class is for testing purposes only. You should create and use your own objects to solve the tasks below
@@ -136,7 +132,7 @@ public class RaceToTheRaft {
     }
 
     /**
-     * Author: Qining Liu u7100555
+     * Author: Lujin Sun u7897414
      *
      *
      * Draw random cards from the specified decks.
@@ -164,22 +160,64 @@ public class RaceToTheRaft {
      * to draw all the specified cards, you should return the original gameState.
      */
     public static String[] drawHand(String[] gameState, String drawRequest) {
-        Decks decks = new Decks(gameState);
-        StringBuilder hand = new StringBuilder(); // Always start with an empty hand if the state should reset
+        String decks = gameState[1];
+        String[] deckStrings = decks.split("(?=[A-Z])");
+        char[] deckNames = new char[deckStrings.length];
+        String[] deckCards = new String[deckStrings.length];
+        for (int i = 0; i < deckStrings.length; i++){
+            deckNames[i] = deckStrings[i].charAt(0);
+            deckCards[i] = deckStrings[i].substring(1);
+        }
 
-        for (int i = 0; i < drawRequest.length(); i += 2) {
-            char deckId = drawRequest.charAt(i);
-            int count = Character.getNumericValue(drawRequest.charAt(i + 1));
-            if (!decks.drawCards(deckId, count, hand)) {
-                return gameState; // If not enough cards, return the original state
+        char[] drawDeckNames = new char[drawRequest.length() / 2];
+        int[] drawCounts = new int[drawRequest.length()/2];
+        for (int i =0; i <drawRequest.length(); i += 2){
+            drawDeckNames[i/2] = drawRequest.charAt(i);
+            drawCounts[i / 2] = Character.getNumericValue(drawRequest.charAt(i + 1));
+        }
+
+        StringBuilder hand = new StringBuilder(gameState[2]);
+        int index = 0;
+        for (int i = 0; i < drawDeckNames.length; i++){
+            char drawDeckName = drawDeckNames[i];
+            int count = drawCounts[i];
+            for (int j = 0; j < deckNames.length;j++){
+                if (deckNames[j] == drawDeckName){
+                    String cards = deckCards[j];
+                    if (cards == null || cards.length() < count){
+                        return gameState;
+                    }
+                    hand.insert(index, cards.substring(0,count));
+                    index += count;
+                    deckCards[j] = cards.substring(count);
+                    break;
+                }
             }
         }
 
-        gameState[1] = decks.getUpdatedDecks();
-        gameState[2] = hand.toString();
-        return gameState;
-    }// FIXME TASK 7
+        StringBuilder updatedDecks = new StringBuilder();
+        for (int i = 0; i < deckNames.length; i++){
+            updatedDecks.append(deckNames[i]).append(deckCards[i]);
 
+        }
+
+        char[] sortedDeckNames = Arrays.copyOf(deckNames,deckNames.length);
+        Arrays.sort(sortedDeckNames);
+        String[] sortedDeckCards = new String[deckNames.length];
+        for (int i = 0; i < sortedDeckNames.length; i++){
+            char deckName = sortedDeckNames[i];
+            for (int j = 0; j < deckNames.length; j++){
+                if (deckNames[j] == deckName){
+                    sortedDeckCards[i] = deckCards[j];
+                    break;
+                }
+            }
+        }
+
+        gameState[1] = updatedDecks.toString();
+        gameState[2]= hand.toString();
+        return gameState; // FIXME TASK 7
+    }
 
 
     /**
@@ -284,9 +322,7 @@ public class RaceToTheRaft {
      * 2. If placing this fire tile makes it impossible for any one cat to reach the raft (the game is lost).
      * <p>
      * Cat movement:
-     * 1. If after moving this cat, there are greater than or equal to 4 cards in the disaster pile and there are
-     * no more file tiles left in the bag (the game is lost).
-     * 2. If after moving this cat, all cats have safely reached the raft (the game is won).
+     * 1. If after moving this cat, all cats have safely reached the raft (the game is won).
      * <p>
      * Card placement:
      * 1. If after placing this card, there are no more fire tiles left in the bag (the game is lost).
