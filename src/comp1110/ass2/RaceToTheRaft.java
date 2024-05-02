@@ -1,10 +1,7 @@
 package comp1110.ass2;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
-
-import static comp1110.ass2.Utility.CHALLENGES;
 
 /**
  * This class is for testing purposes only. You should create and use your own objects to solve the tasks below
@@ -14,6 +11,8 @@ import static comp1110.ass2.Utility.CHALLENGES;
 public class RaceToTheRaft {
 
     /**
+     * Author: Lujin Sun u7897414 and Ishaan Kapoor u7598889
+     *
      * Determine whether a boardState string is well-formed.
      * To be well-formed the string must satisfy all the following conditions:
      * <p>
@@ -47,29 +46,32 @@ public class RaceToTheRaft {
         if (numLines != 12 && numLines != 15 && numLines != 18) {
             return false;
         }
-        for (String line:lines){
+        for (String line : lines) {
             if (line.length() != 9 && line.length() != 18) {
                 return false;
             }
         }
         String validChars = "bBfgGnopPrRwWyY";
-        for (String line:lines){
-            for (char c :line.toCharArray()){
-                if (validChars.indexOf(c) == -1){
+        for (String line : lines) {
+            for (char c : line.toCharArray()) {
+                if (validChars.indexOf(c) == -1) {
                     return false;
                 }
             }
         }
         return true;
-        // FIXME TASK 2
     }
 
     /**
+     * Author: Qining Liu u7100555, Ishaan Kapoor u7598889 and Lujin Sun u7897414
+     *
      * Make Constructors for each of your objects.
      */
     // FIXME TASK 3
 
     /**
+     * Author: Qining Liu u7100555
+     *
      * Draws a random fire tile from those remaining in the bag.
      *
      * @param gameState the current state of the game, including the fire tile bag
@@ -77,20 +79,20 @@ public class RaceToTheRaft {
      * empty string.
      */
     public static String drawFireTile(String[] gameState) {
-        FireTileBag firetilebag = new FireTileBag();
-        firetilebag.createfiretilebag(gameState[4]);
-        if (firetilebag.getfiretilebag() == null || firetilebag.getfiretilebag().isEmpty()) {
-            return "";
-        }
-        Random random = new Random();
-        int randomIndex = random.nextInt(firetilebag.getLength());
-        char firetileID = firetilebag.getfiretilebag().charAt(randomIndex);
-        String firetile = firetilebag.getfiretile(firetileID).toString();
-        return firetile;
+        // Apply gameState[4] to crate GameState object
+        FireTiles gameStateObj = new FireTiles(gameState[4]);
+        String tileID = gameStateObj.drawFireTileID();
+
+        // update gameState[4] to show draw fireTile ID
+        gameState[4] = gameStateObj.getUpdateFireBagState();
+        return tileID;
         // FIXME TASK 5
     }
 
+
     /**
+     * Author: Ishaan Kapoor u7598889
+     *
      * Chooses a random challenge from those available in the Utility class according
      * to the given difficulty.
      *
@@ -98,28 +100,41 @@ public class RaceToTheRaft {
      * @return a random challenge of the given difficulty
      */
     public static String chooseChallenge(int difficulty) {
-        IslandBoard.squareBoards = IslandBoard.createSquareBoards(Utility.SQUARE_BOARDS);
-        IslandBoard.rectangleBoards = IslandBoard.createRectangleBoards(Utility.RECTANGLE_BOARDS);
-
-        Challenge[] challenges = Challenge.createChallenges(CHALLENGES);
-
-        ArrayList<Integer> difficulties = new ArrayList<>();
-        for (int i = 0; i < challenges.length; i++) {
-            if (challenges[i].getDifficulty() == difficulty) {
-                difficulties.add(i);
-            }
+        Random rand = new Random();
+        int bound = 0;
+        int origin = 0;
+        if (difficulty == 0) {
+            origin = 0;
+            bound = 3;
         }
-        if (difficulties.isEmpty()) {
-            return "";
+        if (difficulty == 1) {
+            origin = 4;
+            bound = 7;
         }
-        Random random = new Random();
-        int randomIndex = random.nextInt(difficulties.size());
-        int randomNumber = difficulties.get(randomIndex);
-        return CHALLENGES[randomNumber];
-        // FIXME TASK 6
+        if (difficulty == 2) {
+            origin = 8;
+            bound = 15;
+        }
+        if (difficulty == 3) {
+            origin = 16;
+            bound = 23;
+        }
+        if (difficulty == 4) {
+            origin = 24;
+            bound = 31;
+        }
+        if (difficulty == 5) {
+            origin = 32;
+            bound = 38;
+        }
+        int index = rand.nextInt(origin,bound);
+        return Utility.CHALLENGES[index]; // FIXME TASK 6
     }
 
     /**
+     * Author: Lujin Sun u7897414
+     *
+     *
      * Draw random cards from the specified decks.
      * The decks string denotes what decks to draw from and how many cards to draw from that deck.
      * <p>
@@ -145,8 +160,8 @@ public class RaceToTheRaft {
      * to draw all the specified cards, you should return the original gameState.
      */
     public static String[] drawHand(String[] gameState, String drawRequest) {
-        String decksString = gameState[1];
-        String[] deckStrings = decksString.split("(?=[A-Z])");
+        String decks = gameState[1];
+        String[] deckStrings = decks.split("(?=[A-Z])");
         char[] deckNames = new char[deckStrings.length];
         String[] deckCards = new String[deckStrings.length];
         for (int i = 0; i < deckStrings.length; i++){
@@ -204,6 +219,7 @@ public class RaceToTheRaft {
         return gameState; // FIXME TASK 7
     }
 
+
     /**
      * Place the given card or fire tile as described by the placement string and return the updated gameState array.
      * See the README for details on these two strings.
@@ -213,7 +229,7 @@ public class RaceToTheRaft {
      * string in the gameState array.
      *
      * @param gameState       An array representing the game state.
-     * @param placementString A string representing a Fire Tile Placement or a Card Placement.
+     * @param placementString A string representing a Fire comp1110.ass2.Tile Placement or a Card Placement.
      * @return the updated gameState array after this placement has been made
      */
     public static String[] applyPlacement(String[] gameState, String placementString) {
@@ -306,9 +322,7 @@ public class RaceToTheRaft {
      * 2. If placing this fire tile makes it impossible for any one cat to reach the raft (the game is lost).
      * <p>
      * Cat movement:
-     * 1. If after moving this cat, there are greater than or equal to 4 cards in the disaster pile and there are
-     * no more file tiles left in the bag (the game is lost).
-     * 2. If after moving this cat, all cats have safely reached the raft (the game is won).
+     * 1. If after moving this cat, all cats have safely reached the raft (the game is won).
      * <p>
      * Card placement:
      * 1. If after placing this card, there are no more fire tiles left in the bag (the game is lost).

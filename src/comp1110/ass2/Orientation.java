@@ -1,31 +1,56 @@
 package comp1110.ass2;
+
 /**
- * this enum defined all the possible colours/tiles the board can be made of.
- * Further, this provides the foundation for building all the cards
- * required for the game to work.
- */
+ * Author: Ishaan Kapoor u7598889
+ **/
+
 public enum Orientation {
-    NORTH ,EAST, WEST ,SOUTH ,NONE;
-    public static Orientation fromChar(char orientation) {
-        return switch (orientation) {
+    NORTH,EAST,WEST,SOUTH,ANY, NONE;
+    /**
+     * Author: Ishaan Kapoor u7598889
+     *
+     * @param c char that defines the orientation.
+     * @return the orientation oboject the char did represent.
+     **/
+    public static Orientation fromChar(char c) {
+        return switch (c) {
             case 'N' -> NORTH;
-            case 'S' -> SOUTH;
             case 'E' -> EAST;
             case 'W' -> WEST;
+            case 'S' -> SOUTH;
+            case 'A' -> ANY;
             default -> NONE;
         };
-    }
-    public char toChar() {
-        return switch (this) {
+        }
+
+    public char toChar(Orientation o) {
+        return switch (o) {
             case NORTH -> 'N';
             case EAST -> 'E';
+            case WEST-> 'W';
             case SOUTH -> 'S';
-            case WEST -> 'W';
-            default ->'x';
+            case ANY -> 'A';
+            default -> ' ';
         };
     }
-    public Orientation rotate() {
-        return values()[(this.ordinal() + 1) % 4];
+    /**
+     * Author: Ishaan Kapoor u7598889
+     *
+     * Given a board in form of TileType[][], this function rotates it into the orientation specified.
+     * @param initialBoard the board that needs to be rotated.
+     * @param orientation the orientation we want to rotate towards.
+     * @return a new board in the form of TileType[][] in the new orientation.
+     *
+     */
+    public TileType[][] rotateBoard(TileType[][] initialBoard, Orientation orientation) {
+        return switch(orientation) {
+            case NORTH -> initialBoard;
+            case EAST -> Board.rotate90clockwise(initialBoard);
+            case SOUTH -> Board.rotate90clockwise(Board.rotate90clockwise(initialBoard));
+            case WEST -> Board.rotate90clockwise(Board.rotate90clockwise(Board.rotate90clockwise(initialBoard)));
+            case ANY -> Board.rotate90clockwise(initialBoard);
+            case NONE -> null;
+        };
     }
 
 }

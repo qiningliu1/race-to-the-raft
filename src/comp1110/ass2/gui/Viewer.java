@@ -1,20 +1,21 @@
 package comp1110.ass2.gui;
 
-
-import comp1110.ass2.Tiles;
+import comp1110.ass2.Board;
+import comp1110.ass2.Tile;
+import comp1110.ass2.TileType;
 import javafx.application.Application;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-import java.awt.*;
 import java.util.ArrayList;
 
 public class Viewer extends Application {
@@ -28,36 +29,25 @@ public class Viewer extends Application {
     private TextArea handTextField;
     private TextArea boardTextField;
 
-    public String getImagepath(Tiles tiles) {
-        String path = null;
-        switch (tiles) {
-            case Fire:
-                path = "comp1110/ass2/gui/assets/fire.png";
-                break;
-            case RED:
-                path = "comp1110/ass2/gui/assets/red.png";
-                break;
-            case BLUE:
-                path = "comp1110/ass2/gui/assets/blue.png";
-                break;
-            case YELLOW:
-                path = "comp1110/ass2/gui/assets/yellow.png";
-                break;
-            case GREEN:
-                path = "comp1110/ass2/gui/assets/green.png";
-                break;
-            case PURPLE:
-                path = "comp1110/ass2/gui/assets/purple.png";
-                break;
-            case Object:
-                path = "comp1110/ass2/gui/assets/objective.png";
-                break;
-            case WILD:
-                path = "comp1110/ass2/gui/assets/objective.png";
-                break;
-            default:
-                break;
-        }
+    public static String getImagepath(TileType tiles) {
+        String path = "";
+//        String name = tiles.name();
+        path = switch (tiles)
+        {
+            case PURPLE -> "comp1110/ass2/gui/assets/purple.png";
+            case WILD, Object -> "comp1110/ass2/gui/assets/objective.png";
+            case Fire -> "comp1110/ass2/gui/assets/fire.png";
+            case RED -> "comp1110/ass2/gui/assets/red.png";
+            case BLUE -> "comp1110/ass2/gui/assets/blue.png";
+            case YELLOW -> "comp1110/ass2/gui/assets/yellow.png";
+            case GREEN -> "comp1110/ass2/gui/assets/green.png";
+            case BLUE_CAT -> "comp1110/ass2/gui/assets/blueCat.png";
+            case GREEN_CAT -> "comp1110/ass2/gui/assets/greenCat.png";
+            case PURPLE_CAT -> "comp1110/ass2/gui/assets/purpleCat.png";
+            case RED_CAT -> "comp1110/ass2/gui/assets/redCat.png";
+            case YELLOW_CAT -> "comp1110/ass2/gui/assets/yellowCat.png";
+            case None -> null;
+        };
         return path;
     }
 
@@ -65,100 +55,53 @@ public class Viewer extends Application {
      * Draw the given board and hand in the window, removing any previously drawn boards/hands.
      *
      * @param boardstate newline separated string representing each row of the board (the board string, see the STRING-REPRESENTATION.md for more details
-     * @param hand       A string representing the cards in a player's hand (the hand string, see the STRING-REPRESENTATION.md for more details)
+     * @param hand A string representing the cards in a player's hand (the hand string, see the STRING-REPRESENTATION.md for more details)
+     *
      */
     void displayState(String boardstate, String hand) {
-        int numRowsBoard = (int) boardstate.lines().count();
-        String[] rowsofBoard = (String[]) boardstate.lines().toArray();
-        int numTilesInRow = rowsofBoard[0].length();
-        root.getChildren().clear();
-        int xx = 20;
-        int yy = 5;
-        if(numRowsBoard == 0) {
-           root.getChildren().clear();
-        } else {
-            for (int i = 0; i < numRowsBoard; i++) {
-                String currentRow = rowsofBoard[i];
-                for (int x = 0; x < numTilesInRow; x++) {
-                    root.getChildren().add(tileRepresentation(xx,yy,currentRow.charAt(x)));
-                    xx = xx +20;
-                }
-            }
-            xx = 20;
-            yy = yy + 5;
+        root.getChildren().clear(); //clear previous board
 
+        TileType[][] boardTiles = Board.getGameBoard(boardstate); // get gameboard as TileType[][]
+        int boardWidth  = boardTiles[0].length;
+        int boardLength = boardTiles.length;
+
+        Tile[][] tiles = new Tile[boardLength][boardWidth]; //array of paths
+        for (int i=0 ; i < boardLength; i++) {  //convert board into tile paths
+            for(int j = 0; j < boardWidth; j++) {
+                tiles[i][j] = new Tile(getImagepath(boardTiles[i][j]),i,j);
+            }
         }
 
+        //Creating a Grid Pane
+        GridPane gridPane = new GridPane();
 
-/* note this task is about 50% done. this only works for the bord representation.
+        //Setting size for the pane
+        gridPane.setMinSize(VIEWER_WIDTH, VIEWER_HEIGHT);
 
- */
+        //Setting the vertical and horizontal gaps between the columns
+        gridPane.setVgap(0);
+        gridPane.setHgap(0);
+
+        //Setting the Grid alignment
+        gridPane.setAlignment(Pos.CENTER);
+
+        for (int i=0; i < tiles.length; i++) {
+            for (Tile t : tiles[i]) {
+                gridPane.add(getImageView(t),t.getPosX(),t.getPosY());
+
+            }
+        }
+
+        //Creating a scene object
+        Scene scene = new Scene(root);
+        root.getChildren().add(gridPane);
+
+
+
+
+
         // FIXME TASK 4
     }
-    /**
-     * Converts a tile character into a rectangle for the javaFX window.
-     *
-     * @param x for x coordinate.
-     * @param y for y coordinate.
-     * @param tile char that represents what the tile is.
-     */
-    private Rectangle tileRepresentation (int x, int y ,char tile) {
-        double width = 30;
-        double height = 30;
-        Rectangle t = new Rectangle(x,y,width,height);
-        Color colour = Color.WHITE;
-        switch (tile) {
-            case 'f':
-                colour = Color.ORANGE;
-                t.setFill(colour);
-                break;
-            case 'r':
-                colour = Color.RED;
-                t.setFill(colour);
-                break;
-            case 'b':
-                colour = Color.BLUE;
-                t.setFill(colour);
-                break;
-            case 'y':
-                colour = Color.YELLOW;
-                t.setFill(colour);
-                break;
-            case 'g':
-                colour = Color.GREEN;
-                t.setFill(colour);
-                break;
-            case 'p':
-                colour = Color.PURPLE;
-                t.setFill(colour);
-                break;
-            case 'o':
-                colour = Color.BROWN;
-                t.setFill(colour);
-                break;
-            case 'w':
-                colour = Color.LAVENDER;
-                t.setFill(colour);
-                break;
-            case 'B':
-            case 'R':
-            case 'W':
-            case 'F':
-            case 'Y':
-            case 'P':
-                Text text = new Text("Cat");
-                text.setX(x);
-                text.setY(y);
-                root.getChildren().add(text);
-                t.setFill(Color.WHITE);
-                t.setOpacity(0.5);
-            default:
-                break;
-        }
-
-        return t;
-    }
-
 
     /**
      * Generate controls for Viewer
@@ -188,7 +131,6 @@ public class Viewer extends Application {
 
     /**
      * Create refresh button. Upon pressing, capture the textFields and call displayState
-     *
      * @return the created button
      */
     private Button refreshButton() {
@@ -212,5 +154,9 @@ public class Viewer extends Application {
         stage.setScene(scene);
         stage.show();
     }
-}
 
+    public ImageView getImageView(Tile t){
+        ImageView image = new ImageView(t);
+        return image;
+    }
+}

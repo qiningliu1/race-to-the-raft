@@ -197,7 +197,7 @@ the circle deck.
 
 Fire tiles are Tetris-shaped blocks of fire, which are placed on the board throughout the duration of the game.
 
-<img src="assets/FireTile.png" alt="Fire Tile" width="250"/>
+<img src="assets/FireTile.png" alt="Fire comp1110.ass2.Tile" width="250"/>
 
 ### Raft Cards
 

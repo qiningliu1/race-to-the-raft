@@ -48,7 +48,6 @@ Note that the newlines are a vital part of the string. Each line of text represe
  ffffffbrrrybgygybg
  ffffffgpbbyrprgbbp
  ffffffbyrbpybgpryg
- ffffffbyrbpybgpryg
  ffffffpgyrggrbgyby
  fffffybgbpryybpgyp
  ffffYyybpgbprygrow
@@ -129,9 +128,9 @@ by row coordinate and then by column coordinate in ascending order.
 
 For example: if I have exhausted cats `"B0312"` and `"B0302"`, my exhausted cat string should be `"B0302B0312"`.
 
-## Fire Tile Bag
+## Fire comp1110.ass2.Tile Bag
 
-The Fire Tile Bag string contains the ID's of the fire tiles that are left in the bag. There are 31 unique tiles 
+The Fire comp1110.ass2.Tile Bag string contains the ID's of the fire tiles that are left in the bag. There are 31 unique tiles 
 with a character ID between `a` to `z` or `A` to `E`. Tiles are listed alphabetically and by case. 
 
 For example: a full fire tile bag would be `"abcdefghijklmnopqrstuvwxyzABCDE"`. 
@@ -317,7 +316,7 @@ For example: `"Ab1208S` tells us that card `b` from deck `A` should be placed at
 The position of the top-left square already takes into account the card's orientation, that is, given the same coordinates,
 a card always covers the same squares on the island, regardless of its orientation.
 
-### Fire Tile Placement String
+### Fire comp1110.ass2.Tile Placement String
 
 Fire tile placement strings are defined as follows:
 
