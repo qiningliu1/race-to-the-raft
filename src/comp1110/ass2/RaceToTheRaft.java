@@ -250,7 +250,7 @@ public class RaceToTheRaft {
     public static String[] moveCat(String[] gameState, String movementString) {
         //complement movementString
         String catId = movementString.substring(0,1);
-        String cat = catId+movementString.substring(5);
+        String cat = catId+movementString.substring(5,9);
         String start = movementString.substring(0,5);
         int exhaustedLen =  gameState[3].length();
         //find exhausted cats and add them into movementString
@@ -280,9 +280,9 @@ public class RaceToTheRaft {
         int x2 = Integer.parseInt(movementString.substring(5,7));
         int y2 = Integer.parseInt(movementString.substring(7,9));
         //convert letters in cat's initial position to lowercase
-        map[x1] = map[x1].substring(0,y1)+catId+(y1+1<len?map[x1].substring(y1+1):"");
+        map[x1] = map[x1].substring(0,y1)+catId.toLowerCase()+(y1+1<len?map[x1].substring(y1+1):"");
         //convert the letters of the cat's end position to uppercase
-        map[x2] = map[x2].substring(0,y2)+catId.toUpperCase()+(y2+1<len?map[x2].substring(y2+1):"");
+        map[x2] = map[x2].substring(0,y2)+catId+(y2+1<len?map[x2].substring(y2+1):"");
         StringBuilder stringBuilder = new StringBuilder();
         for(String s:map){
             stringBuilder.append(s);
