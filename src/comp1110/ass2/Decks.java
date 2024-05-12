@@ -135,6 +135,11 @@ public class Decks {
         return fulldeck;
     }
 
+    public Decks(ArrayList<SingleDeck> fulldeck) {
+        this.fulldeck = fulldeck;
+    }
+    ;
+
     /**
      * Author: Ishaan Kapoor u7598889
      *
@@ -142,7 +147,7 @@ public class Decks {
      * This class takes in a simple string like Aabc and converts it into an object with ID A and retrieves cards
      * a,b and c from Utility, and stores them in a ArrayList.
      */
-    class SingleDeck {
+    public static class SingleDeck {
         private Decks.DECK_ID ID;
         private ArrayList<Cards> cards;
 
@@ -194,6 +199,8 @@ public class Decks {
             return ID;
         }
     }
+
+
 }
 
 

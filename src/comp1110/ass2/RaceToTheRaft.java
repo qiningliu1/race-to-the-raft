@@ -1,5 +1,7 @@
 package comp1110.ass2;
 
+import java.security.SecureRandomSpi;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
 
@@ -233,6 +235,9 @@ public class RaceToTheRaft {
      * @return the updated gameState array after this placement has been made
      */
     public static String[] applyPlacement(String[] gameState, String placementString) {
+
+
+
         return new String[0]; // FIXME TASK 8
     }
 
@@ -263,6 +268,18 @@ public class RaceToTheRaft {
      * @return A board string for this challenge.
      */
     public static String initialiseChallenge(String challengeString) {
+
+
+
+
+
+
+
+
+
+
+
+
         return "";  // FIXME 10
     }
 
@@ -309,6 +326,18 @@ public class RaceToTheRaft {
      * @return True if the cat movement is valid, otherwise false
      */
     public static boolean isCatMovementValid(String[] gameState, String catMovementString) {
+        Board gameBoard = new Board(gameState[0]);
+        char colourChar = catMovementString.charAt(0);
+        TileType requiredTileType = null;
+        requiredTileType = switch (colourChar) {
+            case 'B' -> TileType.BLUE;
+            case 'G' -> TileType.GREEN;
+            case 'R' -> TileType.RED;
+            case 'P' -> TileType.PURPLE;
+            case 'Y' -> TileType.YELLOW;
+            default -> TileType.None;
+        };
+
         return false; // FIXME TASK 14
     }
 

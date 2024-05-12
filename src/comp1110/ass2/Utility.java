@@ -6,7 +6,7 @@ public class Utility {
      * Element [x][0] is the side of the board with fire, in the north orientation
      * Element [x][1] is the side of the board without fire, in the north orientation
      */
-    public static String[][] SQUARE_BOARDS = {
+    public static String[][] SQUARE_BOARDS = {  //index 0-3
             // Board 1
             {""" 
             fffgygbyr
@@ -106,7 +106,7 @@ public class Utility {
      * Element [x][0] is the side of the board with fire, in the north orientation
      * Element [x][1] is the side of the board without fire, in the north orientation
      */
-    public static String[][] RECTANGLE_BOARDS = {
+    public static String[][] RECTANGLE_BOARDS = { //index 0-3
             // Board 1
             {"""
             fffbrgprg

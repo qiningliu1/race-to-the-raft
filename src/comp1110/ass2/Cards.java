@@ -5,12 +5,11 @@ package comp1110.ass2;
 public class Cards {
 
     private char ID;
-    private TileType[][] card = new TileType[3][3];
+    private TileType[][] card; //tileType[3][3]
 
 
     /**
-     * Author Ishaan Kapoor u7598889 and Lujin Sun u7897414
-     *
+     * Author Ishaan Kapoor u7598889 and Lujin Sun u7897414*
      * converts a string of length 9 into a char[3][3] (our basic grid for cards).
      * @param cardString the string representing the card.
      * @return a 3 by 3 array of char.
@@ -73,5 +72,25 @@ public class Cards {
      */
     public TileType[][] getCard() {
         return card;
+    }
+
+
+    public static Cards rotateCard(Cards initialCard, Orientation orientation) {
+        return switch(orientation) {
+            case NORTH, ANY -> initialCard;
+            case EAST -> rotate90Card(initialCard);
+            case SOUTH -> rotate90Card(rotate90Card(initialCard));
+            case WEST -> rotate90Card(rotate90Card(rotate90Card(initialCard)));
+            case NONE -> null;
+        };
+    }
+
+    public static Cards rotate90Card(Cards card){
+        TileType[][] transposedCard = Board.transposeBoard(card.getCard());
+        Board.swapColumns(transposedCard);
+
+        Cards rotatedCard = new Cards(card.getID(),transposedCard);
+
+        return rotatedCard;
     }
 }

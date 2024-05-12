@@ -39,8 +39,10 @@ public class testEastClockwise {
        test1[1][1] = TileType.YELLOW;
        test1[1][2] = TileType.PURPLE;
 
+       Board testingBoard = new Board(test1);
 
-       TileType[][] test2 = Board.rotate90clockwise(test1);
+
+       TileType[][] test2 = Board.rotate90Card(testingBoard).getBoard();
        Assertions.assertEquals(test2[0][0] , TileType.GREEN);
        Assertions.assertEquals(test2[0][1] , TileType.Fire);
        Assertions.assertEquals(test2[1][0] , TileType.YELLOW);
@@ -72,7 +74,9 @@ public class testEastClockwise {
         test1[1][0] = TileType.GREEN;
         test1[1][1] = TileType.YELLOW;
 
-        TileType[][] test2 = Board.rotate90clockwise(test1);
+        Board testBoard = new Board(test1);
+
+        TileType[][] test2 = Board.rotate90Card(testBoard).getBoard();
         Assertions.assertEquals(test2[0][0] , TileType.GREEN);
         Assertions.assertEquals(test2[0][1] , TileType.Fire);
         Assertions.assertEquals(test2[1][0] , TileType.YELLOW);
