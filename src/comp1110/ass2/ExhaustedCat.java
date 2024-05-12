@@ -31,7 +31,7 @@ public class ExhaustedCat {
      * @param row    The row coordinate of the cat.
      * @param column The column coordinate of the cat.
      */
-    public void addExhaustedCat(Tile color, int row, int column) {
+    public void addExhaustedCat(TileType color, int row, int column) {
         // Check if the row and column coordinates are within bounds
         if (row >= 0 && row < exhaustedCat.length && column >= 0 && column < exhaustedCat[0].length) {
             //exhaustedCat[row][column] = color;
