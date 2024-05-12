@@ -19,28 +19,28 @@ public class IsCatMovementValidTest {
 
     @Test
     public void validMovement() {
-        String[] emptyBoard = new String[]{"g04040403", "g04040504", "g04040505"};
+        String[] emptyBoard = new String[]{"G04040403Ae", "G04040504Cj", "G04040505Cm"};
         for (String action : emptyBoard) {
             test(gamestates[0], action, true);
         }
-        String[] moves = new String[]{"p01130513", "g01070608", "b07040606" };
+        String[] moves = new String[]{"P01130513Bx", "G01070608Cc", "B07040606CcDp" };
         for (String action : moves) {
             test(gamestates[1], action, true);
         }
-        test(gamestates[0], "g04049999", false);
+        test(gamestates[0], "G04049999Ae", false);
     }
 
     @Test
     public void invalidMovement() {
-        String[] emptyBoard = new String[]{"g04040506", "g04040507", "g04040304"};
+        String[] emptyBoard = new String[]{"G04040506Ae", "G04040507Cj", "G04040304Cm", "G04040505Ba"};
         for (String action : emptyBoard) {
             test(gamestates[0], action, false);
         }
-        String[] moves = new String[]{"p01130713", "g01070611", "g01070411", "b07040908"};
+        String[] moves = new String[]{"P01130713Bx", "G01070611Cc", "G01070411Dp", "B07040908CcDp", "B07040606ByCc", "B07040606Dp"};
         for(String action: moves) {
             test (gamestates[1], action, false);
         }
-        test(gamestates[0], "g04040504", true);
+        test(gamestates[0], "G04040504Ae", true);
     }
 
 
@@ -82,7 +82,7 @@ ffffffffbrrbygpgyp
 ffffffffpybypbrrow
 fffffffrygrpgrbbww
 """,
-                    "AabcdefghijklmnopqrstuvwxyBabcdefghijklmnopqstuvwyCadefghijklmnopqrstuvwxyDabcdeghijklmnoqrstuvwxy","ABxCcDp","","acdefghijklmoprstuvwxyzABCDE"},
+                    "AabcdefghijklmnopqrstuvwxyBabcdefghijklmnopqstuvwyCadefghijklmnopqrstuvwxyDabcdeghijklmnoqrstuvwxy","ABxCcDp","B0704","acdefghijklmoprstuvwxyzABCDE"},
 
     };
 
