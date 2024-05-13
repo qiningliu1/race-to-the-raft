@@ -33,5 +33,7 @@ we met at 12:32pm Ishaan to solve GUI task 04. Lujin and Qining to solve Task3 f
 ## Week 9
 
 ## Week 10
-
+ishaan to do task 10
+lujin to do task 8
+qining to do task 9
 ## Week 11

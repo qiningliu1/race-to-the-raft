@@ -1,7 +1,7 @@
 package comp1110.ass2;
 
-import java.util.Arrays;
-import java.util.Random;
+import java.util.*;
+
 
 /**
  * This class is for testing purposes only. You should create and use your own objects to solve the tasks below
@@ -248,8 +248,50 @@ public class RaceToTheRaft {
      * @return the updated gameState array after this movement has been made.
      */
     public static String[] moveCat(String[] gameState, String movementString) {
-        return new String[0]; // FIXME TASK 9
-    }
+        //complement movementString
+        String catId = movementString.substring(0,1);
+        String cat = catId+movementString.substring(5,9);
+        String start = movementString.substring(0,5);
+        int exhaustedLen =  gameState[3].length();
+        //find exhausted cats and add them into movementString
+        if(exhaustedLen==0){
+            gameState[3] = gameState[3]+cat;
+        }else{
+            List<String> list = new ArrayList<>();
+            list.add(cat);
+            for(int i=0;i+5<=exhaustedLen;i+=5){
+                String ts = gameState[3].substring(i,i+5);
+                //judge whether the cat is on moving action
+                if(ts.equals(start)) continue;
+                list.add(gameState[3].substring(i,i+5));
+            }
+            Collections.sort(list);
+            StringBuilder temp = new StringBuilder();
+            for(String str:list){
+                temp.append(str);
+            }
+            gameState[3] = temp.toString();
+        }
+        //update the state of board
+        String[] map = gameState[0].split("\n");
+        int len = map[0].length();
+        int x1 = Integer.parseInt(movementString.substring(1,3));
+        int y1 = Integer.parseInt(movementString.substring(3,5));
+        int x2 = Integer.parseInt(movementString.substring(5,7));
+        int y2 = Integer.parseInt(movementString.substring(7,9));
+        //convert letters in cat's initial position to lowercase
+        map[x1] = map[x1].substring(0,y1)+catId.toLowerCase()+(y1+1<len?map[x1].substring(y1+1):"");
+        //convert the letters of the cat's end position to uppercase
+        map[x2] = map[x2].substring(0,y2)+catId+(y2+1<len?map[x2].substring(y2+1):"");
+        StringBuilder stringBuilder = new StringBuilder();
+        for(String s:map){
+            stringBuilder.append(s);
+            stringBuilder.append("\n");
+        }
+        gameState[0] = stringBuilder.toString();
+        return gameState;
+    }// FIXME TASK 9
+
 
     /**
      * Given a challengeString, construct a board string that satisfies the challenge requirements.

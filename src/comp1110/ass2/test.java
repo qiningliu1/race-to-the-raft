@@ -51,6 +51,49 @@ public class test {
         Cards test = ss.getFulldeck().get(0).getCards().get(3);
         System.out.println(test.getCard()[2][1]);
 
+
+        String testing = "LNSNLASAF000300060012001506030903C000093030341203R11215";
+        String[] testingarray = testing.split("(?=[F,C,R])");
+        String[] islandStringArray = testingarray[0].split("(?=[L,S])");
+
+        for(String st:islandStringArray) {
+            System.out.println(st);
+        }
+
+        String[] testArray = new String[1];
+        testArray[0] = "Ishaan";
+        System.out.println(testArray[0]);
+
+        testArray[0] = "kapoor";
+        System.out.println(testArray[0]);
+
+       char[][] testt = new char[2][2];
+       testt[0][0] = 'a';
+       testt[1][1] = 'b';
+
+//        int[] qw = FireTile.stringToIntArray("0002112022");
+//        for(int i : qw) {
+//            System.out.println(i);
+//        }
+
+//        TileType[][] te = FireTile.getFireTileArray("A0002112022");
+//        System.out.println(te[1][1]);
+
+        int[] max = {1,2,3,4,5,4,3,2,1};
+        System.out.println(FireTile.findLargest(max));
+
+        FireTile testft = new FireTile("l000111121322");
+        TileType[][] testtt = FireTile.rotateFireTile(testft,Orientation.SOUTH).getFireTile();
+        for (int i =0;i< testtt.length; i++) {
+            for (int j = 0 ; j<testtt[0].length; j++) {
+                System.out.println(testtt[i][j]);
+            }
+
+        }
+
+
+
+
     }
 }
 

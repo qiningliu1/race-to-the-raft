@@ -1,10 +1,10 @@
 ## Code Review
 
-Reviewed by: <Qining>, <u7100555>
+Reviewed by: Qining, u7100555
 
-Reviewing code written by: <Lujin> <u7897414>
+Reviewing code written by: Lujin u7897414
 
-Component: <the ExaustedCat component being reviewed>
+Component: the ExaustedCat component being reviewed
 
 ### Comments 
 
