@@ -37,3 +37,6 @@ ishaan to do task 10
 lujin to do task 8
 qining to do task 9
 ## Week 11
+ishaan to do task 8 and 10
+Lujin to do task 12,14,15
+qining to do task 11 and 13
