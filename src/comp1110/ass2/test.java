@@ -25,77 +25,29 @@ public class test {
     }
 
     private static String boardstate = """
-                fffffffffffffffrrf
-                fffffffffbbbfffrRf
-                fffffffffbbbfffrrf
-                ffffffyfffypfffpbr
-                ffffffffffgffbrpgy
-                ffffffbfffffyrygyp
-                ffffppgyybbbbybrpb
-                ffffppppyyggbygbyg
-                ffffppppPbbgbbpgrr
-                ffffffffgbyyybgbbp
-                fffffffbybpybbpryg
-                fffffffrfrgyybgyby
-                fffffffyppryyBpprp
-                fffbBbygggbprygbow
-                fffbbbbryygbygybyg
-                """;
-    public static TileType[][] boardTiles = Board.getGameBoard(boardstate);
-    public static String test = Viewer.getImagepath(boardTiles[1][16]);
+            fffffffffffffffrrf
+            fffffffffbbbfffrRf
+            fffffffffbbbfffrrf
+            ffffffyfffypfffpbr
+            ffffffffffgffbrpgy
+            ffffffbfffffyrygyp
+            ffffppgyybbbbybrpb
+            ffffppppyyggbygbyg
+            ffffppppPbbgbbpgrr
+            ffffffffgbyyybgbbp
+            fffffffbybpybbpryg
+            fffffffrfrgyybgyby
+            fffffffyppryyBpprp
+            fffbBbygggbprygbow
+            fffbbbbryygbygybyg
+            """;
 
     public static void main(String[] args) {
-        String s = "AabcnBCcdDd";
-        Decks ss = new Decks(s);
-
-        Cards test = ss.getFulldeck().get(0).getCards().get(3);
-        System.out.println(test.getCard()[2][1]);
-
-
-        String testing = "LNSNLASAF000300060012001506030903C000093030341203R11215";
-        String[] testingarray = testing.split("(?=[F,C,R])");
-        String[] islandStringArray = testingarray[0].split("(?=[L,S])");
-
-        for(String st:islandStringArray) {
-            System.out.println(st);
-        }
-
-        String[] testArray = new String[1];
-        testArray[0] = "Ishaan";
-        System.out.println(testArray[0]);
-
-        testArray[0] = "kapoor";
-        System.out.println(testArray[0]);
-
-       char[][] testt = new char[2][2];
-       testt[0][0] = 'a';
-       testt[1][1] = 'b';
-
-//        int[] qw = FireTile.stringToIntArray("0002112022");
-//        for(int i : qw) {
-//            System.out.println(i);
-//        }
-
-//        TileType[][] te = FireTile.getFireTileArray("A0002112022");
-//        System.out.println(te[1][1]);
-
-        int[] max = {1,2,3,4,5,4,3,2,1};
-        System.out.println(FireTile.findLargest(max));
-
-        FireTile testft = new FireTile("l000111121322");
-        TileType[][] testtt = FireTile.rotateFireTile(testft,Orientation.SOUTH).getFireTile();
-        for (int i =0;i< testtt.length; i++) {
-            for (int j = 0 ; j<testtt[0].length; j++) {
-                System.out.println(testtt[i][j]);
-            }
-
-        }
-
-
 
 
     }
 }
+
 
 //        String test = "afffbBbggg";
 //        TileType[][] testing = Cards.cardFromString(test);
@@ -126,3 +78,44 @@ public class test {
 //        System.out.println(test2[2][1]);
 //
 //        System.out.println(Utility.CAT_CARDS[3].charAt(0) == 3);
+
+//        TileType[][] te = FireTile.getFireTileArray("A0002112022");
+//    //        System.out.println(te[1][1]);
+//
+//            int[] max = {1,2,3,4,5,4,3,2,1};
+//            System.out.println(FireTile.findLargest(max));
+//
+//            FireTile testft = new FireTile("l000111121322");
+//            TileType[][] testtt = FireTile.rotateFireTile(testft,Orientation.SOUTH).getFireTile();
+//            for (int i =0;i< testtt.length; i++) {
+//                for (int j = 0 ; j<testtt[0].length; j++) {
+//                    System.out.println(testtt[i][j]);
+//                }
+//
+//            }
+
+//    String s = "AabcnBCcdDd";
+//        Decks ss = new Decks(s);
+//
+//        Cards test = ss.getFulldeck().get(0).getCards().get(3);
+//        System.out.println(test.getCard()[2][1]);
+//
+//
+//        String testing = "LNSNLASAF000300060012001506030903C000093030341203R11215";
+//        String[] testingarray = testing.split("(?=[F,C,R])");
+//        String[] islandStringArray = testingarray[0].split("(?=[L,S])");
+//
+//        for(String st:islandStringArray) {
+//            System.out.println(st);
+//        }
+//
+//        String[] testArray = new String[1];
+//        testArray[0] = "Ishaan";
+//        System.out.println(testArray[0]);
+//
+//        testArray[0] = "kapoor";
+//        System.out.println(testArray[0]);
+//
+//       char[][] testt = new char[2][2];
+//       testt[0][0] = 'a';
+//       testt[1][1] = 'b';

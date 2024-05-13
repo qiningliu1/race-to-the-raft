@@ -13,17 +13,17 @@ public class GameState {
     private Decks decks;
     private Decks hand;  // hand is also a type of deck
     private ArrayList<TileType> exhaustedCats;
-    private ArrayList<FireTiles> fireTileBag;
+    private ArrayList<FireTile> fireTileBag;
 
 
 
 
-    public GameState (String[] GameState) {
-        this.board = new Board(GameState[0]);
-        this.decks = new Decks(GameState[1]);
-        this.hand = new Decks(GameState[2]);
+    public GameState (String[] gameState) {
+        this.board = new Board(gameState[0]);
+        this.decks = new Decks(gameState[1]);
+        this.hand = new Decks(gameState[2]);
         this.exhaustedCats = null;
-        this.fireTileBag = null;
+        this.fireTileBag = FireTile.fireTileBagFromString(gameState[4]);
     }
 
     public Board getBoard() {
@@ -40,6 +40,18 @@ public class GameState {
 
     public void setHand(Decks hand) {
         this.hand = hand;
+    }
+
+    public void setBoard(Board board) {
+        this.board = board;
+    }
+
+    public ArrayList<FireTile> getFireTileBag() {
+        return fireTileBag;
+    }
+
+    public void setFireTileBag(ArrayList<FireTile> fireTileBag) {
+        this.fireTileBag = fireTileBag;
     }
 }
 

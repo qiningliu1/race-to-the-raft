@@ -111,6 +111,8 @@ public class Board {
             }
         }
 
+        board.setBoard(boardTiles);
+
     }
 
 
@@ -161,6 +163,18 @@ public class Board {
 
     public void setBoard(TileType[][] board) {
         this.board = board;
+    }
+
+    @Override
+    public String toString() {
+        String req = "";
+        TileType[][] array = board;
+        for (int i = 0; i < board.length; i++){
+            for(TileType t : board[i]) {
+                req = req + t.toChar();
+            } req = req + '\n';
+        }
+        return req;
     }
 }
 
