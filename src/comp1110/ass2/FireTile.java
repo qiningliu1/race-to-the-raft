@@ -148,13 +148,38 @@ public class FireTile {
             case NORTH, ANY -> initialFireTile;
             case EAST -> eastFireTileGenerator(initialFireTile);
             case SOUTH -> southFireTileGenerator(initialFireTile);
-            case WEST -> rotate90FireTile(rotate90FireTile(rotate90FireTile(initialFireTile)));
+            case WEST -> up(rotate90FireTile(rotate90FireTile(rotate90FireTile(initialFireTile))));
             case NONE -> null;
         };
 
         return ft;
     }
 
+    public static FireTile up(FireTile fireTile){
+        TileType[][] temp = fireTile.getFireTile();
+        int len = temp.length;
+        int k = 0;
+        for(int i=0;i<len;i++){
+            boolean f = true;
+            for(int j=0;j<len;j++){
+                if(temp[i][j]!=TileType.None){
+                    f = false;
+                    break;
+                }
+            }
+            if(f) k++;
+            else break;
+        }
+        if(k==0) return fireTile;
+        for(int i=k;i<len;i++){
+            for(int j=0;j<len;j++){
+                temp[i-k][j] = temp[i][j];
+                temp[i][j] = TileType.None;
+            }
+        }
+
+        return new FireTile(fireTile.getTileID(), temp);
+    }
     /**
      * Author: Ishaan Kapoor u7598889
      * <p>
@@ -163,6 +188,7 @@ public class FireTile {
      * @param card the FireTile that needs to be rotated.
      * @return a new FireTile in East orientation.
      */
+
     public static FireTile rotate90FireTile(FireTile card) {
         TileType[][] transposedCard = Board.transposeBoard(card.getFireTile());
         Board.swapColumns(transposedCard);
@@ -368,7 +394,7 @@ public class FireTile {
         for (String s:stringArray) {
             req.add(new FireTile(s));
         }
-       return req;
+        return req;
     }
 
     public static final ArrayList<FireTile> allFireTiles = allFireTilesGenerator(Utility.FIRE_TILES);
@@ -410,5 +436,3 @@ public class FireTile {
     }
 
 }
-
-

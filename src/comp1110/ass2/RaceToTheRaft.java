@@ -364,7 +364,123 @@ public class RaceToTheRaft {
      * @return True if the placement is valid, otherwise false.
      */
     public static boolean isPlacementValid(String[] gameState, String placementString) {
-        return false; // FIXME TASK 12
+        if(!check(placementString)) return false;
+        TileType[][] gameboard = Board.getGameBoard(gameState[0]);
+        int len = gameboard.length;
+        int hig = gameboard[0].length;
+        if(placementString.charAt(1)>'9'){
+            int x = Integer.parseInt(placementString.substring(2,4))+1;
+            int y = Integer.parseInt(placementString.substring(4,6))+1;
+            if(x+1>=len||x==0||y+1>=hig||y==0) return false;
+            for(int i=x-1;i<=x+1;i++){
+                for(int j=y-1;j<=y+1;j++){
+                    switch (gameboard[i][j]){
+                        case Fire:
+                        case BLUE_CAT:
+                        case RED_CAT:
+                        case PURPLE_CAT:
+                        case YELLOW_CAT:
+                            return false;
+                    }
+                }
+            }
+            int l = y-2>0?y-2:0;
+            int r = y+2<hig?y+2:hig-1;
+            int low = x-2>0?x-2:0;
+            int up = x+2<len?x+2:len-1;
+            for(int i=low;i<=up;i++){
+                for(int j=l;j<=r;j++){
+                    if(gameboard[i][j]==TileType.Object) return false;
+                }
+            }
+            return true;
+        }
+        int index = placementString.charAt(0)>='a'?placementString.charAt(0)-'a':placementString.charAt(0)-'A'+26;
+        System.out.println(Utility.FIRE_TILES[index]);
+        FireTile tile = new FireTile(Utility.FIRE_TILES[index]);
+        System.out.println(Arrays.deepToString(tile.getFireTile()));
+        if(tile.getFireTile()==null) return false;
+        TileType[][] fileTile = tile.getFireTile();
+        if(placementString.charAt(5)=='F'){
+            fileTile = FireTile.rotateFireTile(tile,Orientation.fromChar(placementString.charAt(6))).getFireTile();
+        }else{
+            FireTile.flipFireTileNorthSouth(fileTile);
+            tile.setFireTile(fileTile);
+            fileTile = FireTile.rotateFireTile(tile,Orientation.fromChar(placementString.charAt(6))).getFireTile();
+        }
+        System.out.println(Arrays.deepToString(fileTile));
+        int x = Integer.parseInt(placementString.substring(1,3));
+        int y = Integer.parseInt(placementString.substring(3,5));
+        int fileTileLen = fileTile.length;
+        if(x+fileTileLen>=len&&y+fileTileLen>=hig) return false;
+        boolean f = false;
+        for(int i=0;i<fileTileLen;i++){
+            int tx = i+x;
+            for(int j=0;j<fileTileLen;j++){
+                int ty = y+j;
+                if(tx>=len||ty>=hig){
+                    if (fileTile[i][j]==TileType.Fire) return false;
+                    continue;
+                }
+                if(fileTile[i][j]==TileType.Fire) {
+                    switch (gameboard[tx][ty]) {
+                        case Fire:
+                        case BLUE_CAT:
+                        case RED_CAT:
+                        case PURPLE_CAT:
+                        case YELLOW_CAT:
+                            return false;
+                    }
+                    if(i==0){
+                        if(tx>0&&gameboard[tx-1][ty]==TileType.Fire) f = true;
+                    }else if(i==fileTileLen-1){
+                        if(tx+1<len&&gameboard[tx+1][ty]==TileType.Fire) f = true;
+                    }
+                    if(j==0){
+                        if(ty>0&&gameboard[tx][ty-1]==TileType.Fire) f = true;
+                    }else if(j==fileTileLen-1){
+                        if(ty+1<len&&gameboard[tx][ty+1]==TileType.Fire) f = true;
+                    }
+                }
+            }
+
+        }
+        return f; // FIXME TASK 12
+    }
+
+
+
+    public static boolean check(String placementString){
+        int len = placementString.length();
+        if(placementString==null||(len!=7)) return false;
+        char start = placementString.charAt(0);
+        if(placementString.charAt(1)>='a'){
+            if(start<'A'||start>'D') return false;
+            if(placementString.charAt(1)<'a'||placementString.charAt(1)>'z') return false;
+            for(int i = 2;i<6;i++){
+                if(placementString.charAt(i)<'0'||placementString.charAt(i)>'9') return false;
+            }
+
+        }else{
+            if(!((start>='A'&&start<='Z')||(start>='a'&&start<='z'))) return false;
+            for(int i = 1;i<5;i++){
+                if(placementString.charAt(i)<'0'||placementString.charAt(i)>'9') return false;
+            }
+            if(placementString.charAt(5)!='F'&&placementString.charAt(5)!='T') return false;
+        }
+        switch (placementString.charAt(6)){
+            case 'N':
+                break;
+            case 'W':
+                break;
+            case 'E':
+                break;
+            case 'S':
+                break;
+            default:
+                return false;
+        }
+        return true;
     }
 
     /**

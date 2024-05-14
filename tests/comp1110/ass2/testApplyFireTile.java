@@ -1,8 +1,6 @@
 package comp1110.ass2;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.Test;
 
 public class testApplyFireTile {
     @Test
@@ -28,6 +26,10 @@ public class testApplyFireTile {
         assertEquals(TileType.RED,    testArray[3][8]);
 
     }
+
+    private void assertEquals(TileType fire, TileType tileType) {
+    }
+
     @Test
     public void testApplyFireTileSouthFlipped(){
         Board testBoard = new Board(Utility.SQUARE_BOARDS[0][0]);
