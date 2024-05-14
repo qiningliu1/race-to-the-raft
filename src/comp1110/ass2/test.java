@@ -42,8 +42,48 @@ public class test {
             fffbbbbryygbygybyg
             """;
 
-    public static void main(String[] args) {
+    public static int[] stringToIntArray(String input) {
+        int[] result = new int[input.length() / 2];
+        for (int i = 0; i < input.length(); i += 2) {
+            String substring = input.substring(i, i + 2);
+            result[i / 2] = Integer.parseInt(substring);
+        }
+        return result;
+    }
 
+    public static void main(String[] args) {
+//"LNSNLASAF00030006030306030606060909030906C000123000940015R31203"
+
+        String test = "LNSNLASAF00030006030306030606060909030906C000123000940015R31203";
+        String[] challengeArray = test.split("(?=[F,C,R])");
+        String[] islandStringArray = challengeArray[0].split("(?=[L,S])");
+
+        for (String s: islandStringArray) {
+            System.out.println(s);
+        }
+
+        System.out.println(challengeArray[2]);
+        int row = Integer.parseInt(challengeArray[3].substring(4,6));
+        System.out.println(row);
+
+        int[] arayy = Island.stringToIntArrayCombines2(challengeArray[1].substring(1));
+        int[][] aray = Island.splitIntArray(arayy);
+        for (int i = 0; i < aray[0].length;i++) {
+            System.out.println(aray[0][i]);
+            System.out.println(aray[1][i]);
+        }
+
+
+
+//00 03 00 06 03 03 06 03 06 06 06 09 09 03 09 06
+
+        ArrayList<RaftCards> allRafts = new ArrayList<>();
+        for (String s : Utility.RAFT_CARDS) {
+            allRafts.add(new RaftCards(s));
+        }
+        for (RaftCards r: allRafts) {
+            System.out.println(r);
+        }
 
     }
 }

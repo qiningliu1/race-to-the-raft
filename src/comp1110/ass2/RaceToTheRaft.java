@@ -307,7 +307,13 @@ public class RaceToTheRaft {
      * @return A board string for this challenge.
      */
     public static String initialiseChallenge(String challengeString) {
-        return "";  // FIXME 10
+
+        Board board = Island.getInitialIsland(challengeString);
+        Island.applyFireTiles(board,challengeString);
+
+        return board.toString();
+
+         // FIXME 10
     }
 
 
