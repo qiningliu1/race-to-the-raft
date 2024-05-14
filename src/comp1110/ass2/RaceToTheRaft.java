@@ -253,6 +253,28 @@ public class RaceToTheRaft {
         //complement movementString
         String catId = movementString.substring(0,1);
         String cat = catId+movementString.substring(5,9);
+        char[] cards = movementString.substring(9).toCharArray();
+        //check handcard and update it
+        String[] haveCard = new String[4];
+        System.out.println();
+        gameState[2]=gameState[2]+'E';
+        for(int i=0;i<4;i++){
+            haveCard[i] = gameState[2].substring(gameState[2].indexOf('A'+i),gameState[2].indexOf('B'+i));
+        }
+        int k = 0;
+        while(k<cards.length){
+            int c = cards[k++]-'A';
+            while(k<cards.length&&cards[k]>='a'){
+                haveCard[c].replace(cards[k]+"","");
+                k++;
+            }
+        }
+        StringBuilder newHaveCard = new StringBuilder();
+        for(int i=0;i<4;i++){
+            newHaveCard.append('A'+i);
+            newHaveCard.append(haveCard[i]);
+        }
+        gameState[2] = newHaveCard.toString();
         String start = movementString.substring(0,5);
         int exhaustedLen =  gameState[3].length();
         //find exhausted cats and add them into movementString
