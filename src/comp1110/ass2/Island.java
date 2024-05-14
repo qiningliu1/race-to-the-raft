@@ -12,7 +12,10 @@ public class Island {
         String[] challengeArray = challengeString.split("(?=[F,C,R])");
         String[] islandStringArray = challengeArray[0].split("(?=[L,S])");
 
+
         if (islandStringArray.length == 4) {
+
+
 
         } else if (islandStringArray.length == 2) {
 
@@ -20,6 +23,37 @@ public class Island {
 
 
         return null;
+    }
+
+    public static Board chooseBoardFromString (String boardString) {  //string like SN LA
+        if (boardString.length() != 2) {
+            return null;
+        }
+
+        Board board = null;
+
+        ArrayList<String> longAny = null;
+        ArrayList<String> shortAny = null;
+        ArrayList<String> longFire = null;
+        ArrayList<String> shortFire = null;
+
+        for (int row = 0; row < 4; row++) { //beacuase there are 4 boards in the game
+            longAny.add(Utility.RECTANGLE_BOARDS[row][1]);
+            shortAny.add(Utility.SQUARE_BOARDS[row][1]);
+            longFire.add(Utility.RECTANGLE_BOARDS[row][0]);
+            shortFire.add(Utility.SQUARE_BOARDS[row][1]);
+        }
+        Orientation board1Orientation = Orientation.fromChar(boardString.charAt(1));
+
+        Random rand = new Random();
+
+
+
+
+
+
+
+        return board;
     }
 
 

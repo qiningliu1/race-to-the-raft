@@ -79,13 +79,27 @@ public class RaceToTheRaft {
      * empty string.
      */
     public static String drawFireTile(String[] gameState) {
-        // Apply gameState[4] to crate GameState object
-        FireTiles gameStateObj = new FireTiles(gameState[4]);
-        String tileID = gameStateObj.drawFireTileID();
+        if (gameState[4] == "") {
+            return "";
+        }
 
-        // update gameState[4] to show draw fireTile ID
-        gameState[4] = gameStateObj.getUpdateFireBagState();
-        return tileID;
+        GameState game = new GameState(gameState);
+        Random rand = new Random();
+        ArrayList<FireTile> bag = game.getFireTileBag();
+        FireTile req = bag.get(rand.nextInt(bag.size()));
+
+
+        return req.toString();
+
+
+
+//        // Apply gameState[4] to crate GameState object
+//        FireTiles gameStateObj = new FireTiles(gameState[4]);
+//        String tileID = gameStateObj.drawFireTileID();
+//
+//        // update gameState[4] to show draw fireTile ID
+//        gameState[4] = gameStateObj.getUpdateFireBagState();
+//        return tileID;
         // FIXME TASK 5
     }
 

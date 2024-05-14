@@ -85,6 +85,8 @@ public class test {
             System.out.println(r);
         }
 
+        System.out.println("".length());
+
     }
 }
 
