@@ -1,4 +1,7 @@
 package comp1110.ass2;
+
+import java.util.ArrayList;
+
 /**
  * Author: Ishaan Kapoor u7598889 and Lujin Sun u7897414
  */
@@ -11,6 +14,16 @@ public class CatCard extends Cards {
     public CatCard(String catString) {
         super(catString);
     }
+
+    public static CatCard[] CAT_CARD_OBJECTS = {
+            new CatCard(Utility.CAT_CARDS[0]),
+            new CatCard(Utility.CAT_CARDS[1]),
+            new CatCard(Utility.CAT_CARDS[2]),
+            new CatCard(Utility.CAT_CARDS[3]),
+            new CatCard(Utility.CAT_CARDS[4]),
+            new CatCard(Utility.CAT_CARDS[5]),
+            new CatCard(Utility.CAT_CARDS[6])
+    };
 }
 
 

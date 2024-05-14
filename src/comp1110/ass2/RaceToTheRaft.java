@@ -343,11 +343,16 @@ public class RaceToTheRaft {
      * @return A board string for this challenge.
      */
     public static String initialiseChallenge(String challengeString) {
+        Board initial = Island.getInitialIsland(challengeString);
+        Island.applyFireCard(initial,challengeString);
+        Island.applyRaft(initial,challengeString);
+        Island.applyCatCard(initial,challengeString);
 
-        Board board = Island.getInitialIsland(challengeString);
-        Island.applyFireTiles(board,challengeString);
 
-        return board.toString();
+
+
+
+        return initial.toString();
 
          // FIXME 10
     }

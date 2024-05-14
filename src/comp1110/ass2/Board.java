@@ -2,6 +2,8 @@ package comp1110.ass2;
 
 // we store boards as TileType[][] which tells us where each tile is based on coordinates
 
+import gittest.B;
+
 import java.util.ArrayList;
 
 /**
@@ -176,6 +178,34 @@ public class Board {
         }
         return req;
     }
+
+//    public static TileType[][] rotateMatrix(TileType[][] matrix) {
+//        int rows = matrix.length;
+//        int cols = matrix[0].length;
+//
+//        // Create a new matrix to store the rotated values
+//        TileType[][] rotatedMatrix = new TileType[cols][rows];
+//
+//        // Iterate over the original matrix and populate the rotated matrix
+//        for (int i = 0; i < rows; i++) {
+//            for (int j = 0; j < cols; j++) {
+//                rotatedMatrix[j][rows - i - 1] = matrix[i][j];
+//            }
+//        }
+//
+//        return rotatedMatrix;
+//    }
+//
+//    public static Board newRotate (Board board, Orientation orientation) {
+//        TileType[][] matrix = board.getBoard();
+//        return switch(orientation) {
+//            case NORTH, ANY -> new Board(matrix);
+//            case EAST -> new Board(rotateMatrix(matrix));
+//            case SOUTH -> new Board(rotateMatrix(rotateMatrix(matrix)));
+//            case WEST -> new Board(rotateMatrix(rotateMatrix(rotateMatrix(matrix))));
+//            case NONE -> null;
+//        };
+//    }
 }
 
 
