@@ -146,9 +146,9 @@ public class FireTile {
         FireTile ft = initialFireTile;
         ft = switch (orientation) {
             case NORTH, ANY -> initialFireTile;
-            case EAST -> eastFireTileGenerator(initialFireTile);
-            case SOUTH -> southFireTileGenerator(initialFireTile);
-            case WEST -> up(rotate90FireTile(rotate90FireTile(rotate90FireTile(initialFireTile))));
+            case EAST -> left(up(rotate90FireTile(initialFireTile)));
+            case SOUTH -> left(up(rotate90FireTile(rotate90FireTile(initialFireTile))));
+            case WEST -> left(up(rotate90FireTile(rotate90FireTile(rotate90FireTile(initialFireTile)))));
             case NONE -> null;
         };
 
@@ -177,7 +177,31 @@ public class FireTile {
                 temp[i][j] = TileType.None;
             }
         }
+        return new FireTile(fireTile.getTileID(), temp);
+    }
 
+    public static FireTile left(FireTile fireTile){
+        TileType[][] temp = fireTile.getFireTile();
+        int len = temp.length;
+        int k = 0;
+        for(int j=0;j<len;j++){
+            boolean f = true;
+            for(int i=0;i<len;i++){
+                if(temp[i][j]!=TileType.None){
+                    f = false;
+                    break;
+                }
+            }
+            if(f) k++;
+            else break;
+        }
+        if(k==0) return fireTile;
+        for(int i=k;i<len;i++){
+            for(int j=0;j<len;j++){
+                temp[j][i-k] = temp[j][i];
+                temp[j][i] = TileType.None;
+            }
+        }
         return new FireTile(fireTile.getTileID(), temp);
     }
     /**
@@ -190,9 +214,17 @@ public class FireTile {
      */
 
     public static FireTile rotate90FireTile(FireTile card) {
-        TileType[][] transposedCard = Board.transposeBoard(card.getFireTile());
-        Board.swapColumns(transposedCard);
-        FireTile rotatedCard = new FireTile(card.getTileID(), transposedCard);
+        TileType[][] temp = card.getFireTile();
+        int len = temp.length;
+        TileType[][] res = new TileType[len][len];
+        for(int i=0;i<len;i++){
+            for(int j=0;j<len;j++){
+                res[j][len-i-1] = temp[i][j];
+            }
+        }
+//        TileType[][] transposedCard = Board.transposeBoard(card.getFireTile());
+//        Board.swapColumns(transposedCard);
+        FireTile rotatedCard = new FireTile(card.getTileID(), res);
         return rotatedCard;
     }
 
