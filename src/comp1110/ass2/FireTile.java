@@ -404,8 +404,7 @@ public class FireTile {
 
             }
         }
-
-
+        return null;
     }
 
     public static ArrayList<FireTile> allFireTilesGenerator(String[] stringArray){
