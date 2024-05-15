@@ -22,6 +22,14 @@ public class CatCard extends Cards {
             new CatCard(Utility.CAT_CARDS[5]),
             new CatCard(Utility.CAT_CARDS[6])
     };
+
+    public static TileType getCatTileTypeById(int catID) {
+        switch (catID) {
+            case 0: return TileType.RED_CAT;
+            case 1: case 2: return TileType.BLUE_CAT;
+            case 3: return TileType.GREEN_CAT;
+            case 4: return TileType.YELLOW_CAT;
+            case 5: case 6: return TileType.PURPLE_CAT; default: throw new IllegalArgumentException("Invalid Cat ID: " + catID); } }
 }
 
 

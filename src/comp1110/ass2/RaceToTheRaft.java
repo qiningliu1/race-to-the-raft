@@ -282,7 +282,6 @@ public class RaceToTheRaft {
         char[] cards = movementString.substring(9).toCharArray();
         //check handcard and update it
         String[] haveCard = new String[4];
-        System.out.println();
         gameState[2]=gameState[2]+'E';
         for(int i=0;i<4;i++){
             haveCard[i] = gameState[2].substring(gameState[2].indexOf('A'+i),gameState[2].indexOf('B'+i));
@@ -332,7 +331,7 @@ public class RaceToTheRaft {
         //convert letters in cat's initial position to lowercase
         map[x1] = map[x1].substring(0,y1)+catId.toLowerCase()+(y1+1<len?map[x1].substring(y1+1):"");
         //convert the letters of the cat's end position to uppercase
-        map[x2] = map[x2].substring(0,y2)+catId+(y2+1<len?map[x2].substring(y2+1):"");
+        map[x2] = map[x2].substring(0,y2)+map[x2].substring(y2,y2+1).toUpperCase()+(y2+1<len?map[x2].substring(y2+1):"");
         StringBuilder stringBuilder = new StringBuilder();
         for(String s:map){
             stringBuilder.append(s);
@@ -397,6 +396,7 @@ public class RaceToTheRaft {
      */
     public static boolean isPlacementValid(String[] gameState, String placementString) {
         if(!check(placementString)) return false;
+
         TileType[][] gameboard = Board.getGameBoard(gameState[0]);
         int len = gameboard.length;
         int hig = gameboard[0].length;
@@ -412,6 +412,7 @@ public class RaceToTheRaft {
                         case RED_CAT:
                         case PURPLE_CAT:
                         case YELLOW_CAT:
+                        case GREEN_CAT:
                             return false;
                     }
                 }
@@ -428,9 +429,7 @@ public class RaceToTheRaft {
             return true;
         }
         int index = placementString.charAt(0)>='a'?placementString.charAt(0)-'a':placementString.charAt(0)-'A'+26;
-        System.out.println(Utility.FIRE_TILES[index]);
         FireTile tile = new FireTile(Utility.FIRE_TILES[index]);
-        System.out.println(Arrays.deepToString(tile.getFireTile()));
         if(tile.getFireTile()==null) return false;
         TileType[][] fileTile = tile.getFireTile();
         if(placementString.charAt(5)=='F'){
@@ -440,7 +439,7 @@ public class RaceToTheRaft {
             tile.setFireTile(fileTile);
             fileTile = FireTile.rotateFireTile(tile,Orientation.fromChar(placementString.charAt(6))).getFireTile();
         }
-        System.out.println(Arrays.deepToString(fileTile));
+
         int x = Integer.parseInt(placementString.substring(1,3));
         int y = Integer.parseInt(placementString.substring(3,5));
         int fileTileLen = fileTile.length;
@@ -461,8 +460,11 @@ public class RaceToTheRaft {
                         case RED_CAT:
                         case PURPLE_CAT:
                         case YELLOW_CAT:
+                        case GREEN_CAT:
+                        case Object:
                             return false;
                     }
+                    if(isOnRaft(tx,ty,gameboard)) return false;
                     if(i==0){
                         if(tx>0&&gameboard[tx-1][ty]==TileType.Fire) f = true;
                     }else if(i==fileTileLen-1){
@@ -471,7 +473,7 @@ public class RaceToTheRaft {
                     if(j==0){
                         if(ty>0&&gameboard[tx][ty-1]==TileType.Fire) f = true;
                     }else if(j==fileTileLen-1){
-                        if(ty+1<len&&gameboard[tx][ty+1]==TileType.Fire) f = true;
+                        if(ty+1<hig&&gameboard[tx][ty+1]==TileType.Fire) f = true;
                     }
                 }
             }
@@ -534,6 +536,67 @@ public class RaceToTheRaft {
      * @return True if the cat movement is valid, otherwise false
      */
     public static boolean isCatMovementValid(String[] gameState, String catMovementString) {
+        int[][] dirs = {{0,1},{1,0},{-1,0},{0,-1}};
+        TileType[][] gameboard = Board.getGameBoard(gameState[0]);
+        int c = 0;
+        for(TileType[] te:gameboard){
+
+            c++;
+        }
+        c = 0;
+        String[] mp = gameState[0].split("\n");
+        for(String str:mp){
+
+            c++;
+        }
+        int len = gameboard.length;
+        int hig = gameboard[0].length;
+        int x1 = Integer.parseInt(catMovementString.substring(1,3));
+        int y1 = Integer.parseInt(catMovementString.substring(3,5));
+        int x2 = Integer.parseInt(catMovementString.substring(5,7));
+        int y2 = Integer.parseInt(catMovementString.substring(7,9));
+
+        gameState[2]=gameState[2]+'E';
+        String[] haveCard = new String[4];
+        for(int i=0;i<4;i++){
+            haveCard[i] = gameState[2].substring(gameState[2].indexOf('A'+i),gameState[2].indexOf('B'+i));
+        }
+        if(catMovementString.length()==11){
+            if(gameState[3].contains(catMovementString.substring(1,5))) return false;
+
+            int index = catMovementString.charAt(9)-'A';
+            if(haveCard[index].indexOf(catMovementString.charAt(10))==-1) return false;
+        }else{
+            if(!gameState[3].contains(catMovementString.substring(1,5))) return false;
+            if(catMovementString.length()==12){
+                int index = catMovementString.charAt(9)-'A';
+                if(haveCard[index].indexOf(catMovementString.charAt(10))==-1||haveCard[index].indexOf(catMovementString.charAt(11))==-1) return false;
+            }else{
+                int index1 = catMovementString.charAt(9)-'A';
+                int index2 = catMovementString.charAt(11)-'A';
+                if(haveCard[index1].indexOf(catMovementString.charAt(10))==-1||haveCard[index2].indexOf(catMovementString.charAt(12))==-1) return false;
+            }
+        }
+        if(x1>=len||x2>=len||y1>=hig||y2>=hig) return false;
+        char id = catMovementString.charAt(0);
+        char color = (char) (id+32);
+        if((gameboard[x2][y2]!=TileType.WILD&&gameboard[x2][y2]!=TileType.fromChar(color))||gameboard[x1][y1]!=TileType.fromChar(id)) return false;
+        boolean[][] visited = new boolean[len][hig];
+        Deque<int[]> que = new ArrayDeque<>();
+        que.offer(new int[]{x1,y1});
+        while(!que.isEmpty()){
+            int[] p = que.poll();
+            if(p[0]==x2&&p[1]==y2) return true;
+            if(visited[p[0]][p[1]]) continue;
+            visited[p[0]][p[1]]=true;
+            for(int[] dir:dirs){
+                int tx = p[0]+dir[0];
+                int ty = p[1]+dir[1];
+                if(tx<0||tx>=len||ty<0||ty>=hig) continue;
+                if(gameboard[tx][ty]!=TileType.fromChar(color)&&gameboard[tx][ty]!=TileType.WILD) continue;
+                que.offer(new int[]{tx,ty});
+            }
+        }
         return false; // FIXME TASK 14
     }
 
@@ -558,8 +621,192 @@ public class RaceToTheRaft {
      * @return True if the game is over (regardless of whether it is won or lost), otherwise False.
      */
     public static boolean isGameOver(String[] gameState, String action) {
-        return false;     // FIXME TASK 15
+        String[] map = gameState[0].split("\n");
+        char[] cs = {'W','E','S','N'};
+        int len = map.length;
+        int hig = map[0].length();
+        int type = type(action);
+        if(type==3){
+            if(isCatMovementValid(gameState,action)){
+                gameState = moveCat(gameState,action);
+            }
+            if(checkCat(gameState[0].split("\n"))) return true;
+        }else if(type==2){
+            if(isPlacementValid(gameState,action)) gameState = FireTile.placeFireTileOnBoard(gameState,action);
+            else{
+                String temp = action.substring(5);
+                for(int i=0;i<len;i++){
+                    StringBuilder str = new StringBuilder();
+                    str.append(action.charAt(0));
+                    if(i<10) str.append("0");
+                    str.append(i);
+                    for(int j=0;j<hig;j++){
+                        if(j<10) str.append("0");
+                        str.append(j);
+
+                        str.append("F");
+                        for(char c:cs){
+                            str.append(c);
+                            if(isPlacementValid(gameState,str.toString())) return false;
+
+                            str.deleteCharAt(str.length()-1);
+                        }
+                        str.deleteCharAt(str.length()-1);
+                        str.append("T");
+                        for(char c:cs){
+                            str.append(c);
+                            if(isPlacementValid(gameState,str.toString())) return false;
+                            str.deleteCharAt(str.length()-1);
+                        }
+                        str.delete(str.length()-3,str.length());
+                    }
+                }
+                return true;
+            }
+
+        }else{
+            if(isPlacementValid(gameState,action)){
+                if(gameState[4].length()==0) return true;
+            }
+        }
+        return havingCannotMov(gameState[0].split("\n"));
+        // FIXME TASK 15
+    }
+
+    public static boolean checkCat(String[] map){
+        int len = map.length;
+        int hig = map[0].length();
+        char[][] gameboard = new char[len][hig];
+        for(int i=0;i<len;i++){
+            gameboard[i] = map[i].toCharArray();
+        }
+        for(int i=0;i<len;i++){
+            for(int j=0;j<hig;j++){
+                if(gameboard[i][j]=='f') continue;
+                if(isCat(gameboard[i][j])){
+                    if(!isOnRaft(i,j,gameboard)) return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    public static boolean havingCannotMov(String[] map){
+        int len = map.length;
+        int hig = map[0].length();
+        char[][] gameboard = new char[len][hig];
+        for(int i=0;i<len;i++){
+            gameboard[i] = map[i].toCharArray();
+        }
+        for(int i=0;i<len;i++){
+            for(int j=0;j<hig;j++){
+                if(!isCat(gameboard[i][j])){
+                    continue;
+                }
+//                System.out.println(gameboard[i][j]);
+                if(!canMove(i,j,gameboard)) return true;
+            }
+        }
+        return false;
+    }
+    public static int type(String action){
+        if(action.length()==7){
+            if(action.charAt(1)>='a') return 1;
+            else return 2;
+        }else return 3;
+    }
+
+    public static boolean isCat(char type){
+        switch (type) {
+            case 'B':
+            case 'R':
+            case 'P':
+            case 'Y':
+            case 'G':
+                return true;
+            default:
+                return false;
+        }
+    }
+    public static void updateBoard(char[][] board,char target){
+        int len = board.length;
+        int hig = board[0].length;
+        for(int i=0;i<len;i++){
+            for(int j=0;j<hig;j++){
+                if(board[i][j]!='f') continue;
+                if(i+2>=len||board[i+2][j]=='f'){
+                    if(i+1<len&&board[i+1][j]!=target) board[i+1][j] = 'f';
+                }else if(i+3>=len||board[i+3][j]=='f'){
+                    if(board[i+1][j]!=target&&board[i+2][j]!=target)board[i+1][j]=board[i+2][j]='f';
+                }
+                if(j+2>=hig||board[i][j+2]=='f'){
+                    if(j+1<hig&&board[i][j+1]!=target) board[i][j+1] = 'f';
+                }else if(j+3>=hig||board[i][j+3]=='f'){
+                    if(board[i][j+2]!=target&&board[i][j+1]!=target)board[i][j+1]=board[i][j+2]='f';
+                }
+            }
+        }
+    }
+    public static boolean canMove(int x,int y,char[][] boar){
+        int[][] dirs = {{0,1},{1,0},{-1,0},{0,-1}};
+        int len = boar.length;
+        int hig = boar[0].length;
+        char[][] board = new char[len][hig];
+        for(int i=0;i<len;i++){
+            for(int j=0;j<hig;j++){
+                board[i][j] = boar[i][j];
+            }
+        }
+        updateBoard(board,(char)(board[x][y]+32));
+        boolean[][] visited = new boolean[len][hig];
+        Deque<int[]> que = new ArrayDeque<>();
+        que.offer(new int[]{x,y});
+        while(!que.isEmpty()){
+            int[] p = que.poll();
+            if(visited[p[0]][p[1]]) continue;
+            if(isOnRaft(p[0],p[1],board)) return true;
+            visited[p[0]][p[1]]=true;
+            for(int[] dir:dirs){
+                int tx = p[0]+dir[0];
+                int ty = p[1]+dir[1];
+                if(tx<0||tx>=len||ty<0||ty>=hig) continue;
+                if(board[p[0]][p[1]]==board[x][y]+32){
+                    que.offer(new int[]{tx,ty});
+                    continue;
+                }
+                if(board[p[0]][p[1]]=='f') continue;
+                if(isOnRaft(tx,ty,board)&&board[tx][ty]!=(board[x][y]+32)&&board[tx][ty]!='w'&&board[tx][ty]!='W') continue;
+                que.offer(new int[]{tx,ty});
+            }
+        }
+        return false;
     }
 
 
+
+    public static boolean isOnRaft(int x,int y,char[][] board){
+        int[][] dirs = {{0,1},{1,0},{-1,0},{0,-1},{-1,-1},{1,1},{-1,1},{1,-1}};
+        int len = board.length;
+        int hig = board[0].length;
+        for(int[] dir:dirs){
+            int tx = x+dir[0];
+            int ty = y+dir[1];
+            if(tx<0||tx>=len||ty<0||ty>=hig) continue;
+            if(board[tx][ty]=='o') return true;
+        }
+        return false;
+    }
+
+    public static boolean isOnRaft(int x,int y,TileType[][] board){
+        int[][] dirs = {{0,1},{1,0},{-1,0},{0,-1},{-1,-1},{1,1},{-1,1},{1,-1}};
+        int len = board.length;
+        int hig = board[0].length;
+        for(int[] dir:dirs){
+            int tx = x+dir[0];
+            int ty = y+dir[1];
+            if(tx<0||tx>=len||ty<0||ty>=hig) continue;
+            if(board[tx][ty]==TileType.Object) return true;
+        }
+        return false;
+    }
 }
