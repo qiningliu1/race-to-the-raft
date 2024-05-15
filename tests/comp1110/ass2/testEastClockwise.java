@@ -85,4 +85,3 @@ public class testEastClockwise {
 
 }
 
-// authored by Ishaan Kapoor u7598889

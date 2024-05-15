@@ -1,4 +1,5 @@
 package comp1110.ass2;
+
 /**
  * Author: Ishaan Kapoor u7598889 and Lujin Sun u7897414
  */
@@ -11,6 +12,24 @@ public class CatCard extends Cards {
     public CatCard(String catString) {
         super(catString);
     }
+
+    public static CatCard[] CAT_CARD_OBJECTS = {
+            new CatCard(Utility.CAT_CARDS[0]),
+            new CatCard(Utility.CAT_CARDS[1]),
+            new CatCard(Utility.CAT_CARDS[2]),
+            new CatCard(Utility.CAT_CARDS[3]),
+            new CatCard(Utility.CAT_CARDS[4]),
+            new CatCard(Utility.CAT_CARDS[5]),
+            new CatCard(Utility.CAT_CARDS[6])
+    };
+
+    public static TileType getCatTileTypeById(int catID) {
+        switch (catID) {
+            case 0: return TileType.RED_CAT;
+            case 1: case 2: return TileType.BLUE_CAT;
+            case 3: return TileType.GREEN_CAT;
+            case 4: return TileType.YELLOW_CAT;
+            case 5: case 6: return TileType.PURPLE_CAT; default: throw new IllegalArgumentException("Invalid Cat ID: " + catID); } }
 }
 
 

@@ -8,6 +8,7 @@ import java.util.Random;
  */
 
 public class FireTiles {
+    private static String fireTileBag;
     private static int length;
     private List<Character> fireTileIDs;
 
