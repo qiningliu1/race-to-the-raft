@@ -1,5 +1,9 @@
 package comp1110.ass2;
 
+/**
+ * Author: Ishaan Kapoor u7598889
+ **/
+
 public class RaftCards {
 
     private int raftID;
