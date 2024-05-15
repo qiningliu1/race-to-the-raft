@@ -70,7 +70,7 @@ public class RaceToTheRaft {
     // FIXME TASK 3
 
     /**
-     * Author: Qining Liu u7100555
+     * Author: Qining Liu u7100555 and Ishaan Kapoor u7598889
      *
      * Draws a random fire tile from those remaining in the bag.
      *
@@ -235,6 +235,8 @@ public class RaceToTheRaft {
 
 
     /**
+     *
+     * Author : Ishaan Kapoor u7598889
      * Place the given card or fire tile as described by the placement string and return the updated gameState array.
      * See the README for details on these two strings.
      * You may assume that the placements given are valid.
@@ -247,12 +249,23 @@ public class RaceToTheRaft {
      * @return the updated gameState array after this placement has been made
      */
     public static String[] applyPlacement(String[] gameState, String placementString) {
-        return FireTile.placeFireTileOnBoard(gameState,placementString);
+        //{Deck}{ID}{row}{column}{orientation}       pathwayCard
+        //{ID}{row}{column}{flipped}{orientation}    FireTile
+
+
+
+
+
+
+        return null;
 
          // FIXME TASK 8
     }
 
     /**
+     *
+     * Author: Lujin Sun u7897414
+     *
      * Move the given cat as described by the cat movement string and return the updated gameState array. You may
      * assume that the cat movement is valid.
      * <p>
@@ -332,6 +345,9 @@ public class RaceToTheRaft {
 
 
     /**
+     *
+     * Author : Ishaan Kapoor u7598889
+     *
      * Given a challengeString, construct a board string that satisfies the challenge requirements.
      * <p>
      * Each board in the `squareBoard` or `rectangleBoard` arrays may only be used once. For example: if the
@@ -348,10 +364,6 @@ public class RaceToTheRaft {
         Island.applyRaft(initial,challengeString);
         Island.applyCatCard(initial,challengeString);
 
-
-
-
-
         return initial.toString();
 
          // FIXME 10
@@ -359,6 +371,8 @@ public class RaceToTheRaft {
 
 
     /**
+     * Author: Lujin Sun u7897414
+     *
      * Given a card placement string or a fire tile placement string, check if that placement is valid.
      * <p>
      * A card placement is valid if all the following conditions are met:
@@ -468,7 +482,12 @@ public class RaceToTheRaft {
     }
 
 
-
+    /**
+     * Author: Lujin Sun u7897414
+     *
+     * @param placementString
+     * @return
+     */
     public static boolean check(String placementString){
         int len = placementString.length();
         if(placementString==null||(len!=7)) return false;

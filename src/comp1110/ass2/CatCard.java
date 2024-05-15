@@ -1,7 +1,5 @@
 package comp1110.ass2;
 
-import java.util.ArrayList;
-
 /**
  * Author: Ishaan Kapoor u7598889 and Lujin Sun u7897414
  */

@@ -2,6 +2,9 @@ package comp1110.ass2;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+
+import static comp1110.ass2.Cards.placeCardOnBoard;
+
 public class testPlaceCardOnBoard {
     @Test
     public void testSquareBoard() { // tests for square board
@@ -11,7 +14,7 @@ public class testPlaceCardOnBoard {
         gameState[2] = "AfhkBCDahw";
         gameState[3] = "B0204G1300";
 
-        String test = Board.placeCardOnBoard(gameState, "Af0101N");  //"fryrryrryr"
+        String test = placeCardOnBoard(gameState, "Af0101N");  //"fryrryrryr"
         Assertions.assertEquals(test, "frgbyryrgryrpryr");
 
     }

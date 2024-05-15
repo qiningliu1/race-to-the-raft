@@ -1,11 +1,5 @@
 package comp1110.ass2;
 
-// we store boards as TileType[][] which tells us where each tile is based on coordinates
-
-import gittest.B;
-
-import java.util.ArrayList;
-
 /**
  * Author: Ishaan Kapoor u7598889
  **/
@@ -103,65 +97,8 @@ public class Board {
             case NONE -> null;
         };
     }
-    public static void applyCardOnBoard(Board board, Cards card, int row, int column, Orientation orientation) {
-        TileType[][] boardTiles = board.getBoard();
-        TileType[][] cardTiles = Cards.rotateCard(card,orientation).getCard();
-
-        for (int i = 0; i < cardTiles.length; i++) {
-            for (int j =0; j< cardTiles[0].length; j++) {
-                boardTiles[row+i][column+j] = cardTiles[i][j];
-            }
-        }
-
-        board.setBoard(boardTiles);
-
-    }
 
 
-    public static String placeCardOnBoard(String[] gameState, String placementString) {
-        GameState game = new GameState(gameState);
-        Board gameBoardInitial = new Board(gameState[0]);
-        Decks handInitial = game.getHand();
-
-        Decks.DECK_ID req = Decks.SingleDeck.charToID(placementString.charAt(0));
-
-        int deckIndex = 0;
-        deckIndex = switch (req) { //choose which singledeck we need
-            case A -> 0;
-            case B -> 1;
-            case C -> 2;
-            case D -> 3;
-        };
-
-        Decks.SingleDeck requiredHandDeck = handInitial.getFulldeck().get(deckIndex);
-        ArrayList<Cards> requiredCards = requiredHandDeck.getCards();   //cards of the single deck that we need
-        Cards requiredCard = null;   //the card that we need
-
-        for (Cards c: requiredCards) {
-            if (c.getID() == placementString.charAt(1)) {
-                requiredCard = c;
-                requiredCards.remove(c); //remove the card from the single deck
-            }
-        }
-
-        ArrayList<Decks.SingleDeck> singleDecks = handInitial.getFulldeck(); //list of singledecks in hand
-        singleDecks.set(deckIndex,new Decks.SingleDeck(req,requiredCards)); // reset the single deck using the deck id and list of cards
-
-        game.setHand(new Decks(singleDecks)); //hand set to new
-        Board.applyCardOnBoard(gameBoardInitial, requiredCard, Integer.parseInt(placementString.substring(2,3)) , Integer.parseInt(placementString.substring(4,5)) , Orientation.fromChar(placementString.charAt(6)));
-
-        StringBuilder f = new StringBuilder("");
-
-        for (int i =0; i < gameBoardInitial.getBoard().length; i++) {
-            for (int j = 0; j < gameBoardInitial.getBoard()[0].length; j++) {
-                f.append(gameBoardInitial.getBoard()[i][j]);
-            }
-        }
-
-        return f.toString();
-
-
-    }
 
     public void setBoard(TileType[][] board) {
         this.board = board;
