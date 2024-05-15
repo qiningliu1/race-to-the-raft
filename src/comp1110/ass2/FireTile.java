@@ -143,7 +143,7 @@ public class FireTile {
      * @return
      */
     public static FireTile rotateFireTile(FireTile initialFireTile, Orientation orientation) {
-        FireTile ft = initialFireTile;
+        FireTile ft = null;
         ft = switch (orientation) {
             case NORTH, ANY -> initialFireTile;
             case EAST -> eastFireTileGenerator(initialFireTile);
@@ -303,9 +303,7 @@ public class FireTile {
         TileType[][] initialArray = initial.getFireTile();
         TileType[][] temp = initialArray;
         shiftColumnsLeft(temp);
-
         initial.setFireTile(temp);
-
         return initial;
 
     }
@@ -365,28 +363,17 @@ public class FireTile {
         GameState game = new GameState(gameState);
         Board board = game.getBoard();
         ArrayList<FireTile> bag = game.getFireTileBag();
-        if (firePlacementString.length() == 7) {
-            char ID = firePlacementString.charAt(0);
-            Boolean flip = firePlacementString.charAt(5) == 'T';
-            Orientation orientation = Orientation.fromChar(firePlacementString.charAt(6));
-            int row = Integer.parseInt(firePlacementString.substring(1, 3));
-            int col = Integer.parseInt(firePlacementString.substring(3, 5));
-            applyFireTileOnBoard(ID, board, row, col, flip, orientation);
+        FireTile requiredFireTile = null;
 
-            for(FireTile f:bag) {
-                if(f.getTileID() == ID) {
-                    bag.remove(f);
-                }
+        for (FireTile f :allFireTiles) {
+            if (f.getTileID() == firePlacementString.charAt(0)) {
+
+                requiredFireTile = f;
+
             }
-            game.setBoard(board);
-            game.setFireTileBag(bag);
-
-            gameState[0] = board.toString();
-            gameState[4] = fireTileBagToString(bag);
-
         }
 
-        return gameState;
+
     }
 
     public static ArrayList<FireTile> allFireTilesGenerator(String[] stringArray){
@@ -436,3 +423,26 @@ public class FireTile {
     }
 
 }
+//
+//        if (firePlacementString.length() == 7) {
+//                char ID = firePlacementString.charAt(0);
+//                Boolean flip = firePlacementString.charAt(5) == 'T';
+//                Orientation orientation = Orientation.fromChar(firePlacementString.charAt(6));
+//                int row = Integer.parseInt(firePlacementString.substring(1, 3));
+//                int col = Integer.parseInt(firePlacementString.substring(3, 5));
+//                applyFireTileOnBoard(ID, board, row, col, flip, orientation);
+//
+//                for(FireTile f:bag) {
+//                if(f.getTileID() == ID) {
+//                bag.remove(f);
+//                }
+//                }
+//                game.setBoard(board);
+//                game.setFireTileBag(bag);
+//
+//                gameState[0] = board.toString();
+//                gameState[4] = fireTileBagToString(bag);
+//                return gameState;
+//                }
+//
+//                return gameState;

@@ -28,6 +28,13 @@ public class Decks {
     static String[] deckC = Utility.DECK_C;
     static String[] deckD = Utility.DECK_D;
 
+    public static Cards getCardFromIDs (Decks.DECK_ID deckID, Character cardID) {
+        ArrayList<Cards> deck = getCardsListFromDeckName(deckID);
+        int index = cardIDtoIndex(cardID);
+        return deck.get(index);
+
+    }
+
     /**
      * Author: Ishaan Kapoor u7598889
      *
@@ -138,8 +145,15 @@ public class Decks {
     public Decks(ArrayList<SingleDeck> fulldeck) {
         this.fulldeck = fulldeck;
     }
-    ;
 
+    @Override
+    public String toString() {
+        String s= "";
+        for (SingleDeck ss : fulldeck) {
+            s = s + ss.toString();
+        }
+        return s;
+    }
 
 
     /**
@@ -199,6 +213,21 @@ public class Decks {
                 default -> null;
             };
             return ID;
+        }
+
+        @Override
+        public String toString() {
+            String s = "";
+            s = s + ID.toString();
+            for (Cards c : cards) {
+                s = s + c.getID();
+            }
+
+            return s;
+        }
+
+        public void setCards(ArrayList<Cards> cards) {
+            this.cards = cards;
         }
     }
 
