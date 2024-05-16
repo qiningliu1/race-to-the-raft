@@ -8,6 +8,13 @@ public class Board {
     private TileType[][] board;
     private int totalTilesOnBoard;
 
+    /**
+     *  Author: Ishaan Kapoor u7598889
+     *  takes in a board string, like in utility, and returns a TileType[][] representing the board in the game.
+     * @param boardString like in utility
+     * @return TileType[][] representing the board in the game
+     */
+
     public static TileType[][] getGameBoard(String boardString) {
 //        if (!RaceToTheRaft.isBoardStringWellFormed(boardString)) {
 //            return null;
@@ -34,7 +41,12 @@ public class Board {
         this.totalTilesOnBoard = board.length * board[0].length;
     }
 
-
+    /**
+     * Author: Ishaan Kapoor u7598889
+     * transpose a TileType[][], i.e., rows become columns and columns become rows of the multidimensional arrays.
+     * @param board TileType[][] representing the board tiles.
+     * @return transposed TileType[][]
+     */
     public static TileType[][] transposeBoard(TileType[][] board) {
         int row = board.length;
         int col = board[0].length;
@@ -49,7 +61,13 @@ public class Board {
         return newBoard;
     }
 
-
+    /**
+     * Author: Ishaan Kapoor u7598889
+     *
+     * swaps columns of a multidimensional Array, for example, in a 3x3 array, col1 becomes col3 and vice-versa, whilr col2 remains the same.
+     *
+     * @param transposedBoard
+     */
     public static void swapColumns(TileType[][] transposedBoard){
         int last = transposedBoard[0].length-1;
         int first = 0;
@@ -70,6 +88,13 @@ public class Board {
         return board;
     }
 
+    /**
+     * Author: Ishaan Kapoor u7598889
+     *
+     * rotate a board 90 degrees, clockwise.
+     * @param board board we want to rotate.
+     * @return a new board that is rotated
+     */
     public static Board rotate90Card(Board board){
         TileType[][] transposedBoard = transposeBoard(board.getBoard());
         swapColumns(transposedBoard);

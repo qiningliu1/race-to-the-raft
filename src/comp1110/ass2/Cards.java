@@ -82,7 +82,12 @@ public class Cards {
         return card;
     }
 
-
+    /**
+     * rotate a card based on orientation specified.
+     * @param initialCard the card that needs to be rotated
+     * @param orientation orientation we need the board to be
+     * @return rotated card.
+     */
     public static Cards rotateCard(Cards initialCard, Orientation orientation) {
         return switch (orientation) {
             case NORTH, ANY -> initialCard;
@@ -93,6 +98,11 @@ public class Cards {
         };
     }
 
+    /**
+     * rotate a card 90 degrees clockwise.
+     * @param card the card that needs to be rotated
+     * @return rotated card
+     */
     public static Cards rotate90Card(Cards card) {
         TileType[][] transposedCard = Board.transposeBoard(card.getCard());
         Board.swapColumns(transposedCard);
@@ -102,14 +112,12 @@ public class Cards {
         return rotatedCard;
     }
 
-    public static void applyCardOnBoard(Board board, Cards card, int row, int column, Orientation orientation) {
-        TileType[][] boardTiles = board.getBoard();
-        TileType[][] cardTiles = Cards.rotateCard(card, orientation).getCard();
-        Island.applyCard(boardTiles, cardTiles, row, column);
-        board.setBoard(boardTiles);
-
-    }
-
+    /**
+     * Place the card on board given the gameState (String) and pathway card placement string.
+     * @param gameState String representing the current Gamestate.
+     * @param placementString string commanding us the card details, like orientation, location and so on.
+     * @return the updated Gamestate (String)
+     */
     public static String[] placeCardOnBoard(String[] gameState, String placementString) {
         //{Deck}{ID}{row}{column}{orientation}       pathwayCard      "Ab1208S"
         GameState game = new GameState(gameState);
@@ -119,9 +127,6 @@ public class Cards {
         Decks.DECK_ID deckID = Decks.SingleDeck.charToID(placementString.charAt(0));
         Cards requiredCardInitial = Decks.getCardFromIDs(deckID,placementString.charAt(1)); //card we need to place
         Cards requiredCard = rotateCard(requiredCardInitial,Orientation.fromChar(placementString.charAt(6)));
-
-//        ArrayList<Decks.SingleDeck> handListOfDecks = hand.getFulldeck(); // lists of all lists of cards
-//        ArrayList<Decks.SingleDeck> deckListOfDecks = deck.getFulldeck();
 
         int deckIndex = 0;
         deckIndex = switch (deckID) { //choose which singledeck we need
@@ -169,6 +174,24 @@ public class Cards {
         return req;
     }
 }
+
+
+
+
+
+
+
+
+//    public static void applyCardOnBoard(Board board, Cards card, int row, int column, Orientation orientation) {
+//        TileType[][] boardTiles = board.getBoard();
+//        TileType[][] cardTiles = Cards.rotateCard(card, orientation).getCard();
+//        Island.applyCard(boardTiles, cardTiles, row, column);
+//        board.setBoard(boardTiles);
+//
+//    }
+
+
+
 
 //
 //int deckIndex = 0;
