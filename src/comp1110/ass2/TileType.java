@@ -55,6 +55,14 @@ public enum TileType {
             default -> 'x';
         };
     }
+
+    @Override
+    public String toString() {
+        return super.toString();
+    }
+
+
+
 }
 
 

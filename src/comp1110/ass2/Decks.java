@@ -28,6 +28,13 @@ public class Decks {
     static String[] deckC = Utility.DECK_C;
     static String[] deckD = Utility.DECK_D;
 
+    public static Cards getCardFromIDs (Decks.DECK_ID deckID, Character cardID) {
+        ArrayList<Cards> deck = getCardsListFromDeckName(deckID);
+        int index = cardIDtoIndex(cardID);
+        return deck.get(index);
+
+    }
+
     /**
      * Author: Ishaan Kapoor u7598889
      *
@@ -135,6 +142,20 @@ public class Decks {
         return fulldeck;
     }
 
+    public Decks(ArrayList<SingleDeck> fulldeck) {
+        this.fulldeck = fulldeck;
+    }
+
+    @Override
+    public String toString() {
+        String s= "";
+        for (SingleDeck ss : fulldeck) {
+            s = s + ss.toString();
+        }
+        return s;
+    }
+
+
     /**
      * Author: Ishaan Kapoor u7598889
      *
@@ -142,7 +163,7 @@ public class Decks {
      * This class takes in a simple string like Aabc and converts it into an object with ID A and retrieves cards
      * a,b and c from Utility, and stores them in a ArrayList.
      */
-    class SingleDeck {
+    public static class SingleDeck {
         private Decks.DECK_ID ID;
         private ArrayList<Cards> cards;
 
@@ -193,7 +214,24 @@ public class Decks {
             };
             return ID;
         }
+
+        @Override
+        public String toString() {
+            String s = "";
+            s = s + ID.toString();
+            for (Cards c : cards) {
+                s = s + c.getID();
+            }
+
+            return s;
+        }
+
+        public void setCards(ArrayList<Cards> cards) {
+            this.cards = cards;
+        }
     }
+
+
 }
 
 

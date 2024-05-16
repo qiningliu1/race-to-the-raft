@@ -1,7 +1,7 @@
 package comp1110.ass2;
 
-import java.util.Arrays;
-import java.util.Random;
+import java.util.*;
+
 
 /**
  * This class is for testing purposes only. You should create and use your own objects to solve the tasks below
@@ -70,7 +70,7 @@ public class RaceToTheRaft {
     // FIXME TASK 3
 
     /**
-     * Author: Qining Liu u7100555
+     * Author: Qining Liu u7100555 and Ishaan Kapoor u7598889
      *
      * Draws a random fire tile from those remaining in the bag.
      *
@@ -79,13 +79,27 @@ public class RaceToTheRaft {
      * empty string.
      */
     public static String drawFireTile(String[] gameState) {
-        // Apply gameState[4] to crate GameState object
-        FireTiles gameStateObj = new FireTiles(gameState[4]);
-        String tileID = gameStateObj.drawFireTileID();
+        if (gameState[4] == "") {
+            return "";
+        }
 
-        // update gameState[4] to show draw fireTile ID
-        gameState[4] = gameStateObj.getUpdateFireBagState();
-        return tileID;
+        GameState game = new GameState(gameState);
+        Random rand = new Random();
+        ArrayList<FireTile> bag = game.getFireTileBag();
+        FireTile req = bag.get(rand.nextInt(bag.size()));
+
+
+        return req.toString();
+
+
+
+//        // Apply gameState[4] to crate GameState object
+//        FireTiles gameStateObj = new FireTiles(gameState[4]);
+//        String tileID = gameStateObj.drawFireTileID();
+//
+//        // update gameState[4] to show draw fireTile ID
+//        gameState[4] = gameStateObj.getUpdateFireBagState();
+//        return tileID;
         // FIXME TASK 5
     }
 
@@ -221,6 +235,8 @@ public class RaceToTheRaft {
 
 
     /**
+     *
+     * Author : Ishaan Kapoor u7598889
      * Place the given card or fire tile as described by the placement string and return the updated gameState array.
      * See the README for details on these two strings.
      * You may assume that the placements given are valid.
@@ -233,10 +249,23 @@ public class RaceToTheRaft {
      * @return the updated gameState array after this placement has been made
      */
     public static String[] applyPlacement(String[] gameState, String placementString) {
-        return new String[0]; // FIXME TASK 8
+        //{Deck}{ID}{row}{column}{orientation}       pathwayCard  "Ab1208S"
+        //{ID}{row}{column}{flipped}{orientation}    FireTile     "l0003FW"
+
+        if (placementString.charAt(0)  == 'A'|| placementString.charAt(0)  == 'B' || placementString.charAt(0)  ==  'C' || placementString.charAt(0)  ==  'D') {
+             return Cards.placeCardOnBoard(gameState,placementString);
+        }
+
+        return FireTile.placeFireTileOnBoard(gameState,placementString);
+
+         // FIXME TASK 8
     }
 
     /**
+     *
+     * Author: Lujin Sun u7897414
+     * This function moves a cat on the game board according to the specified movement string.
+     *
      * Move the given cat as described by the cat movement string and return the updated gameState array. You may
      * assume that the cat movement is valid.
      * <p>
@@ -248,10 +277,76 @@ public class RaceToTheRaft {
      * @return the updated gameState array after this movement has been made.
      */
     public static String[] moveCat(String[] gameState, String movementString) {
-        return new String[0]; // FIXME TASK 9
-    }
+        //complement movementString
+        String catId = movementString.substring(0,1);
+        String cat = catId+movementString.substring(5,9);
+        char[] cards = movementString.substring(9).toCharArray();
+        //check handcard and update it
+        String[] haveCard = new String[4];
+        gameState[2]=gameState[2]+'E';
+        for(int i=0;i<4;i++){
+            haveCard[i] = gameState[2].substring(gameState[2].indexOf('A'+i),gameState[2].indexOf('B'+i));
+        }
+        int k = 0;
+        while(k<cards.length){
+            int c = cards[k++]-'A';
+            while(k<cards.length&&cards[k]>='a'){
+                haveCard[c].replace(cards[k]+"","");
+                k++;
+            }
+        }
+        StringBuilder newHaveCard = new StringBuilder();
+        for(int i=0;i<4;i++){
+            newHaveCard.append('A'+i);
+            newHaveCard.append(haveCard[i]);
+        }
+        gameState[2] = newHaveCard.toString();
+        String start = movementString.substring(0,5);
+        int exhaustedLen =  gameState[3].length();
+        //find exhausted cats and add them into movementString
+        if(exhaustedLen==0){
+            gameState[3] = gameState[3]+cat;
+        }else{
+            List<String> list = new ArrayList<>();
+            list.add(cat);
+            for(int i=0;i+5<=exhaustedLen;i+=5){
+                String ts = gameState[3].substring(i,i+5);
+                //judge whether the cat is on moving action
+                if(ts.equals(start)) continue;
+                list.add(gameState[3].substring(i,i+5));
+            }
+            Collections.sort(list);
+            StringBuilder temp = new StringBuilder();
+            for(String str:list){
+                temp.append(str);
+            }
+            gameState[3] = temp.toString();
+        }
+        //update the state of board
+        String[] map = gameState[0].split("\n");
+        int len = map[0].length();
+        int x1 = Integer.parseInt(movementString.substring(1,3));
+        int y1 = Integer.parseInt(movementString.substring(3,5));
+        int x2 = Integer.parseInt(movementString.substring(5,7));
+        int y2 = Integer.parseInt(movementString.substring(7,9));
+        //convert letters in cat's initial position to lowercase
+        map[x1] = map[x1].substring(0,y1)+catId.toLowerCase()+(y1+1<len?map[x1].substring(y1+1):"");
+        //convert the letters of the cat's end position to uppercase
+        map[x2] = map[x2].substring(0,y2)+map[x2].substring(y2,y2+1).toUpperCase()+(y2+1<len?map[x2].substring(y2+1):"");
+        StringBuilder stringBuilder = new StringBuilder();
+        for(String s:map){
+            stringBuilder.append(s);
+            stringBuilder.append("\n");
+        }
+        gameState[0] = stringBuilder.toString();
+        return gameState;
+    }// FIXME TASK 9
+
 
     /**
+     *
+     * Author : Ishaan Kapoor u7598889
+     *
      * Given a challengeString, construct a board string that satisfies the challenge requirements.
      * <p>
      * Each board in the `squareBoard` or `rectangleBoard` arrays may only be used once. For example: if the
@@ -263,11 +358,20 @@ public class RaceToTheRaft {
      * @return A board string for this challenge.
      */
     public static String initialiseChallenge(String challengeString) {
-        return "";  // FIXME 10
+        Board initial = Island.getInitialIsland(challengeString);
+        Island.applyFireCard(initial,challengeString);
+        Island.applyRaft(initial,challengeString);
+        Island.applyCatCard(initial,challengeString);
+
+        return initial.toString();
+
+         // FIXME 10
     }
 
 
     /**
+     * Author: Lujin Sun u7897414
+     *
      * Given a card placement string or a fire tile placement string, check if that placement is valid.
      * <p>
      * A card placement is valid if all the following conditions are met:
@@ -292,10 +396,140 @@ public class RaceToTheRaft {
      * @return True if the placement is valid, otherwise false.
      */
     public static boolean isPlacementValid(String[] gameState, String placementString) {
-        return false; // FIXME TASK 12
+        if(!check(placementString)) return false;
+
+        TileType[][] gameboard = Board.getGameBoard(gameState[0]);
+        int len = gameboard.length;
+        int hig = gameboard[0].length;
+        if(placementString.charAt(1)>'9'){
+            int x = Integer.parseInt(placementString.substring(2,4))+1;
+            int y = Integer.parseInt(placementString.substring(4,6))+1;
+            if(x+1>=len||x==0||y+1>=hig||y==0) return false;
+            for(int i=x-1;i<=x+1;i++){
+                for(int j=y-1;j<=y+1;j++){
+                    switch (gameboard[i][j]){
+                        case Fire:
+                        case BLUE_CAT:
+                        case RED_CAT:
+                        case PURPLE_CAT:
+                        case YELLOW_CAT:
+                        case GREEN_CAT:
+                            return false;
+                    }
+                }
+            }
+            int l = y-2>0?y-2:0;
+            int r = y+2<hig?y+2:hig-1;
+            int low = x-2>0?x-2:0;
+            int up = x+2<len?x+2:len-1;
+            for(int i=low;i<=up;i++){
+                for(int j=l;j<=r;j++){
+                    if(gameboard[i][j]==TileType.Object) return false;
+                }
+            }
+            return true;
+        }
+        int index = placementString.charAt(0)>='a'?placementString.charAt(0)-'a':placementString.charAt(0)-'A'+26;
+        FireTile tile = new FireTile(Utility.FIRE_TILES[index]);
+        if(tile.getFireTile()==null) return false;
+        TileType[][] fileTile = tile.getFireTile();
+        if(placementString.charAt(5)=='F'){
+            fileTile = FireTile.rotateFireTile(tile,Orientation.fromChar(placementString.charAt(6))).getFireTile();
+        }else{
+            FireTile.flipFireTileNorthSouth(fileTile);
+            tile.setFireTile(fileTile);
+            fileTile = FireTile.rotateFireTile(tile,Orientation.fromChar(placementString.charAt(6))).getFireTile();
+        }
+
+        int x = Integer.parseInt(placementString.substring(1,3));
+        int y = Integer.parseInt(placementString.substring(3,5));
+        int fileTileLen = fileTile.length;
+        if(x+fileTileLen>=len&&y+fileTileLen>=hig) return false;
+        boolean f = false;
+        for(int i=0;i<fileTileLen;i++){
+            int tx = i+x;
+            for(int j=0;j<fileTileLen;j++){
+                int ty = y+j;
+                if(tx>=len||ty>=hig){
+                    if (fileTile[i][j]==TileType.Fire) return false;
+                    continue;
+                }
+                if(fileTile[i][j]==TileType.Fire) {
+                    switch (gameboard[tx][ty]) {
+                        case Fire:
+                        case BLUE_CAT:
+                        case RED_CAT:
+                        case PURPLE_CAT:
+                        case YELLOW_CAT:
+                        case GREEN_CAT:
+                        case Object:
+                            return false;
+                    }
+                    if(isOnRaft(tx,ty,gameboard)) return false;
+                    if(i==0){
+                        if(tx>0&&gameboard[tx-1][ty]==TileType.Fire) f = true;
+                    }else if(i==fileTileLen-1){
+                        if(tx+1<len&&gameboard[tx+1][ty]==TileType.Fire) f = true;
+                    }
+                    if(j==0){
+                        if(ty>0&&gameboard[tx][ty-1]==TileType.Fire) f = true;
+                    }else if(j==fileTileLen-1){
+                        if(ty+1<hig&&gameboard[tx][ty+1]==TileType.Fire) f = true;
+                    }
+                }
+            }
+
+        }
+        return f; // FIXME TASK 12
+    }
+
+
+    /**
+     * Author: Lujin Sun u7897414
+     * Used to check the validity of placement strings
+     *
+     * @param placementString The placement string representing the placement position and direction of objects in the game
+     * @return Returns true if the placement string is valid; otherwise, returns false
+     */
+    public static boolean check(String placementString){
+        int len = placementString.length();
+        if(placementString==null||(len!=7)) return false;
+        char start = placementString.charAt(0);
+        if(placementString.charAt(1)>='a'){
+            if(start<'A'||start>'D') return false;
+            if(placementString.charAt(1)<'a'||placementString.charAt(1)>'z') return false;
+            for(int i = 2;i<6;i++){
+                if(placementString.charAt(i)<'0'||placementString.charAt(i)>'9') return false;
+            }
+
+        }else{
+            if(!((start>='A'&&start<='Z')||(start>='a'&&start<='z'))) return false;
+            for(int i = 1;i<5;i++){
+                if(placementString.charAt(i)<'0'||placementString.charAt(i)>'9') return false;
+            }
+            if(placementString.charAt(5)!='F'&&placementString.charAt(5)!='T') return false;
+        }
+        switch (placementString.charAt(6)){
+            case 'N':
+                break;
+            case 'W':
+                break;
+            case 'E':
+                break;
+            case 'S':
+                break;
+            default:
+                return false;
+        }
+        return true;
     }
 
     /**
+     * Author: Lujin Sun u7897414
+     * Split the gamestate to get the board and update the board
+     * Parse the coordinates and check the movement string to find what's the action
+     * Check all the cards about the color, movement and whether they are within the board
+     *
      * Given a cat movement string, check if the cat movement is valid.
      * <p>
      * A cat movement is valid if:
@@ -309,12 +543,80 @@ public class RaceToTheRaft {
      * @return True if the cat movement is valid, otherwise false
      */
     public static boolean isCatMovementValid(String[] gameState, String catMovementString) {
+        //Define the directions: right, down, up, left
+        int[][] dirs = {{0,1},{1,0},{-1,0},{0,-1}};
+        TileType[][] gameboard = Board.getGameBoard(gameState[0]);
+        int c = 0;
+        for(TileType[] te:gameboard){
+
+            c++;
+        }
+        c = 0;
+        //Split the game state to get the map
+        String[] mp = gameState[0].split("\n");
+        for(String str:mp){
+
+            c++;
+        }
+        int len = gameboard.length;
+        int hig = gameboard[0].length;
+        int x1 = Integer.parseInt(catMovementString.substring(1,3));
+        int y1 = Integer.parseInt(catMovementString.substring(3,5));
+        int x2 = Integer.parseInt(catMovementString.substring(5,7));
+        int y2 = Integer.parseInt(catMovementString.substring(7,9));
+
+
+        gameState[2]=gameState[2]+'E';
+        String[] haveCard = new String[4];
+        for(int i=0;i<4;i++){
+            haveCard[i] = gameState[2].substring(gameState[2].indexOf('A'+i),gameState[2].indexOf('B'+i));
+        }
+        if(catMovementString.length()==11){
+            if(gameState[3].contains(catMovementString.substring(1,5))) return false;
+
+            int index = catMovementString.charAt(9)-'A';
+            if(haveCard[index].indexOf(catMovementString.charAt(10))==-1) return false;
+        }else{
+            if(!gameState[3].contains(catMovementString.substring(1,5))) return false;
+            if(catMovementString.length()==12){
+                int index = catMovementString.charAt(9)-'A';
+                if(haveCard[index].indexOf(catMovementString.charAt(10))==-1||haveCard[index].indexOf(catMovementString.charAt(11))==-1) return false;
+            }else{
+                int index1 = catMovementString.charAt(9)-'A';
+                int index2 = catMovementString.charAt(11)-'A';
+                if(haveCard[index1].indexOf(catMovementString.charAt(10))==-1||haveCard[index2].indexOf(catMovementString.charAt(12))==-1) return false;
+            }
+        }
+        if(x1>=len||x2>=len||y1>=hig||y2>=hig) return false;
+        char id = catMovementString.charAt(0);
+        char color = (char) (id+32);
+        if((gameboard[x2][y2]!=TileType.WILD&&gameboard[x2][y2]!=TileType.fromChar(color))||gameboard[x1][y1]!=TileType.fromChar(id)) return false;
+        boolean[][] visited = new boolean[len][hig];
+        Deque<int[]> que = new ArrayDeque<>();
+        que.offer(new int[]{x1,y1});
+        while(!que.isEmpty()){
+            int[] p = que.poll();
+            if(p[0]==x2&&p[1]==y2) return true;
+            if(visited[p[0]][p[1]]) continue;
+            visited[p[0]][p[1]]=true;
+            for(int[] dir:dirs){
+                int tx = p[0]+dir[0];
+                int ty = p[1]+dir[1];
+                if(tx<0||tx>=len||ty<0||ty>=hig) continue;
+                if(gameboard[tx][ty]!=TileType.fromChar(color)&&gameboard[tx][ty]!=TileType.WILD) continue;
+                que.offer(new int[]{tx,ty});
+            }
+        }
         return false; // FIXME TASK 14
     }
 
 
     /**
+     * Author: Lujin Sun u7897414
+     * Update the board after each placement of cards can firetiles
+     * Check if any firetile or card can be placed
      * Determine whether the game is over. The game ends if any of the following conditions are met:
+     *
      * <p>
      * Fire tile placement:
      * 1. If this placement action is not valid AND there is no other position this tile could be placed validly
@@ -333,8 +635,208 @@ public class RaceToTheRaft {
      * @return True if the game is over (regardless of whether it is won or lost), otherwise False.
      */
     public static boolean isGameOver(String[] gameState, String action) {
-        return false;     // FIXME TASK 15
+        String[] map = gameState[0].split("\n");
+        char[] cs = {'W','E','S','N'};
+        int len = map.length;
+        int hig = map[0].length();
+        int type = type(action);
+        if(type==3){
+            if(isCatMovementValid(gameState,action)){
+                gameState = moveCat(gameState,action);
+            }
+            if(checkCat(gameState[0].split("\n"))) return true;
+        }else if(type==2){
+            if(isPlacementValid(gameState,action)) gameState = FireTile.placeFireTileOnBoard(gameState,action);
+            else{
+                String temp = action.substring(5);
+                for(int i=0;i<len;i++){
+                    StringBuilder str = new StringBuilder();
+                    str.append(action.charAt(0));
+                    if(i<10) str.append("0");
+                    str.append(i);
+                    for(int j=0;j<hig;j++){
+                        if(j<10) str.append("0");
+                        str.append(j);
+
+                        str.append("F");
+                        for(char c:cs){
+                            str.append(c);
+                            if(isPlacementValid(gameState,str.toString())) return false;
+
+                            str.deleteCharAt(str.length()-1);
+                        }
+                        str.deleteCharAt(str.length()-1);
+                        str.append("T");
+                        for(char c:cs){
+                            str.append(c);
+                            if(isPlacementValid(gameState,str.toString())) return false;
+                            str.deleteCharAt(str.length()-1);
+                        }
+                        str.delete(str.length()-3,str.length());
+                    }
+                }
+                return true;
+            }
+
+        }else{
+            if(isPlacementValid(gameState,action)){
+                if(gameState[4].length()==0) return true;
+            }
+        }
+        return havingCannotMov(gameState[0].split("\n"));
+        // FIXME TASK 15
     }
 
+/**
+ * Author: Lujin Sun u7897414
+ *Check if all cats are on the raft first
+ * Check whether any cat can move or all are exhausted
+ * Updade the whole Board and finish all the movement action if possible
+ * Check if game is over about cat movement
+ * @return True if the game is over (regardless of whether it is won or lost), otherwise False.
+ */
+    public static boolean checkCat(String[] map){
+        int len = map.length;
+        int hig = map[0].length();
+        char[][] gameboard = new char[len][hig];
+        for(int i=0;i<len;i++){
+            gameboard[i] = map[i].toCharArray();
+        }
+        for(int i=0;i<len;i++){
+            for(int j=0;j<hig;j++){
+                if(gameboard[i][j]=='f') continue;
+                if(isCat(gameboard[i][j])){
+                    if(!isOnRaft(i,j,gameboard)) return false;
+                }
+            }
+        }
+        return true;
+    }
 
+    //Check if any cat can move
+    public static boolean havingCannotMov(String[] map){
+        int len = map.length;
+        int hig = map[0].length();
+        char[][] gameboard = new char[len][hig];
+        for(int i=0;i<len;i++){
+            gameboard[i] = map[i].toCharArray();
+        }
+        for(int i=0;i<len;i++){
+            for(int j=0;j<hig;j++){
+                if(!isCat(gameboard[i][j])){
+                    continue;
+                }
+//                System.out.println(gameboard[i][j]);
+                if(!canMove(i,j,gameboard)) return true;
+            }
+        }
+        return false;
+    }
+
+    public static int type(String action){
+        if(action.length()==7){
+            if(action.charAt(1)>='a') return 1;
+            else return 2;
+        }else return 3;
+    }
+
+    //check if it's a cat
+    public static boolean isCat(char type){
+        switch (type) {
+            case 'B':
+            case 'R':
+            case 'P':
+            case 'Y':
+            case 'G':
+                return true;
+            default:
+                return false;
+        }
+    }
+
+    public static void updateBoard(char[][] board,char target){
+        int len = board.length;
+        int hig = board[0].length;
+        for(int i=0;i<len;i++){
+            for(int j=0;j<hig;j++){
+                //Skip if it is not fire
+                if(board[i][j]!='f') continue;
+                //Update the surroundings of every firetile
+                if(i+2>=len||board[i+2][j]=='f'){
+                    if(i+1<len&&board[i+1][j]!=target) board[i+1][j] = 'f';
+                }else if(i+3>=len||board[i+3][j]=='f'){
+                    if(board[i+1][j]!=target&&board[i+2][j]!=target)board[i+1][j]=board[i+2][j]='f';
+                }
+                if(j+2>=hig||board[i][j+2]=='f'){
+                    if(j+1<hig&&board[i][j+1]!=target) board[i][j+1] = 'f';
+                }else if(j+3>=hig||board[i][j+3]=='f'){
+                    if(board[i][j+2]!=target&&board[i][j+1]!=target)board[i][j+1]=board[i][j+2]='f';
+                }
+            }
+        }
+    }
+    //Check if the cat can move
+    public static boolean canMove(int x,int y,char[][] boar){
+        int[][] dirs = {{0,1},{1,0},{-1,0},{0,-1}};
+        int len = boar.length;
+        int hig = boar[0].length;
+        char[][] board = new char[len][hig];
+        for(int i=0;i<len;i++){
+            for(int j=0;j<hig;j++){
+                board[i][j] = boar[i][j];
+            }
+        }
+
+        updateBoard(board,(char)(board[x][y]+32));
+        boolean[][] visited = new boolean[len][hig];
+        Deque<int[]> que = new ArrayDeque<>();
+        que.offer(new int[]{x,y});
+        while(!que.isEmpty()){
+            int[] p = que.poll();
+            if(visited[p[0]][p[1]]) continue;
+            if(isOnRaft(p[0],p[1],board)) return true;
+            visited[p[0]][p[1]]=true;
+            for(int[] dir:dirs){
+                int tx = p[0]+dir[0];
+                int ty = p[1]+dir[1];
+                if(tx<0||tx>=len||ty<0||ty>=hig) continue;
+                if(board[p[0]][p[1]]==board[x][y]+32){
+                    que.offer(new int[]{tx,ty});
+                    continue;
+                }
+                if(board[p[0]][p[1]]=='f') continue;
+                if(isOnRaft(tx,ty,board)&&board[tx][ty]!=(board[x][y]+32)&&board[tx][ty]!='w'&&board[tx][ty]!='W') continue;
+                que.offer(new int[]{tx,ty});
+            }
+        }
+        return false;
+    }
+
+    //Check if cat is on the raft
+    public static boolean isOnRaft(int x,int y,char[][] board){
+        int[][] dirs = {{0,1},{1,0},{-1,0},{0,-1},{-1,-1},{1,1},{-1,1},{1,-1}};
+        int len = board.length;
+        int hig = board[0].length;
+        for(int[] dir:dirs){
+            int tx = x+dir[0];
+            int ty = y+dir[1];
+            if(tx<0||tx>=len||ty<0||ty>=hig) continue;
+            if(board[tx][ty]=='o') return true;
+        }
+        return false;
+    }
+
+    // Check if cat is on the raft (overloaded method, for different map types)
+    public static boolean isOnRaft(int x,int y,TileType[][] board){
+        int[][] dirs = {{0,1},{1,0},{-1,0},{0,-1},{-1,-1},{1,1},{-1,1},{1,-1}};
+        int len = board.length;
+        int hig = board[0].length;
+        for(int[] dir:dirs){
+            int tx = x+dir[0];
+            int ty = y+dir[1];
+            if(tx<0||tx>=len||ty<0||ty>=hig) continue;
+            if(board[tx][ty]==TileType.Object) return true;
+        }
+        return false;
+    }
 }

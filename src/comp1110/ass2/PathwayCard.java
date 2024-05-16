@@ -79,7 +79,7 @@
 //    /**
 //     * @return The locations on island, that are occupied by the card.
 //     */
-//    public Location[] getLocations (RaftCard card) {
+//    public Location[] getLocations (Raft card) {
 //        return null; // implementation to be defined as per requirement
 //    }
 //

@@ -1,85 +1,67 @@
 package comp1110.ass2;
 
-import comp1110.ass2.gui.Viewer;
+import gittest.B;
+import gittest.C;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 /**
  * Author: Ishaan Kapoor u7598889
  */
 public class test {
-    public static int[][] transposeMatrix(int[][] matrix) {
-        int m = matrix.length;
-        int n = matrix[0].length;
-
-        int[][] transposedMatrix = new int[n][m];
-
-        for (int x = 0; x < n; x++) {
-            for (int y = 0; y < m; y++) {
-                transposedMatrix[x][y] = matrix[y][x];
-            }
-        }
-
-        return transposedMatrix;
-    }
-
-    private static String boardstate = """
-                fffffffffffffffrrf
-                fffffffffbbbfffrRf
-                fffffffffbbbfffrrf
-                ffffffyfffypfffpbr
-                ffffffffffgffbrpgy
-                ffffffbfffffyrygyp
-                ffffppgyybbbbybrpb
-                ffffppppyyggbygbyg
-                ffffppppPbbgbbpgrr
-                ffffffffgbyyybgbbp
-                fffffffbybpybbpryg
-                fffffffrfrgyybgyby
-                fffffffyppryyBpprp
-                fffbBbygggbprygbow
-                fffbbbbryygbygybyg
-                """;
-    public static TileType[][] boardTiles = Board.getGameBoard(boardstate);
-    public static String test = Viewer.getImagepath(boardTiles[1][16]);
-
     public static void main(String[] args) {
-        String s = "AabcnBCcdDd";
-        Decks ss = new Decks(s);
+        ArrayList<FireTile> testBag= new ArrayList<>();
+        testBag = FireTile.fireTileBagFromString("abcdefghijklmnopqrstuvwxyzABCDE");
+        FireTile tile = new FireTile("y0001111221");
+        FireTile tileEast = FireTile.rotateFireTile(tile,Orientation.EAST);
+        FireTile tileSouth = FireTile.rotateFireTile(tile,Orientation.SOUTH);
+        FireTile tileWest = FireTile.rotateFireTile(tile,Orientation.WEST);
+        TileType[][] testTiles = tile.getFireTile();
+        FireTile.flipFireTileNorthSouth(testTiles);
 
-        Cards test = ss.getFulldeck().get(0).getCards().get(3);
-        System.out.println(test.getCard()[2][1]);
 
-    }
+        System.out.println(tile);
+        System.out.println(new FireTile('1' , testTiles));
+
+
+
+    }//flip and rotate working
 }
 
-//        String test = "afffbBbggg";
-//        TileType[][] testing = Cards.cardFromString(test);
-//        System.out.println(testing[0][0]);
-//        System.out.println(testing[1][2]);
-//        System.out.println(testing[2][0]);
-//        System.out.println(testing[2][0]);
-//        System.out.println(testing[2][2]);
-//        System.out.println(testing[1][1]);
-
-
-
-
-//        TileType[][] test1 = new TileType[2][3];
-//        test1[0][0] = TileType.Fire;
-//        test1[0][1] = TileType.RED;
-//        test1[0][2] = TileType.BLUE;
-//        test1[1][0] = TileType.GREEN;
-//        test1[1][1] = TileType.YELLOW;
-//        test1[1][2] = TileType.PURPLE;
+//        int deckIndex = 1;
+//        Cards requiredCard = Decks.getCardFromIDs(Decks.DECK_ID.B,'l');
+//        Decks hand = new Decks("AwBaejlCDo");
+//        ArrayList<Decks.SingleDeck> singleDeckHand = new ArrayList<>();
 //
-//        TileType[][] test2 = Board.rotate90clockwise(test1);
-//        System.out.println(test2[0][0]);
-//        System.out.println(test2[0][1]);
-//        System.out.println(test2[1][0]);
-//        System.out.println(test2[1][1]);
-//        System.out.println(test2[2][0]);
-//        System.out.println(test2[2][1]);
+//        for(Decks.SingleDeck s: hand.getFulldeck()) {
+//            singleDeckHand.add(s);
+//        }
 //
-//        System.out.println(Utility.CAT_CARDS[3].charAt(0) == 3);
+//        Decks.SingleDeck required = new Decks.SingleDeck(hand.getFulldeck().get(deckIndex).toString());
+//
+//
+//
+//        ArrayList<Cards> finalCards = new ArrayList<>();
+//        for (Cards s : hand.getFulldeck().get(deckIndex).getCards()) {
+//            finalCards.add(s);
+//        }
+//
+//        finalCards.remove(requiredCard);
+//
+//        required.setCards(finalCards);
+//
+//        singleDeckHand.set(deckIndex,required);
+//        Decks finalHand = new Decks(singleDeckHand);
+//
+//        ArrayList<Integer> ints = new ArrayList<>();
+//        ints.add(0);
+//        ints.add(1);
+//        ints.add(2);
+//        ints.add(3);
+//
+//        ints.remove(0);
+//
+//        System.out.println(finalHand);
+//
+//    }
+

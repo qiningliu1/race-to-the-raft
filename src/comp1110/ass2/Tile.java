@@ -3,7 +3,9 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.shape.Polygon;
 
-
+/**
+ * Author: Ishaan Kapoor u7598889
+ **/
 public class Tile extends Image{
 
     public int posX,posY;
