@@ -249,15 +249,14 @@ public class RaceToTheRaft {
      * @return the updated gameState array after this placement has been made
      */
     public static String[] applyPlacement(String[] gameState, String placementString) {
-        //{Deck}{ID}{row}{column}{orientation}       pathwayCard
-        //{ID}{row}{column}{flipped}{orientation}    FireTile
+        //{Deck}{ID}{row}{column}{orientation}       pathwayCard  "Ab1208S"
+        //{ID}{row}{column}{flipped}{orientation}    FireTile     "l0003FW"
 
+        if (placementString.charAt(0)  == 'A'|| placementString.charAt(0)  == 'B' || placementString.charAt(0)  ==  'C' || placementString.charAt(0)  ==  'D') {
+             return Cards.placeCardOnBoard(gameState,placementString);
+        }
 
-
-
-
-
-        return null;
+        return FireTile.placeFireTileOnBoard(gameState,placementString);
 
          // FIXME TASK 8
     }
