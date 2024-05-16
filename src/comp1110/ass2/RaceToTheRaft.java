@@ -322,6 +322,15 @@ public class RaceToTheRaft {
             }
             gameState[3] = temp.toString();
         }
+        /**
+         * /**
+         *  Author: Lujin Sun u7897414
+         * Moves the cat according to the specified movement string.
+         *
+         * @param gameState The current state of the game.
+         * @param movementString The string indicating the movement of the cat.
+         * @return The updated game state after moving the cat.
+         */
         //update the state of board
         String[] map = gameState[0].split("\n");
         int len = map[0].length();
@@ -440,7 +449,6 @@ public class RaceToTheRaft {
             tile.setFireTile(fileTile);
             fileTile = FireTile.rotateFireTile(tile,Orientation.fromChar(placementString.charAt(6))).getFireTile();
         }
-
         int x = Integer.parseInt(placementString.substring(1,3));
         int y = Integer.parseInt(placementString.substring(3,5));
         int fileTileLen = fileTile.length;
@@ -565,7 +573,13 @@ public class RaceToTheRaft {
         int x2 = Integer.parseInt(catMovementString.substring(5,7));
         int y2 = Integer.parseInt(catMovementString.substring(7,9));
 
-
+/**Author: Lujin Sun u7897414
+ * This function checks if a cat's movement is valid based on the current game state.
+ *
+ * @param gameState            The current state of the game.
+ * @param catMovementString    The string representing the movement of a cat.
+ * @return                     True if the cat's movement is valid, false otherwise.
+ */
         gameState[2]=gameState[2]+'E';
         String[] haveCard = new String[4];
         for(int i=0;i<4;i++){
@@ -713,6 +727,13 @@ public class RaceToTheRaft {
         return true;
     }
 
+    /**
+     * Author: Lujin Sun u7897414
+     * Find the exhausted cat on the board
+     * Use action string to judge the next action of exhausted cat
+     * @param map A different state of boara, copy the layout of the board
+     * @return Different action choice determined by action string
+     */
     //Check if any cat can move
     public static boolean havingCannotMov(String[] map){
         int len = map.length;
@@ -740,6 +761,10 @@ public class RaceToTheRaft {
         }else return 3;
     }
 
+    /**Author: Lujin Sun u7897414
+     *  Check if any cat is on the board and update whole board
+     * @param type Cats with different colors
+     */
     //check if it's a cat
     public static boolean isCat(char type){
         switch (type) {
@@ -753,7 +778,6 @@ public class RaceToTheRaft {
                 return false;
         }
     }
-
     public static void updateBoard(char[][] board,char target){
         int len = board.length;
         int hig = board[0].length;
@@ -775,6 +799,12 @@ public class RaceToTheRaft {
             }
         }
     }
+
+    /**
+     * Author: Lujin Sun u7897414
+     * CanMove is a criteria to judge whether there is any cat can be moved in this round
+     * @return ture if the cat hasn't move and the movement is valid
+     */
     //Check if the cat can move
     public static boolean canMove(int x,int y,char[][] boar){
         int[][] dirs = {{0,1},{1,0},{-1,0},{0,-1}};
@@ -812,6 +842,12 @@ public class RaceToTheRaft {
         return false;
     }
 
+    /**
+     * Author: Lujin Sun u7897414
+     * Check whether the cat is on the raft
+     * IsOnRaft is a criteria to judge the location of cats
+     * @return true if cat is on raft
+     */
     //Check if cat is on the raft
     public static boolean isOnRaft(int x,int y,char[][] board){
         int[][] dirs = {{0,1},{1,0},{-1,0},{0,-1},{-1,-1},{1,1},{-1,1},{1,-1}};
