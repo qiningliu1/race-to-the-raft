@@ -45,9 +45,6 @@ public class newCatCards extends Card{
 
 
 
-
-
-
     @Override
     public newOrientation getOrientation() {
         return super.getOrientation();

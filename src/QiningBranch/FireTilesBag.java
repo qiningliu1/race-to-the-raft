@@ -185,9 +185,7 @@ public class FireTilesBag {
                     });
                     break;
             }
-
         }
-
 
 
     }
@@ -201,7 +199,6 @@ public class FireTilesBag {
                 ", coordinates=" +'}'+ this.drawnTile.transferCoordinates(drawnTile.coordinates);
 
     }
-
     /**
      * This Part for test
      * @param args
@@ -212,8 +209,6 @@ public class FireTilesBag {
        fireTilesBag1.initializeTileMap();
        //allocate key
         fireTilesBag1.initializeTiles();
-
-
 
        FireTiles fireTiles1= fireTilesBag1.drawFireTile();
         System.out.println("fireTiles1");
@@ -231,15 +226,10 @@ public class FireTilesBag {
         System.out.println(position1);
         printCoordinates(position1);
 
-
         fireTiles1.rotateToOrientation('E');
         System.out.println(fireTiles1.coordinates);
 
-
     }
-
-
-
 
 
 }
