@@ -23,8 +23,9 @@ class:
 # I wish to submit the following methods as entirely my own (remove this if
 # you want to just submit classes):
 method:
-  -
-  -
+  - https://gitlab.cecs.anu.edu.au/u7598889/comp1110-ass2/-/blob/main/src/comp1110/ass2/Cards.java?ref_type=heads#L115-162
+  - https://gitlab.cecs.anu.edu.au/u7598889/comp1110-ass2/-/blob/main/src/comp1110/ass2/FireTile.java?ref_type=heads#L394-422
+
 
   # sign *your* name and uid here
 name: Ishaan Kapoor
