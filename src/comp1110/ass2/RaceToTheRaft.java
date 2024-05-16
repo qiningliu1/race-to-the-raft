@@ -265,6 +265,7 @@ public class RaceToTheRaft {
     /**
      *
      * Author: Lujin Sun u7897414
+     * This function moves a cat on the game board according to the specified movement string.
      *
      * Move the given cat as described by the cat movement string and return the updated gameState array. You may
      * assume that the cat movement is valid.
@@ -486,9 +487,10 @@ public class RaceToTheRaft {
 
     /**
      * Author: Lujin Sun u7897414
+     * Used to check the validity of placement strings
      *
-     * @param placementString
-     * @return
+     * @param placementString The placement string representing the placement position and direction of objects in the game
+     * @return Returns true if the placement string is valid; otherwise, returns false
      */
     public static boolean check(String placementString){
         int len = placementString.length();
@@ -524,6 +526,11 @@ public class RaceToTheRaft {
     }
 
     /**
+     * Author: Lujin Sun u7897414
+     * Split the gamestate to get the board and update the board
+     * Parse the coordinates and check the movement string to find what's the action
+     * Check all the cards about the color, movement and whether they are within the board
+     *
      * Given a cat movement string, check if the cat movement is valid.
      * <p>
      * A cat movement is valid if:
@@ -537,6 +544,7 @@ public class RaceToTheRaft {
      * @return True if the cat movement is valid, otherwise false
      */
     public static boolean isCatMovementValid(String[] gameState, String catMovementString) {
+        //Define the directions: right, down, up, left
         int[][] dirs = {{0,1},{1,0},{-1,0},{0,-1}};
         TileType[][] gameboard = Board.getGameBoard(gameState[0]);
         int c = 0;
@@ -545,6 +553,7 @@ public class RaceToTheRaft {
             c++;
         }
         c = 0;
+        //Split the game state to get the map
         String[] mp = gameState[0].split("\n");
         for(String str:mp){
 
@@ -556,6 +565,7 @@ public class RaceToTheRaft {
         int y1 = Integer.parseInt(catMovementString.substring(3,5));
         int x2 = Integer.parseInt(catMovementString.substring(5,7));
         int y2 = Integer.parseInt(catMovementString.substring(7,9));
+
 
         gameState[2]=gameState[2]+'E';
         String[] haveCard = new String[4];
@@ -603,7 +613,11 @@ public class RaceToTheRaft {
 
 
     /**
+     * Author: Lujin Sun u7897414
+     * Update the board after each placement of cards can firetiles
+     * Check if any firetile or card can be placed
      * Determine whether the game is over. The game ends if any of the following conditions are met:
+     *
      * <p>
      * Fire tile placement:
      * 1. If this placement action is not valid AND there is no other position this tile could be placed validly
@@ -674,6 +688,14 @@ public class RaceToTheRaft {
         // FIXME TASK 15
     }
 
+/**
+ * Author: Lujin Sun u7897414
+ *Check if all cats are on the raft first
+ * Check whether any cat can move or all are exhausted
+ * Updade the whole Board and finish all the movement action if possible
+ * Check if game is over about cat movement
+ * @return True if the game is over (regardless of whether it is won or lost), otherwise False.
+ */
     public static boolean checkCat(String[] map){
         int len = map.length;
         int hig = map[0].length();
@@ -692,6 +714,7 @@ public class RaceToTheRaft {
         return true;
     }
 
+    //Check if any cat can move
     public static boolean havingCannotMov(String[] map){
         int len = map.length;
         int hig = map[0].length();
@@ -710,6 +733,7 @@ public class RaceToTheRaft {
         }
         return false;
     }
+
     public static int type(String action){
         if(action.length()==7){
             if(action.charAt(1)>='a') return 1;
@@ -717,6 +741,7 @@ public class RaceToTheRaft {
         }else return 3;
     }
 
+    //check if it's a cat
     public static boolean isCat(char type){
         switch (type) {
             case 'B':
@@ -729,12 +754,15 @@ public class RaceToTheRaft {
                 return false;
         }
     }
+
     public static void updateBoard(char[][] board,char target){
         int len = board.length;
         int hig = board[0].length;
         for(int i=0;i<len;i++){
             for(int j=0;j<hig;j++){
+                //Skip if it is not fire
                 if(board[i][j]!='f') continue;
+                //Update the surroundings of every firetile
                 if(i+2>=len||board[i+2][j]=='f'){
                     if(i+1<len&&board[i+1][j]!=target) board[i+1][j] = 'f';
                 }else if(i+3>=len||board[i+3][j]=='f'){
@@ -748,6 +776,7 @@ public class RaceToTheRaft {
             }
         }
     }
+    //Check if the cat can move
     public static boolean canMove(int x,int y,char[][] boar){
         int[][] dirs = {{0,1},{1,0},{-1,0},{0,-1}};
         int len = boar.length;
@@ -758,6 +787,7 @@ public class RaceToTheRaft {
                 board[i][j] = boar[i][j];
             }
         }
+
         updateBoard(board,(char)(board[x][y]+32));
         boolean[][] visited = new boolean[len][hig];
         Deque<int[]> que = new ArrayDeque<>();
@@ -783,8 +813,7 @@ public class RaceToTheRaft {
         return false;
     }
 
-
-
+    //Check if cat is on the raft
     public static boolean isOnRaft(int x,int y,char[][] board){
         int[][] dirs = {{0,1},{1,0},{-1,0},{0,-1},{-1,-1},{1,1},{-1,1},{1,-1}};
         int len = board.length;
@@ -798,6 +827,7 @@ public class RaceToTheRaft {
         return false;
     }
 
+    // Check if cat is on the raft (overloaded method, for different map types)
     public static boolean isOnRaft(int x,int y,TileType[][] board){
         int[][] dirs = {{0,1},{1,0},{-1,0},{0,-1},{-1,-1},{1,1},{-1,1},{1,-1}};
         int len = board.length;
