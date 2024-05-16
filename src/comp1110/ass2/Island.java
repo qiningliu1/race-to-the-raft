@@ -41,6 +41,11 @@ public class Island {
 
     };
 
+    /**
+     * chooses 4 random boards based on  String like LNSNLASA
+     * @param boardString string representing the boards needed
+     * @return list of boards.
+     */
     public static ArrayList<Board> chooseBoardFromString (String[] boardString) {  //string like [SN,LA]
 
         ArrayList<Board> required = new ArrayList<>();
@@ -99,7 +104,12 @@ public class Island {
 
     }
 
-
+    /**
+     * Author: Ishaan Kapoor u7598889
+     * Otputs an initial challenge board, based on the boards that we need as per the challenge string.
+     * @param challengeString string representing the initial challenge
+     * @return
+     */
     public static Board getInitialIsland(String challengeString) {
         String[] challengeArray = challengeString.split("(?=[F,C,R])");
         String[] islandStringArray = challengeArray[0].split("(?=[L,S])");
@@ -114,7 +124,14 @@ public class Island {
     }
 
 
-
+    /**
+     * Author: Ishaan Kapoor u7598889
+     *
+     * combines 2 boards to make a larger board.
+     * @param board1
+     * @param board2
+     * @return the large combined board
+     */
     public static Board combine2boards (Board board1, Board board2){
         TileType[][] board1tiles = board1.getBoard();
         TileType[][] board2tiles = board2.getBoard();
@@ -134,7 +151,16 @@ public class Island {
         return new Board(finalBoard);
     }
 
-
+    /**
+     * Author: Ishaan Kapoor u7598889
+     *
+     * combines 4 boards to make a larger board.
+     * @param board1
+     * @param board2
+     * @param board3
+     * @param board4
+     * @return the large combined board
+     */
     public static Board combine4boards(Board board1, Board board2, Board board3, Board board4) {
         Board boardLeft = combine2boards(board1,board2);
         Board boardRight = combine2boards(board3,board4);
@@ -156,6 +182,14 @@ public class Island {
         }
         return new Board(finalBoard);
     }
+
+    /**
+     * Author: Ishaan Kapoor u7598889
+     *
+     * applies raftCard on the board, as per the given challenge String
+     * @param board initial board without raft
+     * @param challengeString describing the challenge
+     */
     public static void applyRaft(Board board, String challengeString) {
         TileType[][] boardTiles = board.getBoard();
 
@@ -181,7 +215,13 @@ public class Island {
         board.setBoard(boardTiles);
     }
 
-
+    /**
+     * Author: Ishaan Kapoor u7598889
+     *
+     * applies fire cards on the board, as per the given challenge String
+     * @param board initial board without fire cards
+     * @param challengeString describing the challenge
+     */
     public static void applyFireCard(Board board, String challengeString) {
         String[] challengeArray = challengeString.split("(?=[F,C,R])");
         String fireString = challengeArray[1];
@@ -191,7 +231,11 @@ public class Island {
         }
 
     }
-
+    /**
+     * Author: Ishaan Kapoor u7598889
+     * applies fire card on the board based on the row and col specified.
+     * helper for applyFireCard method.
+     */
     public static void applyFire(Board board, int row, int column) {
         TileType[][] boardTiles = board.getBoard();
         for (int i=0; i<3;i++) {
@@ -201,7 +245,13 @@ public class Island {
         }
         board.setBoard(boardTiles);
     }
-
+    /**
+     * Author: Ishaan Kapoor u7598889
+     *
+     * applies cat cards on the board, as per the given challenge String
+     * @param board initial board without cat cards
+     * @param challengeString describing the challenge
+     */
     public static void applyCatCard(Board board,String challengeString) {
         TileType[][] boardTiles = board.getBoard();
         String[] challengeArray = challengeString.split("(?=[F,C,R])");
@@ -231,6 +281,15 @@ public class Island {
         board.setBoard(boardTiles);
     }
 
+    /**
+     *  Author=: Ishaan Kapoor u7598889
+     *
+     * applies the TilesType in card onot the board
+     * @param board tiles of board
+     * @param card tiles of card
+     * @param row row coordinate of top left card tile.
+     * @param col column coordinate of top left card tile.
+     */
     public static void applyCard(TileType[][] board, TileType[][] card, Integer row, Integer col) {
         // Iterate over the small matrix
         for (Integer i = 0; i < card.length; i++) {
