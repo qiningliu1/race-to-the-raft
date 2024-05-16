@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class testGameBoard {
+public class testGameNewBoard {
     @Test
     public void testBoardFromString() { // tests for square board
         String boardString = Utility.SQUARE_BOARDS[0][0];

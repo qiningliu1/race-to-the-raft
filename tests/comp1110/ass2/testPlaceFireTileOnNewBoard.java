@@ -2,7 +2,7 @@ package comp1110.ass2;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-public class testPlaceFireTileOnBoard {
+public class testPlaceFireTileOnNewBoard {
     @Test
     public void testSquareBoard() { // tests for square board
         String[] gameState = new String[5];

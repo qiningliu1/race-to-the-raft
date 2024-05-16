@@ -17,8 +17,8 @@ title	description
 "Task 3: Constructors"	"
 Begin the implementation of your design by storing appropriate information in instances of your classes. We will provide you with a string representation of game states (see section String Representation below) for testing purposes. Your first implementation step should be to internalise this representation, i.e., to create instances of the classes in your design initialised with the information from the string representation.
 Make sure you represent, at minimum, the following information in your object-oriented state of the game: 
-- [ ] The state of each square in the board
-- [ ] The location of cats on the board
+- [ ] The state of each square in the newBoard
+- [ ] The location of cats on the newBoard
 - [ ] The cards in each of the decks
 - [ ] The cards in the player's hand
 - [ ] The status of each cat: Exhausted or Not exhausted
@@ -30,8 +30,8 @@ Make sure you represent, at minimum, the following information in your object-or
 "
 "Task 4: Viewer"	"
 Implement the displayState() method in the Viewer class, allowing you to visualise a game state String.
-- [ ] Display the colour/state of each square on the board
-- [ ] Display the cats on the board (we want to see the cat on the board, not a list of locations)
+- [ ] Display the colour/state of each square on the newBoard
+- [ ] Display the cats on the newBoard (we want to see the cat on the newBoard, not a list of locations)
 - [ ] Display the cards in a player's hand
 
 "

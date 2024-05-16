@@ -10,7 +10,7 @@ import java.util.concurrent.TimeUnit;
  * Author: Ishaan Kapoor u7598889
  */
 
-public class getGameBoardTest {
+public class getGameNewBoardTest {
     private String wellFormedboardString = """
             fffffffffffffffrrf
             fffffffffbbbfffrRf

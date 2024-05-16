@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import javax.annotation.processing.SupportedAnnotationTypes;
 
-public class testRotateBoard {
+public class testRotateNewBoard {
     @Test
     public void testRotateBoardEast() { // tests for rectangle board
         TileType[][] test1 = new TileType[2][3];

@@ -66,8 +66,8 @@ upstream pull of this assignment repo at least once per week.
 ### Task 3: Constructors
 For the avoidance of doubt, the following lists the minimal information that we expect to find in your object-oriented representation of the game by the time your D2C submission is complete for task 3. Please note that this is the bare minimum to collect the task 3 mark in D2C. Depending on the details of your design, you may need to store additional information in your objects in order to be eligible for the marks associated with good object-oriented design.
 
-- The state of each square in the board
-- The location of cats on the board
+- The state of each square in the newBoard
+- The location of cats on the newBoard
 - The cards in each of the decks
 - The cards in the player's hand
 - The status of each cat: Exhausted or Not exhausted
@@ -115,15 +115,15 @@ better effect, and ensure that you're demonstrating your understanding of object
 #### Information to be displayed
 
 The information that needs to be displayed by your viewer is similar to the information that needed to be placed 
-into a field in task 3. You only need to display information found in the `board` and `hand` strings. Other 
+into a field in task 3. You only need to display information found in the `newBoard` and `hand` strings. Other 
 information about the game is not supplied in Task 3 and as such does not need to be displayed.
 The things we're looking for in your viewer:
-- The colour/state of each square on the board
-- The cats on the board (we want to see the cat on the board, not a list of locations)
+- The colour/state of each square on the newBoard
+- The cats on the newBoard (we want to see the cat on the newBoard, not a list of locations)
 - The cards in a player's hand
 
 What follows are some steps you may want to follow to help you with implementing the viewer. You do not have to follow this procedure, but it's here to help if you get stuck:
-1. Draw the board, with each coloured square in it's correct location
+1. Draw the newBoard, with each coloured square in it's correct location
 2. Display cats in their correct `row` and `column` coordinates
 3. Display the cards in a player's hand in the North orientation
 

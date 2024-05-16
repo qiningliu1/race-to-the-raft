@@ -1,14 +1,4 @@
-package comp1110.ass2.gui;
-
-/**
- * Author: Qining liu u7100555
- */
-
-import javafx.application.Application;
-import javafx.scene.Group;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
-
+package QiningBranch.gui;
 
 import QiningBranch.*;
 import comp1110.ass2.Utility;
@@ -31,7 +21,7 @@ import java.util.Map;
 import static QiningBranch.newraftCard.getRaftTileTypeById;
 
 
-public class Game extends Application {
+public class RaceViewer extends Application {
     private final Group root = new Group();
     private static final int VIEWER_WIDTH = 1100;
     private static final int VIEWER_HEIGHT = 650;
@@ -67,22 +57,22 @@ public class Game extends Application {
         // 假设 boardState 和 handState 是用某种方式编码的字符串
         clearDisplay();//Clear current display
         // 显示棋盘状态
-        // String[] boardRows = boardState.split("\n");  // 假设每行一个数据
+       // String[] boardRows = boardState.split("\n");  // 假设每行一个数据
         //for (String row : boardRows) {
-        // 解析每行数据并显示
-        // 例如：通过调用自定义的方法 drawBoardRow(row);
-    }
-    // 显示手中的卡片
-    //String[] handCards = handState.split(",");  // 假设卡片由逗号分隔
-    //for (String card : handCards) {
-    // 解析每张卡片并显示
-    // 例如：通过调用自定义的方法 drawCard(card);
-    //}
+            // 解析每行数据并显示
+            // 例如：通过调用自定义的方法 drawBoardRow(row);
+        }
+        // 显示手中的卡片
+        //String[] handCards = handState.split(",");  // 假设卡片由逗号分隔
+        //for (String card : handCards) {
+            // 解析每张卡片并显示
+            // 例如：通过调用自定义的方法 drawCard(card);
+        //}
 
-    private void drawBoardRow(String row) {
-        // 根据行数据绘制棋盘的一行
-        // 这可能包括为每个格子创建一个矩形或其他图形，并设置颜色等属性
-    }
+        private void drawBoardRow(String row) {
+            // 根据行数据绘制棋盘的一行
+            // 这可能包括为每个格子创建一个矩形或其他图形，并设置颜色等属性
+        }
 
 
 
@@ -300,10 +290,10 @@ public class Game extends Application {
 //        drawDecksArea('A',600,0);
 
 
-        // drawDecksArea('C',600,300);
+       // drawDecksArea('C',600,300);
 
 
-        // drawAllDecks("ABDBAA");
+   // drawAllDecks("ABDBAA");
 
 
         /**
@@ -417,7 +407,7 @@ public class Game extends Application {
                 }
             }
         }
-    }
+}
 
 
 
@@ -426,9 +416,9 @@ public class Game extends Application {
     private static List<Integer> eachIslandLength(List<newTileType[][]> createBoard){
         List<Integer> subIslandRowLength = new ArrayList<>();
         for(int t =0; t<createBoard.size();t++){
-            int temp =createBoard.get(t).length;
+           int temp =createBoard.get(t).length;
             System.out.println(temp);
-            subIslandRowLength.add(temp);
+           subIslandRowLength.add(temp);
         }
         return subIslandRowLength;
     }
@@ -451,15 +441,15 @@ public class Game extends Application {
         switch(numOfIsland) {
             case 0:
                 newTileType[][] board = createBoard.get(0);//here should be zero not  numOfIsland
-                for (int rowCoord = 0; rowCoord < board.length; rowCoord++) {
-                    for (int colCoord = 0; colCoord < board[rowCoord].length; colCoord++) {
+            for (int rowCoord = 0; rowCoord < board.length; rowCoord++) {
+                for (int colCoord = 0; colCoord < board[rowCoord].length; colCoord++) {
 //                Rectangle rect = new Rectangle(c * TILE_SIZE, r * TILE_SIZE, TILE_SIZE, TILE_SIZE);
 //                rect.setFill(getColorForTileType(board[r][c]));
 //                root.getChildren().add(rect);
-                        addImage(root, board[rowCoord][colCoord], SQUARE * colCoord, SQUARE * rowCoord);
-                    }
+                    addImage(root, board[rowCoord][colCoord], SQUARE * colCoord, SQUARE * rowCoord);
                 }
-                break;
+            }
+            break;
             case 1:
                 newTileType[][] board1 = createBoard.get(1);
                 for (int rowCoord = 0; rowCoord < board1.length; rowCoord++) {
@@ -470,16 +460,16 @@ public class Game extends Application {
                         //the row length of left top most board
                     }
                 }
-                break;
+            break;
             case 2:
                 newTileType[][] board2 = createBoard.get(2);
                 for (int rowCoord = 0; rowCoord < board2.length; rowCoord++) {
                     for (int colCoord = 0; colCoord < board2[rowCoord].length; colCoord++) {
                         addImage(root, board2[rowCoord][colCoord], (9*SQUARE)+SQUARE * colCoord,
-                                SQUARE * rowCoord);
+                                   SQUARE * rowCoord);
                     }
                 }
-                break;
+            break;
 
             case 3://the right bottom of board
                 newTileType[][] board3 = createBoard.get(3);
@@ -489,7 +479,7 @@ public class Game extends Application {
                                 (subRowLength.get(0))*SQUARE + SQUARE * rowCoord);
                     }
                 }
-                break;
+            break;
         }
 
     }
@@ -519,12 +509,12 @@ public class Game extends Application {
 
         HandCard handCard = new HandCard();
         if(placementString.charAt(0)=='A'){
-            handCard = new HandCard(Utility.DECK_A[1]);
+           handCard = new HandCard(Utility.DECK_A[1]);
         }
-        else if(placementString.charAt(0)=='B'){
+       else if(placementString.charAt(0)=='B'){
             handCard = new HandCard(Utility.DECK_B[1]);
         }
-        else if (placementString.charAt(0)=='C') {
+       else if (placementString.charAt(0)=='C') {
             handCard = new HandCard(Utility.DECK_C[1]);
         }
         else if (placementString.charAt(0)=='D') {
@@ -532,12 +522,12 @@ public class Game extends Application {
         }
 
         //Rotate handCardFirst
-        switch (newOrientation.fromChar(placementString.charAt(6))){
-            case NORTH ->  handCard =HandCard.rotateCard(handCard, newOrientation.NORTH);
-            case EAST -> handCard=HandCard.rotateCard(handCard, newOrientation.EAST);
-            case SOUTH -> handCard=HandCard.rotateCard(handCard, newOrientation.SOUTH);
-            case WEST -> handCard=HandCard.rotateCard(handCard, newOrientation.WEST);
-        }
+         switch (newOrientation.fromChar(placementString.charAt(6))){
+             case NORTH ->  handCard =HandCard.rotateCard(handCard, newOrientation.NORTH);
+             case EAST -> handCard=HandCard.rotateCard(handCard, newOrientation.EAST);
+             case SOUTH -> handCard=HandCard.rotateCard(handCard, newOrientation.SOUTH);
+             case WEST -> handCard=HandCard.rotateCard(handCard, newOrientation.WEST);
+         }
 
         //Place HandCard
         Location location = new Location();
@@ -550,14 +540,14 @@ public class Game extends Application {
         newTileType[][] layout=   handCard.getCardLayOut();
 
         // we first place leftTopSquare
-        // TileType leftTopSquare = layout[0][0];
+       // TileType leftTopSquare = layout[0][0];
         //addImage(root,leftTopSquare,col,row);
 
         for (int rowLayout = 0; rowLayout < 3; rowLayout++) {
             for (int colLayout = 0; colLayout < 3; colLayout++) {
-                newTileType handCardSquare = layout[rowLayout][colLayout];
+          newTileType handCardSquare = layout[rowLayout][colLayout];
                 System.out.println(handCardSquare);
-                addImage(root,handCardSquare,(col+colLayout)*SQUARE,(row+rowLayout)*SQUARE);
+          addImage(root,handCardSquare,(col+colLayout)*SQUARE,(row+rowLayout)*SQUARE);
             }
         }
 
@@ -566,17 +556,17 @@ public class Game extends Application {
     /**
      * This method can initialize all  decks in the beginning
      * Once you call it you can not call it except you restart/reselect difficulty
-     */
-    public newDecks initializePlayersHand(){
+      */
+public newDecks initializePlayersHand(){
         newDecks newDecksInitial = new newDecks();
         //if you change difficulty you should initialize again
         newDecksInitial.initializeDecks();
         this.newDecks = newDecksInitial;
         return newDecksInitial;
-    }
+}
 
-    public HandCard playersHand(newDecks newDecks, char decksID){
-        //update current board decks
+public HandCard playersHand(newDecks newDecks, char decksID){
+    //update current board decks
 
 //    switch (decksID){
 //        case 'A':
@@ -592,23 +582,23 @@ public class Game extends Application {
 //            System.out.println("your selection is wrong");
 //            return null;
 //    }
-        if(decksID == 'A'){
-            return newDecks.drawRequestFromDeck('A');
-        }
-        else if (decksID == 'B') {
-            return newDecks.drawRequestFromDeck('B');
-        } else if (decksID == 'C') {
-            return newDecks.drawRequestFromDeck('C');
-        }
-        else if (decksID == 'D') {
-            return newDecks.drawRequestFromDeck('D');
-        }
-
-        else{
-            System.out.println("Your input is wrong");
-            return null;}
-
+    if(decksID == 'A'){
+        return newDecks.drawRequestFromDeck('A');
     }
+    else if (decksID == 'B') {
+        return newDecks.drawRequestFromDeck('B');
+    } else if (decksID == 'C') {
+        return newDecks.drawRequestFromDeck('C');
+    }
+    else if (decksID == 'D') {
+        return newDecks.drawRequestFromDeck('D');
+    }
+
+    else{
+        System.out.println("Your input is wrong");
+        return null;}
+
+}
 
 //public void drawDecksArea(char decksID) {
 //            HandCard handCard = playersHand(this.decks, decksID);

@@ -3,7 +3,7 @@
 The *game state* is an array of strings that encompasses the state of the game.   
 In order:
 
-**[[Board](#the-board-string), [Decks](#decks), [Hand](#hand-pathway-cards), [Exhausted Cats](#exhausted-cats),
+**[[Board](#the-newBoard-string), [Decks](#decks), [Hand](#hand-pathway-cards), [Exhausted Cats](#exhausted-cats),
 [Fire tile bag](#fire-tile-bag)]**
 
 We will also use strings to represent [challenges](#challenge-string), [pathway card placements](#pathway-card-placement-strings), [fire tile placements](#fire-tile-placement-strings) and [cat movement](#cat-movement-string).
@@ -11,10 +11,10 @@ Each of these strings will be explained in detail below.
 
 ## The Board String
 
-The Board string contains h lines of w characters, where h is the height of the board (in squares) and w is the width 
-of the board (in squares). The board is created out of 2 or 4 Islands as described in the [Challenge String](#challenge-string) section below. 
+The Board string contains h lines of w characters, where h is the height of the newBoard (in squares) and w is the width 
+of the newBoard (in squares). The newBoard is created out of 2 or 4 Islands as described in the [Challenge String](#challenge-string) section below. 
 
-Each square on the board is represented by a letter:
+Each square on the newBoard is represented by a letter:
 - `b` for blue squares;
 - `r` for red squares;
 - `y` for yellow squares;
@@ -34,8 +34,8 @@ This loses information about the colour of that cat, but that is fine - the cat 
 The objective space `o` cannot be occupied by a cat and as such is never represented by a capital letter.
 
 For example:
-The following string represents the board below:
-Note that the newlines are a vital part of the string. Each line of text represents a row on the board.
+The following string represents the newBoard below:
+Note that the newlines are a vital part of the string. Each line of text represents a row on the newBoard.
 ```
 "fffffffffrrfffffff
  fffffffffrRfffffff
@@ -179,34 +179,34 @@ Note that the letters `F`, `C` and `R` denote the start of the `Fire`, `Cat` and
 
 The challenge string `"LNSNLASAF000300060012001506030903C000093030341203R11215"` corresponds to the game below: Each element of this string will be explained in greater 
 detail in this document. 
-Note that the grey squares are sections of the board that aren't described by the challenge string because Islands 
+Note that the grey squares are sections of the newBoard that aren't described by the challenge string because Islands 
 are chosen randomly from the appropriate Large or Small boards. 
 
 <img src="assets/example_challenge_string.png" alt="example challenge string">
 
 ## Island (challenge substring) 
 
-The island board layout string is either an eight- or four-character long string, made
-up of two-character long substrings. Each two-character long substring defines the size of the island board to be used,
-and the desired rotation of the island board if the side of the board with fire
+The island newBoard layout string is either an eight- or four-character long string, made
+up of two-character long substrings. Each two-character long substring defines the size of the island newBoard to be used,
+and the desired rotation of the island newBoard if the side of the newBoard with fire
 is in play.
 
 - The first character of each string can either be `S` or `L`. `S`,
-denoting "small", denotes that a 9 x 6 island board should be used, whereas
-`L`, denoting "large", denotes that a 9 x 9 island board should be used. 
+denoting "small", denotes that a 9 x 6 island newBoard should be used, whereas
+`L`, denoting "large", denotes that a 9 x 9 island newBoard should be used. 
 - The
 second character of each string is either `N`, `E`, `S`, `W`, or `A`. `N`, `E`
 `S` and `W` denote the cardinal directions "north", "south", "east", and "west"
 respectively. The character `A` denotes "any", and means
-that the side of the island board without fire should be used. As a result, the
-island board can be rotated in any direction.
+that the side of the island newBoard without fire should be used. As a result, the
+island newBoard can be rotated in any direction.
 
 *Note*: because of the layout of the game, the 9 x 6 island boards can only
-ever have the rotations `N`, `S`, or `A`. If a 9 x 6 island board has rotation
+ever have the rotations `N`, `S`, or `A`. If a 9 x 6 island newBoard has rotation
 `A` (that is, for the two-character string `"SA"`), then it can only be rotated
 north or south.
 
-The ordering of each two-letter string determines where each island board
+The ordering of each two-letter string determines where each island newBoard
 should be placed. 
 
 - The first two-character substring is the Island in the top-left corner. 
@@ -217,9 +217,9 @@ should be placed.
 If this challenge has only two Islands, they are still placed in this way with the first Island placed above the 
 second Island.
 
-Here is an example board generated by the string `"LNSNLASA"`:
+Here is an example newBoard generated by the string `"LNSNLASA"`:
 
-<img src="assets/4-island-example.png" alt="4 island example board">
+<img src="assets/4-island-example.png" alt="4 island example newBoard">
 
 The red lines separate each island, and the numbers on each island correspond to
 the ordering of islands within the string:
@@ -228,9 +228,9 @@ the ordering of islands within the string:
 - "3" corresponds to `"LA"`; and
 - "4" corresponds to `"SA"`.
 
-Here is an example of the board generated by the string `"LNSN"`:
+Here is an example of the newBoard generated by the string `"LNSN"`:
 
-<img src="assets/2-island-example.png" alt="2 island example board">
+<img src="assets/2-island-example.png" alt="2 island example newBoard">
 
 The red lines separate each island and the numbers on each island correspond to the ordering of islands in the 
 string in the same way as the 4-island example.

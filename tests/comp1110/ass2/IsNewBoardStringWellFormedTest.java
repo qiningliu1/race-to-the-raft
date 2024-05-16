@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Timeout;
 import java.util.concurrent.TimeUnit;
 
 @Timeout(value = 500, unit = TimeUnit.MILLISECONDS)
-public class IsBoardStringWellFormedTest {
+public class IsNewBoardStringWellFormedTest {
 
     @Test
     public void testNewLines() {

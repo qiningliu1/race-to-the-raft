@@ -159,14 +159,14 @@ There are several ways that the game can be lost:
 
 The island is made up of several connected island boards, which have dimensions of either 9 x 6 or 9 x 9 squares.
 The layout of the island will depend on the challenge that is being completed.
-Each island board can optionally have a strip of fire along one of its edges
+Each island newBoard can optionally have a strip of fire along one of its edges
 (for the 9 x 6 island boards, this is always along the shorter edge).
 
 Island boards are chosen randomly, and rotated randomly, so long as they match the specifications of the challenge.
 These specifications are:
 
-1. The island boards are rotated correctly to form the correctly sized board; and
-2. Any strips of fire that are stipulated in the challenge are reflected in the board setup.
+1. The island boards are rotated correctly to form the correctly sized newBoard; and
+2. Any strips of fire that are stipulated in the challenge are reflected in the newBoard setup.
 
 ### Cat Location Cards
 
@@ -195,7 +195,7 @@ the circle deck.
 
 ### Fire Tiles
 
-Fire tiles are Tetris-shaped blocks of fire, which are placed on the board throughout the duration of the game.
+Fire tiles are Tetris-shaped blocks of fire, which are placed on the newBoard throughout the duration of the game.
 
 <img src="assets/FireTile.png" alt="Fire comp1110.ass2.Tile" width="250"/>
 
@@ -296,7 +296,7 @@ should be at least one commit made per task completed, but really you should be 
 ### How can I try the real/original game?
 
 As with Assignment 1, a physical copy of the game will be provided to the CSSA for storage (and usage!) in the common
-room, likely some time in week 5. Please ensure if you are trying the physical copy of the game that the board is set up
+room, likely some time in week 5. Please ensure if you are trying the physical copy of the game that the newBoard is set up
 exactly like the pictures if you want it to line up with the coordinates used in the test cases.
 
 There are online demos of the game as well, but we have made significant changes to the rules, so you must use the

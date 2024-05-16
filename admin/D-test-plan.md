@@ -2,8 +2,8 @@ Classes in our design that needs to be tested are :
 
 1) Board
 
-method getGameBoard should be tested in isolation, to test if the correct expected board (comp1110.ass2.Tile[][])
-is returned after providing the board string from the challenge string.
+method getGameBoard should be tested in isolation, to test if the correct expected newBoard (comp1110.ass2.Tile[][])
+is returned after providing the newBoard string from the challenge string.
 
 
 2) Tiles
@@ -21,12 +21,12 @@ the length of updated Fire bag and also check if the draw Fire comp1110.ass2.Til
 4) GameState
 
 we are yet to build this class. As for our plan, we are thinking of making this a class where we store
-current hand, decks, state of board and cats. All these can be tested effectively by manually comparing
+current hand, decks, state of newBoard and cats. All these can be tested effectively by manually comparing
 to expected states after playing some moves. These will be sorted in the future.
 
 5) Island
 
-Same for Island class, which is still very new. We want to make a larger board called Island using, smaller
+Same for Island class, which is still very new. We want to make a larger newBoard called Island using, smaller
 boards as per the challenge string. The challenge string is different from the boardString so we have made a
 new class for Islands. We will need an orientation class to implement this class and we will
 concurrently test both. After changing the orientation of the boards, the Islands would change
