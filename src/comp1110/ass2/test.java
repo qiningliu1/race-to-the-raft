@@ -10,14 +10,24 @@ import java.util.ArrayList;
  */
 public class test {
     public static void main(String[] args) {
-    ArrayList<FireTile> testBag= new ArrayList<>();
-    testBag = FireTile.fireTileBagFromString("abcdefghijklmnopqrstuvwxyzABCDE");
-        System.out.println(testBag);
+        ArrayList<FireTile> testBag= new ArrayList<>();
+        testBag = FireTile.fireTileBagFromString("abcdefghijklmnopqrstuvwxyzABCDE");
+        FireTile tile = new FireTile("y0001111221");
+        FireTile tileEast = FireTile.rotateFireTile(tile,Orientation.EAST);
+        FireTile tileSouth = FireTile.rotateFireTile(tile,Orientation.SOUTH);
+        FireTile tileWest = FireTile.rotateFireTile(tile,Orientation.WEST);
+        TileType[][] testTiles = tile.getFireTile();
+        FireTile.flipFireTileNorthSouth(testTiles);
+
+
+        System.out.println(tile);
+        System.out.println(new FireTile('1' , testTiles));
 
 
 
-    }
+    }//flip and rotate working
 }
+
 //        int deckIndex = 1;
 //        Cards requiredCard = Decks.getCardFromIDs(Decks.DECK_ID.B,'l');
 //        Decks hand = new Decks("AwBaejlCDo");
