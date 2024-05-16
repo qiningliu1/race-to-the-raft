@@ -391,6 +391,13 @@ public class FireTile {
 
     }
 
+    /**
+     * Author: Ishaan Kapoor u7598889
+     * places the firetile, as specified by placement String, and updated gameState
+     * @param gameState string representing gameState
+     * @param firePlacementString string commanding fireTile placement
+     * @return String representing new gameState
+     */
     public static String[] placeFireTileOnBoard(String[] gameState, String firePlacementString) {
         //{ID}{row}{column}{flipped}{orientation}
         //l0003TW
@@ -421,6 +428,10 @@ public class FireTile {
         return gameState;
     }
 
+    /**
+     * Author: Ishaan Kapoor u7598889
+     * generates all possible firetiles.
+     */
     public static ArrayList<FireTile> allFireTilesGenerator(String[] stringArray){
         ArrayList<FireTile> req = new ArrayList<>(stringArray.length);
         for (String s:stringArray) {
