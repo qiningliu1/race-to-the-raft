@@ -19,11 +19,13 @@ declaration: >-
 class:
    - https://gitlab.cecs.anu.edu.au/u7598889/comp1110-ass2/-/blob/qining_code_review/src/QiningBranch/ChallengeParser.java?ref_type=heads
    - https://gitlab.cecs.anu.edu.au/u7598889/comp1110-ass2/-/blob/qining_code_review/src/QiningBranch/ChallengeParser.java?ref_type=heads
+   
 # I wish to submit the following methods as entirely my own (remove this if
 # you want to just submit classes):
 method:
    - https://gitlab.cecs.anu.edu.au/u7598889/comp1110-ass2/-/blob/qining_code_review/src/QiningBranch/Challenge.java?ref_type=heads#L116-196
    - https://gitlab.cecs.anu.edu.au/u7598889/comp1110-ass2/-/blob/qining_code_review/src/comp1110/ass2/gui/Game.java?ref_type=heads#L448-512
+
 
 # sign *your* name and uid here
 name: Qining Liu
