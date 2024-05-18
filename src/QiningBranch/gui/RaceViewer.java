@@ -3,6 +3,7 @@ package QiningBranch.gui;
 import QiningBranch.*;
 import comp1110.ass2.Utility;
 import javafx.application.Application;
+import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -10,13 +11,12 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static QiningBranch.newraftCard.getRaftTileTypeById;
 
@@ -45,6 +45,9 @@ public class RaceViewer extends Application {
 
     private TextArea selectionText;
 
+    //Here we should add object to show FireTiles
+    FireTilesBag fireTilesBag1 = new FireTilesBag();
+
 
     /**
      * Draw the given board and hand in the window, removing any previously drawn boards/hands.
@@ -55,33 +58,11 @@ public class RaceViewer extends Application {
      */
     void displayState(String boardstate, String hand) {
         // FIXME TASK 4
-        // 解析 boardState 和 handState，并更新界面
-        // 假设 boardState 和 handState 是用某种方式编码的字符串
         clearDisplay();//Clear current display
-        // 显示棋盘状态
-       // String[] boardRows = boardState.split("\n");  // 假设每行一个数据
-        //for (String row : boardRows) {
-            // 解析每行数据并显示
-            // 例如：通过调用自定义的方法 drawBoardRow(row);
         }
-        // 显示手中的卡片
-        //String[] handCards = handState.split(",");  // 假设卡片由逗号分隔
-        //for (String card : handCards) {
-            // 解析每张卡片并显示
-            // 例如：通过调用自定义的方法 drawCard(card);
-        //}
-
-        private void drawBoardRow(String row) {
-            // 根据行数据绘制棋盘的一行
-            // 这可能包括为每个格子创建一个矩形或其他图形，并设置颜色等属性
-        }
-
-
 
     private void clearDisplay() {
-        // 清除界面上的所有元素
-        // 例如：root.getChildren().clear();
-        // 或者删除特定的组件
+
     }
 
     /**
@@ -140,7 +121,6 @@ public class RaceViewer extends Application {
         labels.setLayoutY(VIEWER_HEIGHT - 120);
         controls.getChildren().addAll(fields, labels, button);
 
-
     }
 
 
@@ -174,7 +154,6 @@ public class RaceViewer extends Application {
         labels.setLayoutY(VIEWER_HEIGHT - 220);
         controls.getChildren().addAll(fields, labels, button);
 
-
     }
 
     private void setPathwayCardPlacement() {
@@ -186,23 +165,86 @@ public class RaceViewer extends Application {
         pathwayCardPlacement.setPrefHeight(50);
 
         Button button = placeHandCardButton();
-        button.setLayoutY(VIEWER_HEIGHT - 550);
+        button.setLayoutY(VIEWER_HEIGHT - 650);
         button.setLayoutX(900);
 
         HBox fields = new HBox();
         fields.getChildren().addAll(pathwayCardPlacement);
         fields.setSpacing(20);
         fields.setLayoutX(900);
-        fields.setLayoutY(VIEWER_HEIGHT - 500);
+        fields.setLayoutY(VIEWER_HEIGHT - 600);
 
         HBox labels = new HBox();
         labels.getChildren().addAll(placementCardLabel);
         labels.setSpacing(45);
         labels.setLayoutX(900);
-        labels.setLayoutY(VIEWER_HEIGHT - 520);
-        controls.getChildren().addAll(fields, labels, button);
+        labels.setLayoutY(VIEWER_HEIGHT - 620);
+//        controls.getChildren().addAll(fields, labels, button);
+
+
+        // Add FireTilesMethod
+        Button fireButton = new Button("Choose fire");
+        fireButton.setLayoutX(900);
+        fireButton.setLayoutY(VIEWER_HEIGHT-300);
+
+        fireButton.setOnAction(e->{
+            fireTiles1 = fireTilesBag1.drawFireTile();
+            fireRefresh();
+        });
+
+        //Add rotate method on FireTile
+        Button rotateButton = new Button("rotate fire");
+        rotateButton.setLayoutX(1000);
+        rotateButton.setLayoutY(VIEWER_HEIGHT-300);
+        rotateButton.setOnAction(e -> {
+            if(fireTiles1 !=null){
+                fireTiles1.rotateToOrientation('E');
+                fireRefresh();
+            }
+        });
+
+        //Flip the FireTile
+        Button flipButton = new Button("flip fire");
+        flipButton.setLayoutX(1000);
+        flipButton.setLayoutY(VIEWER_HEIGHT-340);
+        flipButton.setOnAction(e->{
+            if(fireTiles1!=null){
+                fireTiles1.flipVertical();
+                fireRefresh();
+            }
+        });
+
+        controls.getChildren().addAll(fields,labels,button,fireButton,rotateButton,flipButton);
 
     }
+
+
+
+    public void fireRefresh(){
+        position1 = fireTiles1.coordinates;
+        for (int i = 0; i < fireGroupList.size(); i++) {
+            removeImg(fireGroupList.get(i));
+        }
+        fireGroupList.clear();
+        fireGroup.clear();
+        double startX = 900;
+        double startY = 180;
+
+        String fID = UUID.randomUUID().toString();//String helper function
+        for (int i = 0; i < position1.size(); i++) {
+            String fireKey = String.valueOf(Double.valueOf(startX+position1.get(i)[1]*SQUARE)+"-"+
+                    String.valueOf(Double.valueOf(startY + position1.get(i)[0]*SQUARE)));
+            fireGroup.put(fireKey,fID);
+            fireGroupList.add(fireKey);
+            addImageFire(root,newTileType.Fire,startX+position1.get(i)[1]*SQUARE,
+                    startY+position1.get(i)[0]*SQUARE);
+        }
+
+    }
+
+
+
+
 
 
 
@@ -296,10 +338,35 @@ public class RaceViewer extends Application {
     }
 
 
+    /**
+     * For moving the fireTiles in to the Board,
+     * We need to define some new parameter to storage this data;
+     *
+     */
+
+
+    Map<String,ImageView> imagemap = new HashMap<>();
+
+    Map<String,newTileType> imageTypeMap = new HashMap<>();
+
+    Map<String, String> handGroup = new HashMap<>();
+
+    Map<String, List<String>> handGroupList = new HashMap<>();
+    Map<String,String> fireGroup = new HashMap<>();
+    List<String> fireGroupList = new ArrayList<>();
+    List<int []> position1 = new ArrayList<>();
+    FireTilesBag.FireTiles fireTiles1 = null;
+
 
 
     @Override
     public void start(Stage stage) throws Exception {
+        // Input data
+        fireTilesBag1.initializeTileMap();
+        // Allocate key
+        fireTilesBag1.initializeTiles();
+
+
         stage.setTitle("Race to the Raft Viewer");
         Scene scene = new Scene(root, VIEWER_WIDTH, VIEWER_HEIGHT);
         makeControls();
@@ -687,6 +754,99 @@ public class RaceViewer extends Application {
         };
     }
 
+   //Reconstruct Image Group
+    private void addImageFire(Group group,newTileType type,double x,double y){
+        //Same procedure with addImage method
+        Image image = getImageForTileType(type);
+        ImageView imageView = new ImageView(image);
+        imageView.setFitWidth(SQUARE);
+        imageView.setFitHeight(SQUARE);
+        imageView.setLayoutX(x);
+        imageView.setLayoutY(y);
+
+        //Add mouse drag event method
+
+        imageView.setOnDragDetected((MouseEvent event) -> {
+            System.out.println("image drag detected");
+
+            Dragboard db = imageView.startDragAndDrop(TransferMode.ANY);
+
+            ClipboardContent content = new ClipboardContent();
+            content.putString(x+"-"+y);
+            db.setContent(content);
+        });
+        imageView.setOnMouseDragged((MouseEvent event) -> {
+            event.setDragDetect(true);
+        });
+
+        if(imagemap.get(x+"-"+y)!=null) {
+            group.getChildren().remove(imagemap.get(x+"-"+y));
+        }
+        imagemap.put(x+"-"+y, imageView);
+        imageTypeMap.put(x+"-"+y, type);
+        group.getChildren().add(imageView);
+
+    }
+
+    private void addImageHand(Group group, newTileType type,double x, double y){
+        Image image= getImageForTileType(type);
+        ImageView imageView = new ImageView(image);
+        imageView.setFitWidth(SQUARE);
+        imageView.setFitHeight(SQUARE);
+        imageView.setLayoutX(x);
+        imageView.setLayoutY(y);
+
+        imageView.setOnDragDetected((MouseEvent event) ->{
+            System.out.println("Circle 1 drag detected");
+            Dragboard db = imageView.startDragAndDrop(TransferMode.ANY);
+
+            ClipboardContent content = new ClipboardContent();
+            content.putString(x+"-"+y);
+            db.setContent(content);
+        });
+        imageView.setOnMouseDragged((MouseEvent event)->{
+            event.setDragDetect(true);
+        });
+
+        if(imagemap.get(x+"-"+y)!=null){
+            group.getChildren().remove(imagemap.get(x+"-"+y));
+        }
+
+        imagemap.put(x+"-"+y,imageView);
+        imageTypeMap.put(x+"-"+y,type);
+
+        group.getChildren().add(imageView);
+
+
+    }
+
+
+
+
+
+
+
+
+
+//    private void addImage(Group group, newTileType type, double x, double y) {
+//        Image image = getImageForTileType(type);
+//        ImageView imageView = new ImageView(image);
+//        imageView.setFitWidth(SQUARE);
+//        imageView.setFitHeight(SQUARE);
+//        imageView.setLayoutX(x);
+//        imageView.setLayoutY(y);
+//
+//        group.getChildren().add(imageView);
+//    }
+
+    /**
+     * reconstruct add Image method
+     * @param group
+     * @param type
+     * @param x
+     * @param y
+     */
+
     private void addImage(Group group, newTileType type, double x, double y) {
         Image image = getImageForTileType(type);
         ImageView imageView = new ImageView(image);
@@ -695,8 +855,64 @@ public class RaceViewer extends Application {
         imageView.setLayoutX(x);
         imageView.setLayoutY(y);
 
+        //add Mouseevent method of set on mouse drag
+        imageView.setOnDragDetected((MouseEvent event) -> {
+            System.out.println("img  detected");
+
+            Dragboard db = imageView.startDragAndDrop(TransferMode.ANY);
+
+            ClipboardContent content = new ClipboardContent();
+            if(type.toString().contains("CAT")) {
+                String str=type.toString()+","+x+"-"+y;
+                content.putString(str);
+            }
+
+            db.setContent(content);
+        });
+
+        imageView.setOnMouseDragged((MouseEvent event) -> {
+            event.setDragDetect(true);
+        });
+
+        //add Drag over on new event handler
+        imageView.setOnDragOver(new EventHandler<DragEvent>() {
+            public void handle(DragEvent event) {
+                if ( event.getDragboard().hasString()) {
+                    event.acceptTransferModes(TransferMode.COPY_OR_MOVE);
+                }
+
+                event.consume();
+            }
+        });
+
         group.getChildren().add(imageView);
     }
+
+
+
+
+
+
+
+
+
+
+
+
+    //ImageMap remove Image for FireTiles
+    public void removeImg(String str){
+        root.getChildren().remove(imagemap.get(str));
+    }
+
+
+
+
+
+
+
+
+
+
 
 
     private void handleButtonAction(String action) {

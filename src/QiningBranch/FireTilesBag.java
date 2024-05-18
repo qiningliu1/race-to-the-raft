@@ -16,14 +16,14 @@ public class FireTilesBag {
     tileMap = new HashMap<>();
     }
 
-    private void initializeTileMap(){
+    public void initializeTileMap(){
         String[] totalTiles =Utility.FIRE_TILES;
         for (String tile : totalTiles){
             tileMap.put(tile.substring(0,1),tile);
         }
     }
 
-    private void initializeTiles(){
+    public void initializeTiles(){
         // each id in the ketSet correspond to a value in Map
         for (String id : tileMap.keySet()){
             String tileData = tileMap.get(id);
@@ -99,7 +99,7 @@ public class FireTilesBag {
 
     public class FireTiles{
         private String singleID;
-        private List<int[]> coordinates; //Storage original coordinate before rotate and flipped
+        public List<int[]> coordinates; //Storage original coordinate before rotate and flipped
         public FireTiles(){
         }
 
@@ -151,7 +151,7 @@ public class FireTilesBag {
 
 
 
-        private void flipVertical(){
+        public void flipVertical(){
             //ie flip all the coordinates
             int max = 0;
             for(int i =0; i< coordinates.size();i++){
@@ -166,7 +166,7 @@ public class FireTilesBag {
 
 
 
-        private void rotateToOrientation(char orientation){
+        public void rotateToOrientation(char orientation){
             //rotation based on orientation
             switch (orientation){
                 case 'N':// Face North without rotation
