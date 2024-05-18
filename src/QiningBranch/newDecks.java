@@ -7,113 +7,75 @@ import java.util.*;
  * Author : Qining Liu u7100555
  */
 public class newDecks {
-
-    char deckID;
-    HandCard handCard;
-    Map<Character,List<HandCard>> DecksCard;
-    List<HandCard> decksA;
-    List<HandCard> decksB;
-    List<HandCard> decksC;
-    List<HandCard> decksD;
-
+    public Map<Character, List<HandCard>> DecksCard;
+    public List<HandCard> decksA;
+    public List<HandCard> decksB;
+    public List<HandCard> decksC;
+    public List<HandCard> decksD;
 
     /**
      * Initialize Each DecksCard
      */
-    public newDecks(){
-
+    public newDecks() {
+        initializeDecks();
     }
 
     public List<HandCard> getDecksA() {
-        this.decksA = this.DecksCard.get('A');
         return this.decksA;
     }
 
     public List<HandCard> getDecksB() {
-        this.decksA = this.DecksCard.get('B');
-        return this.DecksCard.get('B');
+        return this.decksB;
     }
 
     public List<HandCard> getDecksC() {
-        this.decksA = this.DecksCard.get('C');
-        return this.DecksCard.get('C');
+        return this.decksC;
     }
 
     public List<HandCard> getDecksD() {
-        this.decksA = this.DecksCard.get('D');
-        return this.DecksCard.get('D');
+        return this.decksD;
     }
 
-    public  Map<Character,List<HandCard>> initializeDecks (){
+    public void initializeDecks() {
         this.DecksCard = new HashMap<>();
-        String[] deckA = Utility.DECK_A;
-        List<HandCard> handCardListA = new ArrayList<>();
-        for (int indexDeckA = 0; indexDeckA < deckA.length; indexDeckA++) {
-          String handCardA = deckA[indexDeckA];
-          handCardListA.add(new HandCard(handCardA));
-        }
-        String[] deckB = Utility.DECK_B;
-        List<HandCard> handCardListB = new ArrayList<>();
-        for (int indexDeckB = 0; indexDeckB < deckB.length; indexDeckB++) {
-            String handCardB = deckB[indexDeckB];
-            handCardListB.add(new HandCard(handCardB));
+
+        this.decksA = new ArrayList<>();
+        for (String handCardA : Utility.DECK_A) {
+            this.decksA.add(new HandCard(handCardA));
         }
 
-        String[] deckC = Utility.DECK_C;
-        List<HandCard> handCardListC = new ArrayList<>();
-        for (int indexDeckC = 0; indexDeckC < deckC.length; indexDeckC++) {
-            String handCardC = deckC[indexDeckC];
-            handCardListC.add(new HandCard(handCardC));
-        }
-        String[] deckD = Utility.DECK_D;
-        List<HandCard> handCardListD = new ArrayList<>();
-        for (int indexDeckD = 0; indexDeckD < deckD.length; indexDeckD++) {
-            String handCardD = deckD[indexDeckD];
-            handCardListD.add(new HandCard(handCardD));
+        this.decksB = new ArrayList<>();
+        for (String handCardB : Utility.DECK_B) {
+            this.decksB.add(new HandCard(handCardB));
         }
 
-        this.DecksCard.put('A', handCardListA);
-        this.DecksCard.put('B', handCardListB);
-        this.DecksCard.put('C', handCardListC);
-        this.DecksCard.put('D', handCardListD);
+        this.decksC = new ArrayList<>();
+        for (String handCardC : Utility.DECK_C) {
+            this.decksC.add(new HandCard(handCardC));
+        }
 
-        return this.DecksCard;
+        this.decksD = new ArrayList<>();
+        for (String handCardD : Utility.DECK_D) {
+            this.decksD.add(new HandCard(handCardD));
+        }
+
+        this.DecksCard.put('A', this.decksA);
+        this.DecksCard.put('B', this.decksB);
+        this.DecksCard.put('C', this.decksC);
+        this.DecksCard.put('D', this.decksD);
     }
 
-    public HandCard drawRequestFromDeck(char deckID){
+    public HandCard drawRequestFromDeck(char deckID) {
         Random random = new Random();
+        List<HandCard> selectedDeck = this.DecksCard.get(deckID);
 
-        if (deckID == 'A'&& this.decksA.size()!=0){
-            int randomIndex = random.nextInt(this.decksA.size());
-            return this.decksA.remove(randomIndex);
-        }
-        else if (deckID == 'B' && this.decksB.size() != 0) {
-            int randomIndex = random.nextInt(this.decksB.size());
-            return this.decksB.remove(randomIndex);
-        }
-
-        else if (deckID == 'C' && this.decksC.size() != 0) {
-            int randomIndex = random.nextInt(this.decksC.size());
-            return this.decksC.remove(randomIndex);
-        }
-
-        else if (deckID == 'D' && this.decksD.size() != 0) {
-            int randomIndex = random.nextInt(this.decksD.size());
-            return this.decksD.remove(randomIndex);
-        }
-
-        else{
-            System.out.println("Wrong Decks selection");
+        if (selectedDeck != null && !selectedDeck.isEmpty()) {
+            int randomIndex = random.nextInt(selectedDeck.size());
+            return selectedDeck.remove(randomIndex);
+        } else {
+            System.out.println("Wrong Decks selection or Deck is empty");
             return null;
         }
-
     }
-
-
-
-
-
-
-
 
 }

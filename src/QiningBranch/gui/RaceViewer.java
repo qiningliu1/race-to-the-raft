@@ -35,13 +35,15 @@ public class RaceViewer extends Application {
 
     private static String gameDifficulty;
 
-    private newDecks newDecks;
+    private newDecks newDeck;
 
     //My design
     private static final int SQUARE = 30;
     private TextArea fireTextField;
 
     private TextArea pathwayCardPlacement;
+
+    private TextArea selectionText;
 
 
     /**
@@ -106,7 +108,44 @@ public class RaceViewer extends Application {
         labels.setLayoutX(MARGIN_X  + 600);
         labels.setLayoutY(VIEWER_HEIGHT - 220);
         controls.getChildren().addAll(fields, labels, button);
+
     }
+
+
+    private void drawCardReplacement() {
+
+
+        Label drawCardLabel = new Label("Draw cards request:");
+
+        selectionText = new TextArea();
+        selectionText.setPrefWidth(100);
+        selectionText.setPrefHeight(50);
+
+        Button button = everyTurnDrawCardButton();
+        button.setLayoutY(VIEWER_HEIGHT - 150);
+        button.setLayoutX(100);
+
+        HBox fields = new HBox();
+        fields.getChildren().addAll(selectionText);
+        fields.setSpacing(20);
+        fields.setLayoutX(100);
+        fields.setLayoutY(VIEWER_HEIGHT - 100);
+
+
+        HBox labels = new HBox();
+        labels.getChildren().addAll(drawCardLabel);
+
+        labels.setSpacing(45);
+        labels.setLayoutX(100);
+        labels.setLayoutY(VIEWER_HEIGHT - 120);
+        controls.getChildren().addAll(fields, labels, button);
+
+
+    }
+
+
+
+
 
     private void selectDifficulties() {
 
@@ -119,7 +158,6 @@ public class RaceViewer extends Application {
         Button button = difficultyButton();
         button.setLayoutY(VIEWER_HEIGHT - 250);
         button.setLayoutX(900);
-
 
         HBox fields = new HBox();
         fields.getChildren().addAll(fireTextField);
@@ -138,7 +176,6 @@ public class RaceViewer extends Application {
 
 
     }
-
 
     private void setPathwayCardPlacement() {
 
@@ -166,14 +203,6 @@ public class RaceViewer extends Application {
         controls.getChildren().addAll(fields, labels, button);
 
     }
-
-
-
-
-
-
-
-
 
 
 
@@ -221,6 +250,9 @@ public class RaceViewer extends Application {
         return button;
     }
 
+
+
+
     private Button placeHandCardButton(){
         Button button = new Button("Place HandCard");
         button.setOnAction(e -> {
@@ -240,12 +272,28 @@ public class RaceViewer extends Application {
         return button;
     }
 
+    //this button can be used to refresh game turn 6 cards
+    private Button everyTurnDrawCardButton(){
+        Button button = new Button("Selection from 4 Decks in 6 cards");
+        button.setOnAction(e -> {
+            String selectionText1 = selectionText.getText();
+            newDecks deck = new newDecks();//create new deck only when change difficulty
+            //if you create new deck each turn it will always be whole decks
+            try {
 
+                System.out.println("Your placement at: " + selectionText1);
+                //each time user input their selection, we place the Card on the stage
 
+                drawAllDecks(deck,selectionText1);;
 
+            } catch (NumberFormatException ex) {
 
+                System.err.println("Invalid input: " + selectionText1);
+            }
 
-
+        });
+        return button;
+    }
 
 
 
@@ -283,47 +331,32 @@ public class RaceViewer extends Application {
         CatInitialization();
         RaftInitialization();
 
+        drawCardReplacement();
+
+
+//        newDecks deck = new newDecks();
+////        drawDecksArea(deck, 'A', 600, 0);
+////        System.out.println(deck.decksA);
 //
-//        Decks decks1 = initializePlayersHand();
-//        this.decks = decks1;
-//
-//        drawDecksArea('A',600,0);
-
-
-       // drawDecksArea('C',600,300);
-
-
-   // drawAllDecks("ABDBAA");
-
+//        drawAllDecks(deck,"ABDBAA");
 
         /**
          * This part we add cards
          */
-
         setPathwayCardPlacement();
         placeHandCardButton();
         //drawHandCard("Ab1208S");
-
         /**
          * Other functional button out of game
          * Exit
          */
         addButton(root, "Exit", 900, 600);
-
         /**
          * Showing stage
          */
         stage.setScene(scene);
         stage.show();
     }
-
-
-
-
-
-
-
-
 
 
 
@@ -557,63 +590,17 @@ public class RaceViewer extends Application {
      * This method can initialize all  decks in the beginning
      * Once you call it you can not call it except you restart/reselect difficulty
       */
-public newDecks initializePlayersHand(){
-        newDecks newDecksInitial = new newDecks();
-        //if you change difficulty you should initialize again
-        newDecksInitial.initializeDecks();
-        this.newDecks = newDecksInitial;
-        return newDecksInitial;
-}
+    public void drawDecksArea(newDecks newDeck, char decksID, int startX, int startY) {
+        if (newDeck == null) {
+            throw new IllegalArgumentException("newDeck cannot be null");
+        }
 
-public HandCard playersHand(newDecks newDecks, char decksID){
-    //update current board decks
+        HandCard handCard = playersHand(newDeck, decksID);
+        if (handCard == null) {
+            System.out.println("HandCard is null for deck ID: " + decksID);
+            return;
+        }
 
-//    switch (decksID){
-//        case 'A':
-//            //System.out.println(this.decks.getDecksA());
-//            return decks.drawRequestFromDeck('A');
-//        case 'B':
-//            return decks.drawRequestFromDeck('B');
-//        case 'C':
-//            return decks.drawRequestFromDeck('C');
-//        case 'D':
-//            return decks.drawRequestFromDeck('D');
-//        default:
-//            System.out.println("your selection is wrong");
-//            return null;
-//    }
-    if(decksID == 'A'){
-        return newDecks.drawRequestFromDeck('A');
-    }
-    else if (decksID == 'B') {
-        return newDecks.drawRequestFromDeck('B');
-    } else if (decksID == 'C') {
-        return newDecks.drawRequestFromDeck('C');
-    }
-    else if (decksID == 'D') {
-        return newDecks.drawRequestFromDeck('D');
-    }
-
-    else{
-        System.out.println("Your input is wrong");
-        return null;}
-
-}
-
-//public void drawDecksArea(char decksID) {
-//            HandCard handCard = playersHand(this.decks, decksID);
-//            TileType[][] handCardTile = handCard.getCardLayOut();
-//            for (int rowIndex = 0; rowIndex < handCardTile.length; rowIndex++) {
-//
-//                for (int colIndex = 0; colIndex < handCardTile[rowIndex].length; colIndex++) {
-//                    TileType handSquare = handCardTile[rowIndex][colIndex];
-//                    addImage(root, handSquare, 600 + colIndex * SQUARE, 0 + rowIndex * SQUARE);
-//                }
-//            }
-//        }
-
-    public void drawDecksArea(char decksID, int startX, int startY) {
-        HandCard handCard = playersHand(newDecks, decksID);
         newTileType[][] handCardTile = handCard.getCardLayOut();
         for (int rowIndex = 0; rowIndex < handCardTile.length; rowIndex++) {
             for (int colIndex = 0; colIndex < handCardTile[rowIndex].length; colIndex++) {
@@ -623,7 +610,16 @@ public HandCard playersHand(newDecks newDecks, char decksID){
         }
     }
 
-    public void drawAllDecks(String playersOrder) {
+    public HandCard playersHand(newDecks newDeck, char decksID) {
+        if (newDeck == null) {
+            throw new IllegalArgumentException("newDeck cannot be null");
+        }
+
+        return newDeck.drawRequestFromDeck(decksID);
+    }
+
+
+    public void drawAllDecks(newDecks deck,String playersOrder) {
         char id0 = playersOrder.charAt(0);
         char id1 = playersOrder.charAt(1);
         char id2 = playersOrder.charAt(2);
@@ -631,40 +627,20 @@ public HandCard playersHand(newDecks newDecks, char decksID){
         char id4 = playersOrder.charAt(4);
         char id5 = playersOrder.charAt(5);
 
-
-
         // Example positions for six 3x3 cards
         int[][] positions = {
-                {600, 0}, {600, 300}, {600, 600},
-                {900, 0}, {900, 300}, {900, 600}
+                {600, 0}, {600, 100}, {600, 200},
+                {700, 0}, {700, 100}, {700, 200}
         };
 
         // Draw cards at the specified positions
-        drawDecksArea(id0, positions[0][0], positions[0][1]);
-        drawDecksArea(id1, positions[1][0], positions[1][1]);
-        drawDecksArea(id2, positions[2][0], positions[2][1]);
-        drawDecksArea(id3, positions[3][0], positions[3][1]);
-        drawDecksArea(id4, positions[4][0], positions[4][1]);
-        drawDecksArea(id5, positions[5][0], positions[5][1]);
+        drawDecksArea(deck,id0, positions[0][0], positions[0][1]);
+        drawDecksArea(deck,id1, positions[1][0], positions[1][1]);
+        drawDecksArea(deck,id2, positions[2][0], positions[2][1]);
+        drawDecksArea(deck,id3, positions[3][0], positions[3][1]);
+        drawDecksArea(deck,id4, positions[4][0], positions[4][1]);
+        drawDecksArea(deck,id5, positions[5][0], positions[5][1]);
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     /**

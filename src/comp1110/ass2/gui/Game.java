@@ -63,33 +63,13 @@ public class Game extends Application {
      */
     void displayState(String boardstate, String hand) {
         // FIXME TASK 4
-        // 解析 boardState 和 handState，并更新界面
-        // 假设 boardState 和 handState 是用某种方式编码的字符串
-        clearDisplay();//Clear current display
-        // 显示棋盘状态
-        // String[] boardRows = boardState.split("\n");  // 假设每行一个数据
-        //for (String row : boardRows) {
-        // 解析每行数据并显示
-        // 例如：通过调用自定义的方法 drawBoardRow(row);
-    }
-    // 显示手中的卡片
-    //String[] handCards = handState.split(",");  // 假设卡片由逗号分隔
-    //for (String card : handCards) {
-    // 解析每张卡片并显示
-    // 例如：通过调用自定义的方法 drawCard(card);
-    //}
 
-    private void drawBoardRow(String row) {
-        // 根据行数据绘制棋盘的一行
-        // 这可能包括为每个格子创建一个矩形或其他图形，并设置颜色等属性
-    }
+        clearDisplay();
 
+    }
 
 
     private void clearDisplay() {
-        // 清除界面上的所有元素
-        // 例如：root.getChildren().clear();
-        // 或者删除特定的组件
     }
 
     /**
@@ -179,15 +159,6 @@ public class Game extends Application {
 
 
 
-
-
-
-
-
-
-
-
-
     /**
      * Create refresh button. Upon pressing, capture the textFields and call displayState
      * @return the created button
@@ -207,7 +178,7 @@ public class Game extends Application {
         button.setOnAction(e -> {
             String difficultyTextFieldText = fireTextField.getText();
             try {
-                // 将用户输入的内容解析为整数，并将其赋值给difficulty
+                // place user input to integer
                 int difficulty = Integer.parseInt(difficultyTextFieldText);
                 System.out.println("Difficulty set to: " + difficulty);
 
@@ -223,7 +194,7 @@ public class Game extends Application {
                 RaftInitialization();
                 System.out.println(gameDifficulty);
             } catch (NumberFormatException ex) {
-                // 如果用户输入的内容无法解析为整数，则打印错误消息
+
                 System.err.println("Invalid input: " + difficultyTextFieldText);
             }
 
@@ -326,14 +297,6 @@ public class Game extends Application {
         stage.setScene(scene);
         stage.show();
     }
-
-
-
-
-
-
-
-
 
 
 
@@ -657,25 +620,6 @@ public class Game extends Application {
         drawDecksArea(id4, positions[4][0], positions[4][1]);
         drawDecksArea(id5, positions[5][0], positions[5][1]);
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     /**
      * This part is a test for showing the color board

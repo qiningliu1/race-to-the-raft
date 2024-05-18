@@ -149,12 +149,21 @@ public class FireTilesBag {
 
         }
 
+
+
         private void flipVertical(){
             //ie flip all the coordinates
+            int max = 0;
+            for(int i =0; i< coordinates.size();i++){
+                if(coordinates.get(i)[0]>max){
+                    max = coordinates.get(i)[0];
+                }
+            }
             for(int[] cord:coordinates){
-                cord[1] = -cord[-1];//flip column coordinates
+                cord[0] = max-cord[0];
             }
         }
+
 
 
         private void rotateToOrientation(char orientation){
@@ -163,11 +172,27 @@ public class FireTilesBag {
                 case 'N':// Face North without rotation
                     break;
                 case 'E':// rotate clockwise 90 degrees
-                    coordinates.forEach(cord ->{
-                        int temp = cord[0];
-                        cord[0] = -cord[1];
-                        cord[1] = temp;
-                    });
+                    int max=0;
+                    int row;
+                    int col;
+                    int pos[] = new int[2];
+                    for(int i =0; i<coordinates.size();i++){
+                        pos = coordinates.get(i);
+                        if(pos[1]>max){
+                            max = pos[1];
+                        }
+                    }
+                    for (int i = 0; i < coordinates.size(); i++) {
+                        pos = coordinates.get(i);
+                        row = pos[1];
+                        col = pos[0];
+                        pos[1] = col;
+                        pos[0] = max - row;
+                    }
+                    for (int i = 0; i < coordinates.size(); i++) {
+                        pos=coordinates.get(i);
+                    }
+                    System.out.println(coordinates.size());
                     break;
 
                 case'S':// rotate clockwise 180 degrees

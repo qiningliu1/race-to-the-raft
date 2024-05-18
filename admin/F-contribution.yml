@@ -9,7 +9,9 @@ declaration: >-
 # State your contributions as integers out of 100. The total contribution should
 # be 100 or 99 (33/33/33 is fine).  (Remove entries if you have fewer than three
 # members).
+
 contributions:
+
   - uid: u7598889
     contribution: 40
   - uid: u7100555

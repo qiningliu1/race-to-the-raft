@@ -76,15 +76,6 @@ public abstract class Card {
 
 
 
-
-
-
-
-
-
-
-
-
     /**
      * This method is to implement action string placement method
      */

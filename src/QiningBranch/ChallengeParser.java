@@ -27,16 +27,11 @@ public class ChallengeParser {
         }
 
         System.out.println(parseFireLocations);
-
         Map<Integer,List<Location>> parseCatLocations = parseCatLocations(challenge);
-
         Map<Integer, List<List<Integer>>> pairCord = Location.convertLocationMap(parseCatLocations);
 
         System.out.println(pairCord);
         System.out.println(pairCord.size());
-
-
-
 
         System.out.println(parseCatLocations);
         System.out.println(parseRaftLocations(challenge));
