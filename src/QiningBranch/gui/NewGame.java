@@ -4,7 +4,6 @@ import static QiningBranch.newraftCard.getRaftTileTypeById;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -41,7 +40,7 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 
-public class RaceViewer extends Application {
+public class NewGame extends Application {
     private final Group root = new Group();
     private static final int VIEWER_WIDTH = 1100;
     private static final int VIEWER_HEIGHT = 650;
