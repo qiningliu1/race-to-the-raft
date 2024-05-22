@@ -647,18 +647,18 @@ public class Game extends Application {
 
     private Image getImageForTileType(newTileType type) {
         return switch (type) {
-            case BLUE -> new Image("file:E:/ANU STUDY/JavaGroup/src/comp1110/ass2/gui/assets/blue.png");
-            case GREEN -> new Image("file:E:/ANU STUDY/JavaGroup/src/comp1110/ass2/gui/assets/green.png");
-            case RED -> new Image("file:E:/ANU STUDY/JavaGroup/src/comp1110/ass2/gui/assets/red.png");
-            case YELLOW -> new Image("file:E:/ANU STUDY/JavaGroup/src/comp1110/ass2/gui/assets/yellow.png");
-            case PURPLE -> new Image("file:E:/ANU STUDY/JavaGroup/src/comp1110/ass2/gui/assets/purple.png");
-            case Fire -> new Image("file:E:/ANU STUDY/JavaGroup/src/comp1110/ass2/gui/assets/fire.png");
-            case BLUE_CAT-> new Image("file:E:/ANU STUDY/JavaGroup/src/comp1110/ass2/gui/assets/blueCat.png");
-            case GREEN_CAT-> new Image("file:E:/ANU STUDY/JavaGroup/src/comp1110/ass2/gui/assets/greenCat.png");
-            case PURPLE_CAT-> new Image("file:E:/ANU STUDY/JavaGroup/src/comp1110/ass2/gui/assets/purpleCat.png");
-            case RED_CAT-> new Image("file:E:/ANU STUDY/JavaGroup/src/comp1110/ass2/gui/assets/redCat.png");
-            case YELLOW_CAT -> new Image("file:E:/ANU STUDY/JavaGroup/src/comp1110/ass2/gui/assets/yellowCat.png");
-            case Object -> new Image("file:E:/ANU STUDY/JavaGroup/src/comp1110/ass2/gui/assets/objective.png");
+            case BLUE -> new Image("comp1110/ass2/gui/assets/blue.png");
+            case GREEN -> new Image("comp1110/ass2/gui/assets/green.png");
+            case RED -> new Image("comp1110/ass2/gui/assets/red.png");
+            case YELLOW -> new Image("comp1110/ass2/gui/assets/yellow.png");
+            case PURPLE -> new Image("comp1110/ass2/gui/assets/purple.png");
+            case Fire -> new Image("comp1110/ass2/gui/assets/fire.png");
+            case BLUE_CAT-> new Image("comp1110/ass2/gui/assets/blueCat.png");
+            case GREEN_CAT-> new Image("comp1110/ass2/gui/assets/greenCat.png");
+            case PURPLE_CAT-> new Image("comp1110/ass2/gui/assets/purpleCat.png");
+            case RED_CAT-> new Image("comp1110/ass2/gui/assets/redCat.png");
+            case YELLOW_CAT -> new Image("comp1110/ass2/gui/assets/yellowCat.png");
+            case Object -> new Image("comp1110/ass2/gui/assets/objective.png");
 
 
             default -> null;
